@@ -2,6 +2,15 @@
   "name": "altitude-air-upgrading",
   "version": "0.1.0",
   "private": true,
+  "author": "Niwesh Shrestha",
+  "description": "Welcome to Altitude Air Pvt Ltd, Nepal's premier helicopter service provider. With a modern fleet and skilled pilots, we offer swift rescue operations and luxurious charter flights. Whether you're exploring the Himalayas or need urgent medical assistance, trust Altitude Air for safety and excellence in every flight.",
+  "license" : "MIT",
+  "homepage": "YOUR_GIT_REPO_URL",
+  "engines": {
+    "node": ">=14.0.0",
+    "yarn": ">=1.22.0",
+    "npm": "please-use-yarn"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
