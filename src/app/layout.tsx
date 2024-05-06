@@ -1,9 +1,13 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Head from 'next/head';
 import SplashScreen from './(components)/(elements)/SplashScreen';
 import Footer from './(components)/(modules)/Footer';
 import Header from './(components)/(modules)/Header';
 import './globals.css';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,6 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <link
+          href="https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css"
+          rel="stylesheet"
+        />
+      </Head>
       <body className={inter.className}>
         <main>
           <SplashScreen />

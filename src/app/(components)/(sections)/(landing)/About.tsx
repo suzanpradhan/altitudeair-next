@@ -44,13 +44,19 @@ export default function About() {
           onClick={openModal}
           style={{ animationDuration: '.3s' }}
         >
-          <Image
-            src="https://i.ytimg.com/vi_webp/vNCWbmSLYeY/maxresdefault.webp"
-            alt="video thumbnail"
-            height={100}
-            width={100}
-            className="thumbnail_img"
-          />
+          <div className="relative w-full">
+            <Image
+              src="https://i.ytimg.com/vi_webp/vNCWbmSLYeY/maxresdefault.webp"
+              alt="video thumbnail"
+              // fill
+              width={100}
+              height={100}
+              quality={75}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="thumbnail_img"
+            />
+          </div>
+
           <Image
             src="/icons/play.svg"
             alt="play svg image"

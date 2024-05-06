@@ -1,36 +1,45 @@
-import mapboxgl from "!mapbox-gl";
-import { useEffect, useRef, useState } from "react";
-import useMediaQuery from "../../../hooks/useMediaQuery";
-import axiosInstance from "../../../util/axiosInst";
-import { constants } from "../../../util/constants";
-import MissionItem from "../../elements/MissionItem";
-import Tab from "../../elements/Tab";
+import useMediaQuery from '@/core/hooks/useMediaQuery';
+import axiosInstance from '@/core/utils/axoisInst';
+import { constants } from '@/core/utils/constants';
+import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
+import { useEffect, useRef, useState } from 'react';
+import MissionItem from '../../(elements)/MissionItem';
+import Tab from '../../(elements)/Tab';
+
+interface Mission {
+  imageUrl: string;
+  name: string;
+  info: string;
+  coords: number[];
+}
 
 export default function Missions() {
-  const mobileOnly = useMediaQuery("(max-width:768px)");
-  const [readClicked, setreadClicked] = useState({
+  const mobileOnly = useMediaQuery('(max-width:768px)');
+  const [readClicked, setreadClicked] = useState<{
+    clicked: boolean;
+    clickedBy: number;
+  }>({
     clicked: false,
     clickedBy: -1,
   });
-  const [missionList, setMissionList] = useState([]);
-
-  const [selected, setSelected] = useState({
-    imageUrl: "",
-    name: "",
-    info: "",
+  const [missionList, setMissionList] = useState<Mission[]>([]);
+  const [selected, setSelected] = useState<Mission>({
+    imageUrl: '',
+    name: '',
+    info: '',
     coords: [83.9778, 28.19886],
   });
-  const [fadeClass, setFadeClass] = useState(true);
+  const [fadeClass, setFadeClass] = useState<boolean>(true);
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const map = useRef<MapboxMap | null>(null);
+  const [lng, setLng] = useState<number>(84.3);
+  const [lat, setLat] = useState<number>(28.5);
+  const [zoom, setZoom] = useState<number>(5.5);
 
   mapboxgl.accessToken =
-    "pk.eyJ1IjoiaWN5aG90c2hvdG8iLCJhIjoiY2tmeHQwc3E5MjRxajJxbzhmbDN1bjJ5aiJ9.mNKmhIjRyKxFkJYrm4dMqg";
-  const mapContainer = useRef(null);
-  const map = useRef(null);
-  const [lng, setLng] = useState(84.3);
-  const [lat, setLat] = useState(28.5);
-  const [zoom, setZoom] = useState(5.5);
+    'pk.eyJ1IjoiaWN5aG90c2hvdG8iLCJhIjoiY2tmeHQwc3E5MjRxajJxbzhmbDN1bjJ5aiJ9.mNKmhIjRyKxFkJYrm4dMqg';
 
-  function flyTo(coords) {
+  function flyTo(coords: number[]) {
     if (!map.current) {
       return;
     }
@@ -40,7 +49,7 @@ export default function Missions() {
       speed: 0.4,
       zoom: 12,
     });
-    const marker1 = new mapboxgl.Marker({ color: "#fbc200" })
+    const marker1 = new mapboxgl.Marker({ color: '#fbc200' })
       .setLngLat(coords)
       .addTo(map.current);
   }
@@ -48,8 +57,8 @@ export default function Missions() {
   useEffect(() => {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: "mapbox://styles/icyhotshoto/cktb59q6y7iz518uqowun3l0k",
+      container: mapContainer.current!,
+      style: 'mapbox://styles/icyhotshoto/cktb59q6y7iz518uqowun3l0k',
       center: [lng, lat],
       zoom: zoom,
     });
@@ -57,8 +66,8 @@ export default function Missions() {
   }, []);
 
   useEffect(() => {
-    axiosInstance.get("/rescueMission/").then((item) => {
-      let finalObj = item.data.data.map((item) => {
+    axiosInstance.get('/rescueMission/').then((item) => {
+      let finalObj = item.data.data.map((item: any) => {
         return {
           imageUrl: constants.baseUrl + item.coverImage,
           name: item.title,
@@ -70,7 +79,7 @@ export default function Missions() {
     });
   }, []);
 
-  const selectedItemHandler = (position) => {
+  const selectedItemHandler = (position: number) => {
     if (missionList.length === 0 || position > missionList.length - 1) {
       return;
     }
@@ -102,7 +111,6 @@ export default function Missions() {
                   info={item.info}
                   imageUrl={item.imageUrl}
                   flyTo={flyTo}
-                  coords={item.coords}
                   readClicked={readClicked}
                   setreadClicked={setreadClicked}
                 />
@@ -116,14 +124,13 @@ export default function Missions() {
               name={selected.name}
               readClicked={readClicked}
               setreadClicked={setreadClicked}
-              selected={selected}
               fadeClass={fadeClass}
             />
           )}
         </div>
       </div>
       <div className="map-wrapper">
-        <div ref={mapContainer} style={{ width: "600px", height: "350px" }} />
+        <div ref={mapContainer} style={{ width: '600px', height: '350px' }} />
       </div>
       {mobileOnly && <Tab selectedHandler={selectedItemHandler} />}
     </section>

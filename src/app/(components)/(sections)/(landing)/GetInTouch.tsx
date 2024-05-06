@@ -1,14 +1,15 @@
-import { useState, useEffect } from "react";
-import Modal from "../../elements/Modal";
-import StepForm from "../../elements/StepForm";
-import axiosInst from "../../../util/axiosInst";
+'use client';
+import axiosInst from '@/core/utils/axoisInst';
+import { useEffect, useState } from 'react';
+// import Modal from '../../elements/Modal';
+// import StepForm from '../../elements/StepForm';
 
 export default function GetInTouch() {
   const [showModal, setShowModal] = useState(false);
-  const [hotline, setHotline] = useState("");
+  const [hotline, setHotline] = useState('');
 
   useEffect(() => {
-    axiosInst.get("/footer/").then((result) => {
+    axiosInst.get('/footer/').then((result) => {
       const data = result.data.data;
       setHotline(data[0].hotline);
     });
@@ -31,7 +32,9 @@ export default function GetInTouch() {
 
         <div className="enquiry_container">
           <div className="contact_container">
-            <a href={`tel:${hotline}`}><h2>{hotline}</h2></a>
+            <a href={`tel:${hotline}`}>
+              <h2>{hotline}</h2>
+            </a>
           </div>
           <div className="button_container">
             <button className="action-button" onClick={openModal}>
@@ -40,11 +43,11 @@ export default function GetInTouch() {
           </div>
         </div>
       </div>
-      {showModal && (
+      {/* {showModal && (
         <Modal show={showModal} hide={closeModal}>
           <StepForm hide={closeModal} />
         </Modal>
-      )}
+      )} */}
     </section>
   );
 }

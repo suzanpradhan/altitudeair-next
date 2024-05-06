@@ -1,7 +1,15 @@
-import Link from "next/link";
-import { parseHtml } from "../../util/helper";
+import { parseHtml } from '@/core/utils/helper';
+import Link from 'next/link';
 
-export default function NewsItem(props) {
+interface NewsItemProps {
+  publisher: string;
+  headline: string;
+  description: string;
+  date: string;
+  id: number;
+}
+
+export default function NewsItem(props: NewsItemProps) {
   const details = {
     publisher: props.publisher,
     headline: props.headline,
@@ -11,8 +19,8 @@ export default function NewsItem(props) {
   };
 
   return (
-    <Link href={"news/" + details.id}>
-      <div className="news_card">
+    <Link href={'news/' + details.id} className="news_card">
+      <div>
         <h4>{details.publisher}</h4>
 
         <p>{parseHtml(details.headline)}</p>

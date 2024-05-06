@@ -53,7 +53,7 @@ export default function Services() {
           services.map((service, pos) => {
             return (
               <div
-                className="card"
+                className="card relative"
                 key={service.id}
                 style={{
                   animationDelay: `${pos * 0.4}s`,
@@ -66,8 +66,11 @@ export default function Services() {
                   onError={(e) => {
                     e.currentTarget.src = '/images/errors/placeholder.webp';
                   }}
+                  quality={75}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   height={100}
                   width={100}
+                  // fill
                 />
                 <h3>{service.title}</h3>
                 <p>
