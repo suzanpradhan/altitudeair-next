@@ -19,25 +19,42 @@ export default function Gallery() {
   let pos = { left: 0, x: 0 };
 
   useEffect(() => {
+    const mouseDownHandler = (e: MouseEvent) => {
+      if (galleryContainer.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        pos = {
+          left: galleryContainer.current.scrollLeft,
+          x: e.clientX,
+        };
+
+        galleryContainer.current.addEventListener(
+          'mousemove',
+          mouseMoveHandler
+        );
+        window.addEventListener('mouseup', mouseUpHandler);
+      }
+    };
+
+    if (galleryContainer.current) {
+      galleryContainer.current.scrollLeft = 0;
+      galleryContainer.current.addEventListener('mousedown', mouseDownHandler);
+    }
+
     axiosInst.get('/gallery/featuredlist/').then((result) => {
       const data: ImageType[] = result.data.data;
       setImages(data);
     });
+
+    return () => {
+      if (galleryContainer.current) {
+        galleryContainer.current.removeEventListener(
+          'mousedown',
+          mouseDownHandler
+        );
+      }
+      window.removeEventListener('mouseup', mouseUpHandler);
+    };
   }, []);
-
-  const mouseDownHandler = function (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) {
-    if (galleryContainer.current) {
-      pos = {
-        left: galleryContainer.current.scrollLeft,
-        x: e.clientX,
-      };
-
-      galleryContainer.current.addEventListener('mousemove', mouseMoveHandler);
-      window.addEventListener('mouseup', mouseUpHandler);
-    }
-  };
 
   const mouseMoveHandler = function (e: MouseEvent) {
     if (galleryContainer.current) {
@@ -92,7 +109,7 @@ export default function Gallery() {
           <h2>GALLERY</h2>
 
           <div
-            className="image_flex_container overflow-x-scroll"
+            className="image_flex_container !overflow-x-scroll"
             ref={galleryContainer}
           >
             {images.map((image) => {

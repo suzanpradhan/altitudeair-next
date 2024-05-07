@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
 import { parseHtml } from '@/core/utils/helper';
 import Image from 'next/image';
-import { Pagination } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 
 interface ReviewType {
   title: string;
@@ -67,8 +67,9 @@ export default function Reviews() {
             pagination={{
               dynamicBullets: true,
             }}
-            modules={[Pagination]}
+            modules={[Pagination, Autoplay]}
             className="mySwiper"
+            autoplay
           >
             {reviews.map((review, index) => {
               return (

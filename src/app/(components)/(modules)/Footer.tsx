@@ -82,7 +82,9 @@ function Footer() {
                   Voluntary Hazard Report
                 </Link>
               </li>
-              <li>Privacy Policy</li>
+              <li>
+                <Link href="#">Privacy Policy</Link>
+              </li>
             </ul>
           </div>
           <div className="footer_nav_link navigate_to_nav">

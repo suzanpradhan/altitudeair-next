@@ -45,14 +45,18 @@ export default function Header() {
 
   return (
     <header>
-      <nav className={`header_nav ${drawer ? 'header_hide' : ''}`}>
+      <nav
+        className={`header_nav items-stretch ${drawer ? 'header_hide' : ''}`}
+      >
         <div className="header_logo_container">
-          <Link href="/">
+          <Link href="/" className="block relative">
             <Image
               alt="altitude-air-logo"
               src="/images/inverse-logo.webp"
               width={100}
               height={100}
+              quality={75}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </Link>
         </div>
@@ -117,7 +121,9 @@ export default function Header() {
             </li>
 
             <li className="header_li header_link">
-              FLEETS
+              <Link href="#" className="header_link">
+                FLEETS
+              </Link>
               <div className="sub_menu">
                 <ul>
                   {choppers &&
