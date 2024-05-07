@@ -4,6 +4,8 @@ import axiosInstance from '@/core/utils/axoisInst';
 import { constants } from '@/core/utils/constants';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 // import Rellax from 'rellax';
 // import Modal from '../../components/elements/Modal';
 // import Layout from '../../components/layouts/Layout';
@@ -85,7 +87,7 @@ export default function Gallery() {
 
     <main className="gallery-main">
       <section className="gallery-featured">
-        <div className="glide">
+        {/* <div className="glide">
           <div className="glide__track" data-glide-el="track">
             <ul className="glide__slides">
               {featuredImages &&
@@ -167,7 +169,81 @@ export default function Gallery() {
               data-glide-dir=">"
             />
           </div>
-        </div>
+        </div> */}
+        <Swiper
+          navigation={true}
+          modules={[Navigation]}
+          className="mySwiper mt-32"
+        >
+          {featuredImages &&
+            featuredImages.map((item, index) => {
+              if (item.isImage) {
+                const title = item.title;
+                const imageUrl = constants.baseUrl + item.image;
+                return (
+                  <SwiperSlide key={index}>
+                    <li className="relative w-full h-auto">
+                      <Image
+                        src={imageUrl}
+                        alt={title}
+                        onError={(e) => {
+                          e.currentTarget.src =
+                            '/images/errors/placeholder.webp';
+                        }}
+                        objectFit="cover"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    </li>
+                  </SwiperSlide>
+                );
+              } else {
+                const videoURL = item.videoURL;
+                return (
+                  <SwiperSlide key={index}>
+                    <div
+                      className="video-thumb relative"
+                      onClick={() => {
+                        openVidModal(videoURL ?? '');
+                      }}
+                      style={{ animationDuration: '.3s' }}
+                    >
+                      <Image
+                        src={
+                          item.thumbnail
+                            ? item.thumbnail
+                            : '/images/errors/placeholder.webp'
+                        }
+                        alt="video thumbnail"
+                        className="thumbnail_img"
+                        onError={(e) => {
+                          e.currentTarget.src =
+                            '/images/errors/placeholder.webp';
+                        }}
+                        width={100}
+                        height={100}
+                        quality={100}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                      <Image
+                        src="/icons/play.svg"
+                        alt="play svg image"
+                        className="play_icon"
+                        onError={(e) => {
+                          e.currentTarget.src =
+                            '/images/errors/placeholder.webp';
+                        }}
+                        width={100}
+                        height={100}
+                        quality={75}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    </div>
+                  </SwiperSlide>
+                );
+              }
+            })}
+        </Swiper>
       </section>
 
       <div className="transition-box">
