@@ -119,7 +119,7 @@ export default function Gallery() {
                     <div
                       className="video-thumb relative"
                       onClick={() => {
-                        openVidModal(videoURL ?? '');
+                        // openVidModal(videoURL ?? '');
                       }}
                       style={{ animationDuration: '.3s' }}
                     >
