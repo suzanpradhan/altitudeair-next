@@ -1,14 +1,12 @@
 'use client';
-// import Glide from '@glidejs/glide';
+
 import axiosInstance from '@/core/utils/axoisInst';
 import { constants } from '@/core/utils/constants';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Navigation } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-// import Rellax from 'rellax';
-// import Modal from '../../components/elements/Modal';
-// import Layout from '../../components/layouts/Layout';
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 interface FeaturedImagesType {
   isImage: boolean;
@@ -28,16 +26,14 @@ interface ImagesNVideos {
 }
 
 export default function Gallery() {
-  // const [featuredImages, setFeaturedImages] = useState([]);
-  // const [imagesNVideos, setImagesNVideos] = useState([]);
-  const [showVideoModal, setShowVideoModal] = useState('');
-  const [modalImage, setModalImage] = useState('');
-
+  const swiperRef = useRef<SwiperRef | null>(null);
   const [featuredImages, setFeaturedImages] = useState<FeaturedImagesType[]>(
     []
   );
   const [imagesNVideos, setImagesNVideos] = useState<ImagesNVideos[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [isBeginning, toggleIsBeginning] = useState<boolean>(true);
+  const [isEnd, toggleIsEnd] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,128 +48,47 @@ export default function Gallery() {
     };
 
     fetchData();
-
-    // Cleanup function if needed
-    // return () => {
-    //   cleanup code...
-    // };
   }, []);
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
-  const openModal = (imagePath: string) => {
-    setModalImage(imagePath);
-  };
-
-  const closeModal = () => {
-    setModalImage('');
-  };
-
-  const openVidModal = (imagePath: string) => {
-    setShowVideoModal(imagePath);
-  };
-
-  const closeVidModal = () => {
-    setShowVideoModal('');
-  };
-
   return (
-    // <Layout>
-    //   <Head>
-    //     <title>Gallery - Altitude Air</title>
-    //   </Head>
-
     <main className="gallery-main">
-      <section className="gallery-featured">
-        {/* <div className="glide">
-          <div className="glide__track" data-glide-el="track">
-            <ul className="glide__slides">
-              {featuredImages &&
-                featuredImages.map((item, index) => {
-                  if (item.isImage) {
-                    const title = item.title;
-                    const imageUrl = constants.baseUrl + item.image;
-                    return (
-                      <li className="glide__slide relative" key={index}>
-                        <Image
-                          src={imageUrl}
-                          alt={title}
-                          onError={(e) => {
-                            e.currentTarget.src =
-                              '/images/errors/placeholder.webp';
-                          }}
-                          width={100}
-                          height={100}
-                          quality={75}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                      </li>
-                    );
-                  } else {
-                    const videoURL = item.videoURL;
-                    return (
-                      <div
-                        className="video-thumb relative"
-                        onClick={() => {
-                          openVidModal(videoURL ?? '');
-                        }}
-                        style={{ animationDuration: '.3s' }}
-                        key={index}
-                      >
-                        <Image
-                          src={
-                            item.thumbnail
-                              ? item.thumbnail
-                              : '/images/errors/placeholder.webp'
-                          }
-                          alt="video thumbnail"
-                          className="thumbnail_img"
-                          onError={(e) => {
-                            e.currentTarget.src =
-                              '/images/errors/placeholder.webp';
-                          }}
-                          width={100}
-                          height={100}
-                          quality={75}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                        <Image
-                          src="/icons/play.svg"
-                          alt="play svg image"
-                          className="play_icon"
-                          onError={(e) => {
-                            e.currentTarget.src =
-                              '/images/errors/placeholder.webp';
-                          }}
-                          width={100}
-                          height={100}
-                          quality={75}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                      </div>
-                    );
-                  }
-                })}
-            </ul>
-          </div>
-
-          <div className="glide__arrows" data-glide-el="controls">
-            <div
-              className="glide__arrow glide__arrow--left"
-              data-glide-dir="<"
-            />
-            <div
-              className="glide__arrow glide__arrow--right"
-              data-glide-dir=">"
-            />
-          </div>
-        </div> */}
+      <section className="h-[80vh] w-full mt-20 relative">
+        <div className="">
+          <button
+            disabled={isBeginning}
+            onClick={() => swiperRef.current?.swiper.slidePrev()}
+            className="text-[#f7c024] disabled:text-gray-400 absolute left-0 top-1/2 z-50"
+          >
+            <IoIosArrowBack size={60} />
+          </button>
+          <button
+            disabled={isEnd}
+            className="text-[#f7c024] disabled:text-gray-400 absolute right-0 top-1/2 z-50"
+            onClick={() => swiperRef.current?.swiper.slideNext()}
+          >
+            <IoIosArrowForward size={60} />
+          </button>
+        </div>
         <Swiper
           navigation={true}
+          onReachEnd={() => (toggleIsEnd(true), toggleIsBeginning(false))}
+          onReachBeginning={() => (toggleIsBeginning(true), toggleIsEnd(false))}
+          onSlideChange={() => {
+            if (
+              !swiperRef.current?.swiper.isBeginning &&
+              !swiperRef.current?.swiper.isEnd
+            ) {
+              toggleIsBeginning(false), toggleIsEnd(false);
+            }
+          }}
+          ref={swiperRef}
           modules={[Navigation]}
-          className="mySwiper mt-32"
+          slidesPerView={1}
+          className="mySwiper mt-10"
         >
           {featuredImages &&
             featuredImages.map((item, index) => {
@@ -182,7 +97,7 @@ export default function Gallery() {
                 const imageUrl = constants.baseUrl + item.image;
                 return (
                   <SwiperSlide key={index}>
-                    <li className="relative w-full h-auto">
+                    <div className="relative w-8/12 mx-auto aspect-video">
                       <Image
                         src={imageUrl}
                         alt={title}
@@ -192,9 +107,9 @@ export default function Gallery() {
                         }}
                         objectFit="cover"
                         fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes="(max-width: 768px) 100vw, (max-width: 2000px) 75vw, 33vw"
                       />
-                    </li>
+                    </div>
                   </SwiperSlide>
                 );
               } else {
@@ -264,7 +179,7 @@ export default function Gallery() {
                     key={item.id}
                     className="image_container"
                     onClick={() => {
-                      openModal(constants.baseUrl + item.image);
+                      // openModal(constants.baseUrl + item.image);
                     }}
                   >
                     <Image
@@ -285,7 +200,7 @@ export default function Gallery() {
                   <div
                     className="video-thumb relative"
                     onClick={() => {
-                      openVidModal(item.videoURL ?? '');
+                      // openVidModal(item.videoURL ?? '');
                     }}
                     style={{ animationDuration: '.3s' }}
                     key={index}
@@ -316,55 +231,7 @@ export default function Gallery() {
               }
             })}
         </div>
-        {/* {modalImage && (
-          <Modal show={openModal} hide={closeModal}>
-            <Image
-              src={modalImage}
-              alt="Gallery Image"
-              onError={(e) => {
-                e.currentTarget.src = '/images/errors/placeholder.webp';
-              }}
-              width={100}
-              height={100}
-              quality={75}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-          </Modal>
-        )} */}
-        {/* {showVideoModal && (
-          <Modal show={openVidModal} hide={closeVidModal}>
-            <iframe
-              src={
-                showVideoModal.replace('/watch?v=', '/embed/') + '?autoplay=1'
-              }
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </Modal>
-        )} */}
       </section>
     </main>
-    //</Layout>
   );
 }
-
-// export async function getStaticProps() {
-//   let featuredRes;
-//   let gallery;
-//   try {
-//     featuredRes = await axiosInstance.get('/gallery/featuredlist/');
-//     gallery = await axiosInstance.get('/gallery/');
-//   } catch (error) {
-//     /* empty */
-//   }
-
-//   return {
-//     props: {
-//       featuredImages: featuredRes ? featuredRes.data.data : [],
-//       imagesNVideos: gallery ? gallery.data.data : [],
-//     },
-//     revalidate: 60,
-//   };
-// }

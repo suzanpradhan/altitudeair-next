@@ -1,14 +1,17 @@
 'use client';
-import { Field, Form, Formik } from 'formik';
-import * as Yup from 'yup';
-// import { useNotificationContext } from '../../contexts/NotifyContext';
 import axiosInst from '@/core/utils/axoisInst';
 import { constants } from '@/core/utils/constants';
-import { dateFromSqlDateTime, parseHtml } from '@/core/utils/helper';
+import { parseHtml } from '@/core/utils/helper';
 import mapboxgl from 'mapbox-gl';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+import {
+  FaFacebookSquare,
+  FaInstagramSquare,
+  FaTwitterSquare,
+  FaYoutubeSquare,
+} from 'react-icons/fa';
+import { ContactForm } from './(components)/ContactForm';
 
 export default function Description() {
   mapboxgl.accessToken =
@@ -29,7 +32,7 @@ export default function Description() {
             speed: 0.8,
             zoom: 13,
           });
-          const marker1 = new mapboxgl.Marker({ color: '#fbc200' })
+          new mapboxgl.Marker({ color: '#fbc200' })
             .setLngLat([lng, lat])
             .addTo(map.current);
         })
@@ -116,9 +119,14 @@ export default function Description() {
       <main className="contact-main">
         {/*TODO: Designs for contact us */}
 
-        <section className="contact-section">
-          <div className={'contact-details'}>
-            <h2>Details</h2>
+        {/* <section className="contact-section"> */}
+        <section className=" contact-section grid grid-cols-12 gap-10">
+          <div
+            className={
+              'contact-details col-span-6 flex flex-col justify-stretch items-start gap-7'
+            }
+          >
+            <h2 className="text-center w-full">Details</h2>
             <p>
               <strong>{'Address: '}</strong>
               <span>
@@ -176,20 +184,20 @@ export default function Description() {
             <p>
               <strong>Socials:</strong>
             </p>
-            <div className="qr_wrapper">
-              <div className="socials">
-                {/* <a href={socialLinks.facebook}>
-                  <FontAwesomeIcon className="icon" icon={faFacebookSquare} />
+            <div className="qr_wrapper flex items-start justify-evenly">
+              <div className="socials flex gap-2 items-center">
+                <a href={socialLinks.facebook}>
+                  <FaFacebookSquare size={36} />
                 </a>
                 <a href={socialLinks.twitter}>
-                  <FontAwesomeIcon className="icon" icon={faTwitterSquare} />
+                  <FaTwitterSquare size={36} />
                 </a>
                 <a href={socialLinks.youtube}>
-                  <FontAwesomeIcon className="icon" icon={faYoutubeSquare} />
+                  <FaYoutubeSquare size={36} />
                 </a>
                 <a href={socialLinks.instagram}>
-                  <FontAwesomeIcon className="icon" icon={faInstagramSquare} />
-                </a> */}
+                  <FaInstagramSquare size={36} />
+                </a>
               </div>
 
               <div className="qr">
@@ -209,169 +217,12 @@ export default function Description() {
             </div>
           </div>
 
-          <div className="contact-form">
+          <div className="contact-form col-span-6">
             <h2>Send a Message</h2>
             <ContactForm />
           </div>
         </section>
       </main>
-    </>
-  );
-}
-
-export function ContactForm() {
-  //   const { executeRecaptcha } = useGoogleReCaptcha();
-  //   const notif = useNotificationContext();
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
-  const [isVerified, setIsVerified] = useState(false);
-
-  const handleChange = (value: string | null) => {
-    if (value) {
-      setIsVerified(true);
-    } else {
-      setIsVerified(false);
-    }
-  };
-
-  function handleExpired() {
-    setIsVerified(false);
-  }
-
-  return (
-    <>
-      <Formik
-        initialValues={{
-          firstName: '',
-          lastName: '',
-          email: '',
-          tel: '',
-          date: '',
-          details: '',
-        }}
-        validationSchema={Yup.object({
-          // Validation schema definition...
-        })}
-        onSubmit={async (values, { resetForm }) => {
-          if (!isVerified) {
-            console.log('Please complete the ReCAPTCHA challenge');
-            return;
-          }
-
-          let obj = {
-            ...values,
-            isContact: true,
-            date: dateFromSqlDateTime(new Date().toISOString()),
-          };
-          try {
-            const response = await axiosInst.post('/contactUs', obj);
-            console.log('Form submitted successfully:', response.data);
-            resetForm();
-          } catch (error) {
-            console.error('Error submitting form:', error);
-          }
-        }}
-      >
-        {({ values, handleChange, handleSubmit, errors, touched }) => (
-          <Form onSubmit={handleSubmit}>
-            <div className="form-field">
-              <label htmlFor="given-name">First Name</label>
-              <Field
-                id="firstName"
-                placeholder="First Name"
-                type="text"
-                name="firstName"
-                value={values.firstName}
-                onChange={handleChange}
-                className={errors.firstName && touched.firstName ? 'error' : ''}
-              />
-            </div>
-            {errors.firstName && touched.firstName && (
-              <div className="error-message">{errors.firstName}</div>
-            )}
-
-            <div className="form-field">
-              <label htmlFor="lastName">Last Name</label>
-              <Field
-                id="lastName"
-                placeholder="Last Name"
-                type="text"
-                name="lastName"
-                value={values.lastName}
-                onChange={handleChange}
-                className={errors.lastName && touched.lastName ? 'error' : ''}
-              />
-            </div>
-            {errors.lastName && touched.lastName && (
-              <div className="error-message">{errors.lastName}</div>
-            )}
-
-            <div className="form-field">
-              <label htmlFor="email">Email</label>
-              <Field
-                id="email"
-                placeholder="Email"
-                type="text"
-                name="email"
-                value={values.email}
-                onChange={handleChange}
-                className={errors.email && touched.email ? 'error' : ''}
-              />
-            </div>
-            {errors.email && touched.email && (
-              <div className="error-message">{errors.email}</div>
-            )}
-
-            <div className="form-field">
-              <label htmlFor="tel">Phone Number</label>
-              <Field
-                id="tel"
-                placeholder="Contact Number"
-                type="text"
-                name="tel"
-                value={values.tel}
-                onChange={handleChange}
-                className={errors.tel && touched.tel ? 'error' : ''}
-              />
-            </div>
-            {errors.tel && touched.tel && (
-              <div className="error-message">{errors.tel}</div>
-            )}
-
-            <div className="form-field">
-              <label htmlFor="details">Message</label>
-              <Field
-                as="textarea"
-                id="details"
-                name="details"
-                rows="5"
-                value={values.details}
-                onChange={handleChange}
-                className={errors.details && touched.details ? 'error' : ''}
-              />
-            </div>
-            {errors.details && touched.details && (
-              <div className="error-message">{errors.details}</div>
-            )}
-
-            <div className="form-field">
-              <button
-                type="submit"
-                className="button-outline-light"
-                disabled={!isVerified}
-              >
-                Submit
-              </button>
-            </div>
-          </Form>
-        )}
-      </Formik>
-
-      <ReCAPTCHA
-        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
-        ref={recaptchaRef}
-        onChange={handleChange}
-        onExpired={handleExpired}
-      />
     </>
   );
 }

@@ -74,7 +74,7 @@ export default function Reviews() {
             {reviews.map((review, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <div className="review-item">
+                  <div className="review-item cursor-pointer">
                     <h2>WHAT OUR CLIENTS SAY</h2>
 
                     <h3>{review.title}</h3>

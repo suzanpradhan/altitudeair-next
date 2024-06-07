@@ -5,7 +5,7 @@ import { constants } from '@/core/utils/constants';
 import { dateFromSqlDateTime, parseHtml } from '@/core/utils/helper';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 interface BlogItemType {
@@ -21,7 +21,7 @@ export default function Blog() {
   const router = useRouter();
   const [blogs, setBlogs] = useState<BlogItemType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const params = useSearchParams();
+  // const params = useSearchParams();
 
   useEffect(() => {
     const category = new URLSearchParams(window.location.search).get(
@@ -46,7 +46,7 @@ export default function Blog() {
       .finally(() => {
         setLoading(false);
       });
-  }, [params]);
+  }, [router]);
 
   return (
     <main className="blog-main">
