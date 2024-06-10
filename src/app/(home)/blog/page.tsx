@@ -117,7 +117,7 @@ function BlogItem({
   );
 }
 
-export function Title() {
+function Title() {
   return (
     <section className="title">
       <div className="overlay"></div>

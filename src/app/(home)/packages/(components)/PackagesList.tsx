@@ -19,7 +19,7 @@ const data: PackageType[] = [
     location: 'NEPAL - Pilgrimage - Rasuwa',
     description:
       'Annapurna Sanctuary Heli Trek takes us through the different villages towards the southern face of Annapurna base camp.',
-    rating: 5.0,
+    rating: 4.5,
     elevation: '3700m',
   },
   {
@@ -39,7 +39,7 @@ const data: PackageType[] = [
     location: 'NEPAL - Pilgrimage - Rasuwa',
     description:
       'Annapurna Sanctuary Heli Trek takes us through the different villages towards the southern face of Annapurna base camp.',
-    rating: 5.0,
+    rating: 4.0,
     elevation: '3700m',
   },
   {
@@ -49,7 +49,7 @@ const data: PackageType[] = [
     location: 'NEPAL - Pilgrimage - Rasuwa',
     description:
       'Annapurna Sanctuary Heli Trek takes us through the different villages towards the southern face of Annapurna base camp.',
-    rating: 5.0,
+    rating: 3.5,
     elevation: '3700m',
   },
   {

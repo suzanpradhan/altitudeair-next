@@ -1,3 +1,4 @@
+'use client';
 import useMediaQuery from '@/core/hooks/useMediaQuery';
 import axiosInstance from '@/core/utils/axoisInst';
 import { constants } from '@/core/utils/constants';
@@ -10,7 +11,7 @@ interface Mission {
   imageUrl: string;
   name: string;
   info: string;
-  coords: number[];
+  coords: [number, number];
 }
 
 export default function Missions() {
@@ -39,7 +40,7 @@ export default function Missions() {
   mapboxgl.accessToken =
     'pk.eyJ1IjoiaWN5aG90c2hvdG8iLCJhIjoiY2tmeHQwc3E5MjRxajJxbzhmbDN1bjJ5aiJ9.mNKmhIjRyKxFkJYrm4dMqg';
 
-  function flyTo(coords: number[]) {
+  function flyTo(coords: [number, number]) {
     if (!map.current) {
       return;
     }
@@ -112,18 +113,19 @@ export default function Missions() {
                   imageUrl={item.imageUrl}
                   flyTo={flyTo}
                   readClicked={readClicked}
-                  setreadClicked={setreadClicked}
+                  setReadClicked={setreadClicked}
                 />
               );
             })}
 
           {mobileOnly && (
             <MissionItem
+              index={0}
               imageUrl={selected.imageUrl}
               info={selected.info}
               name={selected.name}
               readClicked={readClicked}
-              setreadClicked={setreadClicked}
+              setReadClicked={setreadClicked}
               fadeClass={fadeClass}
             />
           )}

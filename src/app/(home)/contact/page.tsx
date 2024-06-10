@@ -17,7 +17,7 @@ export default function Description() {
   mapboxgl.accessToken =
     'pk.eyJ1IjoiaWN5aG90c2hvdG8iLCJhIjoiY2tmeHQwc3E5MjRxajJxbzhmbDN1bjJ5aiJ9.mNKmhIjRyKxFkJYrm4dMqg';
   const mapContainer = useRef(null);
-  const map = useRef(null);
+  const map = useRef<any>(null);
 
   useEffect(() => {
     if (map.current) {

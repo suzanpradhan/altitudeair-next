@@ -5,7 +5,7 @@ export default function Packages() {
     <main className="news-main">
       <div
         className="relative h-[80vh] w-full bg-no-repeat bg-cover flex items-end justify-center"
-        style={{ backgroundImage: 'url(/images/banner/banner-4.jpg)' }}
+        style={{ backgroundImage: 'url(/images/banner/banner.webp)' }}
       >
         <div className="fading-bottom" />
         <h1
@@ -17,7 +17,7 @@ export default function Packages() {
       </div>
       <section className="news-section">
         <div className="container mx-auto">
-          <h2 className="text-center text-xl font-bold mb-10">
+          <h2 className="text-center text-xl font-bold mb-10 max-w-xs md:max-w-3xl mx-auto">
             Helicopter tour over the Himalayas is indeed a lifetime experience.
             The magnificent views of the Himalayas is the unique specialty of
             helicopter treks.

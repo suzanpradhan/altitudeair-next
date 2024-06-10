@@ -1,16 +1,27 @@
 /* eslint-disable react/display-name */
 /* eslint-disable @next/next/no-img-element */
-import mapboxgl from '!mapbox-gl';
+// import mapboxgl from '!mapbox-gl';
+import axiosInstance from '@/core/utils/axoisInst';
+import { dateFromSqlDateTime } from '@/core/utils/helper';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { useEffect, useRef, useState } from 'react';
+import mapboxgl from 'mapbox-gl';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
-import { useNotificationContext } from '../../contexts/NotifyContext';
-import axiosInstance from '../../util/axiosInst';
-import { dateFromSqlDateTime } from '../../util/helper';
+// import { useNotificationContext } from '../../contexts/NotifyContext';
+// import axiosInstance from '../../util/axiosInst';
+// import { dateFromSqlDateTime } from '../../util/helper';
 
-export default function StepForm({ hide }) {
-  const [filledState, setFilledState] = useState({
-    peopelCount: false,
+interface FillStateType {
+  peopleCount: boolean;
+  travelDate: boolean;
+  destination: boolean;
+  budget: boolean;
+  personalInfo: boolean;
+}
+
+export default function StepForm({ hide }: any) {
+  const [filledState, setFilledState] = useState<FillStateType>({
+    peopleCount: false,
     travelDate: false,
     destination: false,
     budget: false,
@@ -61,17 +72,17 @@ export default function StepForm({ hide }) {
   }, []);
 
   function downloadSubDest() {
-    axiosInstance.get('/service/').then((res) => {
+    axiosInstance.get('/service/').then((res: any) => {
       setDestinations(res.data.data);
     });
   }
 
-  function removeCompleted(index) {
-    let obj = { ...filledState };
+  function removeCompleted(index: number) {
+    let obj: FillStateType = { ...filledState };
     let count = 0;
     for (const key in obj) {
       if (count >= index) {
-        obj[key] = false;
+        (obj as any)[key] = false;
       }
       count++;
     }
@@ -179,8 +190,14 @@ function StepsContainer({
   filledState,
   setFilledState,
   removeCompleted,
+}: {
+  pickedStep: number;
+  setPickedStep: Dispatch<SetStateAction<number>>;
+  filledState: any;
+  setFilledState: Dispatch<SetStateAction<FillStateType>>;
+  removeCompleted: (index: any) => void;
 }) {
-  const pickLowerStep = (step) => {
+  const pickLowerStep = (step: any) => {
     if (step >= pickedStep) {
       return;
     }
@@ -272,22 +289,22 @@ function PeopleCount({
   count,
   setCount,
   setFilledState,
-}) {
-  function setFormValues(values) {
+}: any) {
+  function setFormValues(values: any) {
     if (count === 1) {
       values.traveller_count = 1;
     }
     if (count === 2 && values.traveller_count === 1) {
       values.traveller_count = 2;
     }
-    setFormState((prevState) => {
+    setFormState((prevState: any) => {
       return {
         ...prevState,
         peopelCount: values,
       };
     });
     setPickedStep(1);
-    setFilledState((prevState) => {
+    setFilledState((prevState: any) => {
       return {
         ...prevState,
         peopelCount: true,
@@ -371,21 +388,21 @@ function TravelDate({
   setFilledState,
   dateState,
   setDateState,
-}) {
+}: any) {
   // const [arrivalMin, setArrivalMin] = useState(new Date().toISOString().split("T")[0]);
   const [departureVal, setDepartureVal] = useState(formIniState.departure_date);
   // const [arrivalVal, setArrivalVal] = useState(formIniState.arrival_date);
 
-  function formSubmitHandler(values) {
+  function formSubmitHandler(values: any) {
     if (dateState === 1) {
-      setFormState((prevState) => {
+      setFormState((prevState: any) => {
         return {
           ...prevState,
           travelDate: { departure_date: departureVal },
         };
       });
     } else {
-      setFormState((prevState) => {
+      setFormState((prevState: any) => {
         return {
           ...prevState,
           travelDate: {
@@ -396,7 +413,7 @@ function TravelDate({
       });
     }
     setPickedStep(2);
-    setFilledState((prevState) => {
+    setFilledState((prevState: any) => {
       return {
         ...prevState,
         travelDate: true,
@@ -462,7 +479,7 @@ function TravelDate({
                       name="departure_date"
                       type="date"
                       min={new Date().toISOString().split('T')[0]}
-                      onChange={(e) => {
+                      onChange={(e: any) => {
                         setDepartureVal(e.target.value);
                       }}
                       value={departureVal}
@@ -512,8 +529,8 @@ function Destination({
   setPickDestPos,
   pickupChosenBy,
   setPickupChosenBy,
-}) {
-  const [error, setError] = useState(null);
+}: any) {
+  const [error, setError] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [currentlyClicked, setCurrentlyClicked] = useState(-1);
   const currentlyRef = useRef(-1);
@@ -521,12 +538,12 @@ function Destination({
   mapboxgl.accessToken =
     'pk.eyJ1IjoiaWN5aG90c2hvdG8iLCJhIjoiY2tmeHQwc3E5MjRxajJxbzhmbDN1bjJ5aiJ9.mNKmhIjRyKxFkJYrm4dMqg';
   const mapContainer = useRef(null);
-  const map = useRef(null);
+  const map = useRef<any>(null);
   const lng = 84.3;
   const lat = 28.5;
   const zoom = 5.5;
 
-  let pickupMarker = useRef(null);
+  let pickupMarker = useRef<any>(null);
 
   useEffect(() => {
     if (map.current || !mapContainer.current) {
@@ -538,15 +555,17 @@ function Destination({
       center: [lng, lat],
       zoom: zoom,
     });
-    map.current.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true,
-        },
-        trackUserLocation: true,
-        showUserHeading: true,
-      })
-    );
+    if (map.current != null) {
+      (map.current as any).addControl(
+        new mapboxgl.GeolocateControl({
+          positionOptions: {
+            enableHighAccuracy: true,
+          },
+          trackUserLocation: true,
+          showUserHeading: true,
+        })
+      );
+    }
 
     pickupMarker.current = new mapboxgl.Marker({ color: '#00db00' })
       .setLngLat(pickDestPos.pickup)
@@ -558,10 +577,10 @@ function Destination({
       .setLngLat(pickDestPos.destination)
       .addTo(map.current);
 
-    map.current.on('click', (e) => {
+    (map.current as any).on('click', (e: any) => {
       if (currentlyRef.current === 2) {
-        pickupMarker.current.setLngLat([e.lngLat.lng, e.lngLat.lat]);
-        setPickDestPos((prev) => {
+        (pickupMarker.current as any).setLngLat([e.lngLat.lng, e.lngLat.lat]);
+        setPickDestPos((prev: any) => {
           return {
             ...prev,
             pickup: [e.lngLat.lng, e.lngLat.lat],
@@ -571,7 +590,7 @@ function Destination({
       }
       if (currentlyRef.current === 3) {
         destinationMarker.setLngLat([e.lngLat.lng, e.lngLat.lat]);
-        setPickDestPos((prev) => {
+        setPickDestPos((prev: any) => {
           return {
             ...prev,
             destination: [e.lngLat.lng, e.lngLat.lat],
@@ -592,8 +611,11 @@ function Destination({
         setCurrentlyClicked(-1);
         currentlyRef.current = -1;
         setPickupChosenBy(1);
-        pickupMarker.current.setLngLat([e.coords.longitude, e.coords.latitude]);
-        setPickDestPos((prevState) => {
+        (pickupMarker.current as any).setLngLat([
+          e.coords.longitude,
+          e.coords.latitude,
+        ]);
+        setPickDestPos((prevState: any) => {
           return {
             ...prevState,
             pickup: [e.coords.longitude, e.coords.latitude],
@@ -619,7 +641,7 @@ function Destination({
       setError(1);
       return;
     }
-    setFormState((prevState) => {
+    setFormState((prevState: any) => {
       return {
         ...prevState,
         destination: {
@@ -630,7 +652,7 @@ function Destination({
       };
     });
     setPickedStep(3);
-    setFilledState((prevState) => {
+    setFilledState((prevState: any) => {
       return {
         ...prevState,
         destination: true,
@@ -638,7 +660,7 @@ function Destination({
     });
   }
 
-  function serviceClickedHandler(key) {
+  function serviceClickedHandler(key: any) {
     setClickedService(key);
     setError(null);
   }
@@ -650,7 +672,7 @@ function Destination({
 
       <div className="destinations_wrapper">
         <div className="option_container_one">
-          {destinations.map((item) => {
+          {destinations.map((item: any) => {
             return (
               <div
                 className={`service-item ${
@@ -756,7 +778,7 @@ function BudgetRange({
   setMaxMinVal,
   minMaxVal,
   setMinMaxVal,
-}) {
+}: any) {
   function formSubmitHandler() {
     if (
       Number(maxVal) < Number(minVal) ||
@@ -766,7 +788,7 @@ function BudgetRange({
       alert('Invalid values entered');
       return;
     }
-    setFormState((prevState) => {
+    setFormState((prevState: any) => {
       return {
         ...prevState,
         budget: {
@@ -777,7 +799,7 @@ function BudgetRange({
     });
 
     setPickedStep(4);
-    setFilledState((prevState) => {
+    setFilledState((prevState: any) => {
       return {
         ...prevState,
         budget: true,
@@ -815,7 +837,7 @@ function BudgetRange({
                   type="number"
                   min={0}
                   max={minMaxVal}
-                  onChange={(e) => {
+                  onChange={(e: any) => {
                     setMaxMinVal(e.target.value);
                     setMinVal(e.target.value);
                   }}
@@ -833,7 +855,7 @@ function BudgetRange({
                   type="number"
                   min={maxMinVal}
                   max={1500000}
-                  onChange={(e) => {
+                  onChange={(e: any) => {
                     setMinMaxVal(e.target.value);
                     setMaxVal(e.target.value);
                   }}
@@ -861,16 +883,16 @@ function PersonalInfo({
   setPickedStep,
   setFilledState,
   formState,
-}) {
-  const notificationContext = useNotificationContext();
+}: any) {
+  // const notificationContext = useNotificationContext();
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  async function formSubmitHandler(values) {
+  async function formSubmitHandler(values: any) {
     if (formSubmitted) {
       return;
     }
     setFormSubmitted(true);
-    setFormState((prevState) => {
+    setFormState((prevState: any) => {
       return {
         ...prevState,
         personalInfo: values,
@@ -903,16 +925,16 @@ function PersonalInfo({
           'Content-Type': 'application/json',
         },
       });
-      notificationContext.showNotification('Form Submitted.', 2000, 'Success');
-    } catch (error) {
+      // notificationContext.showNotification('Form Submitted.', 2000, 'Success');
+    } catch (error: any) {
       console.log(error.response);
-      notificationContext.showNotification('Error submitting form.', 2000);
+      // notificationContext.showNotification('Error submitting form.', 2000);
       setFormSubmitted(false);
       return;
     }
 
     setFormSubmitted(false);
-    setFilledState((prevState) => {
+    setFilledState((prevState: any) => {
       return {
         ...prevState,
         personalInfo: true,
@@ -998,7 +1020,7 @@ function PersonalInfo({
   );
 }
 
-function EndScreen({ hide }) {
+function EndScreen({ hide }: any) {
   return (
     <div className="end_screen_wrapper">
       <img src="./icons/form/checked.svg" alt="" />

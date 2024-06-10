@@ -12,13 +12,14 @@ export default function Highlights() {
       'animate__zoomIn'
     );
   }, []);
-
   return (
     <section className="highlights" id="highlights">
       <div className="animation-observer-helper" />
       <div className="highlights_container">
-        <div className="heading_container">
-          <h1>WHY ALTITUDE AIR?</h1>
+        <div className="border-[1rem] border-[#a7b9c7] max-w-60 py-14 px-20 mr-[10vw] flex items-center">
+          <h2 className="text-5xl font-gilroy text-custom-blue m-0">
+            WHY ALTITUDE AIR?
+          </h2>
         </div>
 
         <div className="feature_container">

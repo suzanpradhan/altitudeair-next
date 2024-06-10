@@ -1,7 +1,13 @@
 import useMediaQuery from '@/core/hooks/useMediaQuery';
 import useScroll from '@/core/hooks/useScroll';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 interface Coordinates {
   latitude: number;
@@ -13,12 +19,15 @@ interface MissionItemProps {
   imageUrl: string;
   name: string;
   info: string;
-  flyTo: (coords: Coordinates) => void;
+  flyTo?: (coords: [number, number]) => void;
   readClicked: { clicked: boolean; clickedBy: number };
-  setReadClicked: React.Dispatch<
-    React.SetStateAction<{ clicked: boolean; clickedBy: number }>
+  setReadClicked: Dispatch<
+    SetStateAction<{
+      clicked: boolean;
+      clickedBy: number;
+    }>
   >;
-  fadeClass: boolean;
+  fadeClass?: boolean;
 }
 
 const MissionItem: React.FC<MissionItemProps> = ({
@@ -98,7 +107,7 @@ const MissionItem: React.FC<MissionItemProps> = ({
     if (pos) {
       if (pos <= 230 && pos >= 110) {
         if (!readClicked.clicked) {
-          flyTo(coords);
+          // flyTo(coords);
           setOnFocus(true);
           currState.current = true;
         }
