@@ -32,6 +32,14 @@
   }
 } */
 
+.mapboxgl-control-container {
+  display: none;
+}
+
+.react-date-picker__wrapper {
+  display: none !important;
+}
+
 .swiper-pagination-bullet-active {
   background-color: #314666;
 }
@@ -40,14 +48,6 @@
   width: 12px;
   height: 12px;
 }
-
-/* .swiper-button-prev,
-.swiper-button-next {
-  background-color: #3b98ee;
-  width: 50px;
-  height: 50px;
-  color: #0d0d0d;
-} */
 
 @font-face {
   font-family: 'Gilroy-ExtraBold';

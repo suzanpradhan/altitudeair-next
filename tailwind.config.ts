@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import { PluginAPI } from 'tailwindcss/types/config';
 
 const config: Config = {
   content: [
@@ -18,9 +19,21 @@ const config: Config = {
       },
       colors: {
         'custom-blue': '#202e43',
+        'custom-gray': '#b3c6d5',
+        'custom-gray-light': '#8FA2B2',
+        'custom-primary': '#fbc200',
       },
     },
   },
-  plugins: [],
+  plugins: [function ({ addUtilities }: PluginAPI) {
+    addUtilities({
+      '.icon-before::before': {
+        content: '"\\2192"', /* Unicode for checkmark icon */
+        marginRight: '0.5rem',
+        fontWeight: 'bold',
+        color: '#202e43',
+      },
+    });
+  },],
 };
 export default config;

@@ -126,7 +126,7 @@ const PackagesList = () => {
                 </div>
                 <div className="border-b border-slate-100 my-2"></div>
                 <div>
-                  <button className="w-full text-sm font-medium py-2 px-5 rounded-md bg-[#fbc200] hover:bg-[#fbc000db] hover:shadow-md">
+                  <button className="w-full text-sm font-medium py-2 px-5 rounded-md bg-custom-primary hover:bg-custom-primary/90 hover:shadow-md">
                     View Detail
                   </button>
                 </div>
