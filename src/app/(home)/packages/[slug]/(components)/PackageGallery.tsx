@@ -36,13 +36,13 @@ const PackageGallery = () => {
           <button
             disabled={isBeginning}
             onClick={() => swiperRef.current?.swiper.slidePrev()}
-            className="text-[#f7c024] disabled:text-gray-400 absolute left-0 top-1/2 z-50"
+            className="text-[#f7c024] disabled:text-gray-400 absolute left-0 top-1/2 -translate-y-1/2 z-50"
           >
             <IoIosArrowBack size={60} />
           </button>
           <button
             disabled={isEnd}
-            className="text-[#f7c024] disabled:text-gray-400 absolute right-0 top-1/2 z-50"
+            className="text-[#f7c024] disabled:text-gray-400 absolute right-0 top-1/2 -translate-y-1/2 z-50"
             onClick={() => swiperRef.current?.swiper.slideNext()}
           >
             <IoIosArrowForward size={60} />

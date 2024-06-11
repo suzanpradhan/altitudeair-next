@@ -107,7 +107,7 @@ export default function Gallery() {
                         }}
                         objectFit="cover"
                         fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 2000px) 75vw, 33vw"
+                        sizes="(max-width: 2000px) 75vw, 33vw"
                       />
                     </div>
                   </SwiperSlide>
@@ -138,7 +138,7 @@ export default function Gallery() {
                         width={100}
                         height={100}
                         quality={100}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes="(max-width: 1200px) 50vw, 33vw"
                       />
                       <Image
                         src="/icons/play.svg"
@@ -151,7 +151,7 @@ export default function Gallery() {
                         width={100}
                         height={100}
                         quality={75}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes="(max-width: 1200px) 50vw, 33vw"
                       />
                     </div>
                   </SwiperSlide>
@@ -191,7 +191,7 @@ export default function Gallery() {
                       width={100}
                       height={100}
                       quality={75}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      sizes="(max-width: 1200px) 50vw, 33vw"
                     />
                   </div>
                 );
@@ -215,7 +215,7 @@ export default function Gallery() {
                       width={100}
                       height={100}
                       quality={75}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      sizes="(max-width: 1200px) 50vw, 33vw"
                     />
                     <Image
                       src="/icons/play.svg"
@@ -224,7 +224,7 @@ export default function Gallery() {
                       width={100}
                       height={100}
                       quality={75}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      sizes="(max-width: 1200px) 50vw, 33vw"
                     />
                   </div>
                 );

@@ -40,6 +40,11 @@
   display: none !important;
 }
 
+.react-date-picker--enabled {
+  border: none;
+  display: block;
+}
+
 .swiper-pagination-bullet-active {
   background-color: #314666;
 }

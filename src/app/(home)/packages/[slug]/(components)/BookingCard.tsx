@@ -5,7 +5,7 @@ import { SiAmericanexpress } from 'react-icons/si';
 export default function BookingCard() {
   return (
     <div className="relative container mx-auto min-h-20">
-      <div className="min-w-80 grid grid-cols-4 place-content-evenly bg-gradient-to-r from-custom-blue to-custom-blue/90 rounded-lg shadow-lg py-5 px-4 border-l-2 border-white transition-all duration-200 hover:shadow-lg hover:-translate-y-2">
+      <div className="min-w-80 grid grid-cols-4 place-content-evenly bg-gradient-to-r from-custom-blue to-custom-blue/90 rounded-lg py-5 px-4 border-l-2 border-white transition-all duration-200 shadow-lg hover:shadow-2xl hover:-translate-y-2">
         <div className="col-span-4 py-3 flex justify-between items-center">
           <p className="text-lg text-white capitalize font-normal">
             Departure Date
