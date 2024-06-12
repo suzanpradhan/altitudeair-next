@@ -28,18 +28,18 @@ const BookingMainCard = ({ packageData }: { packageData: PackageType }) => {
   };
 
   const months: Record<number, string> = {
-    0: 'January',
-    1: 'February',
-    2: 'March',
-    3: 'April',
+    0: 'Jan',
+    1: 'Feb',
+    2: 'Mar',
+    3: 'Apr',
     4: 'May',
-    5: 'June',
-    6: 'July',
-    7: 'August',
-    8: 'September',
-    9: 'October',
-    10: 'November',
-    11: 'December',
+    5: 'Jun',
+    6: 'Jul',
+    7: 'Aug',
+    8: 'Sept',
+    9: 'Oct',
+    10: 'Nov',
+    11: 'Dec',
   };
 
   const handleSelectChange = (selectedOption: {
@@ -58,7 +58,7 @@ const BookingMainCard = ({ packageData }: { packageData: PackageType }) => {
 
   return (
     <div className="relative container mx-auto min-h-20">
-      <div className="absolute -top-12 left-1/2 -translate-x-1/2 min-w-80 w-1/2 grid grid-cols-12 place-content-center items-stretch bg-custom-gray border border-custom-gray-light rounded-lg shadow-md px-3">
+      <div className="absolute -top-12 left-1/2 -translate-x-1/2 min-w-72 w-11/12 sm:w-full md:w-3/4 lg:w-2/3 xl:w-1/2 grid grid-cols-12 place-content-center items-stretch bg-custom-gray border border-custom-gray-light rounded-lg shadow-md px-3">
         <div
           className="col-span-3 first-of-type:border-0 border-l border-custom-gray-light py-3 first-of-type:ps-0 ps-3 hover:bg-custom-blue/10 cursor-pointer"
           onClick={() => {
@@ -76,15 +76,11 @@ const BookingMainCard = ({ packageData }: { packageData: PackageType }) => {
               }
             }}
           />
-          <label
-            className="text-base text-custom-blue capitalize font-normal"
-            aria-label="departure-date"
-            htmlFor="departure-date"
-          >
+          <p className="text-xs sm:text-base text-custom-blue capitalize font-normal">
             Departure Date
-          </label>
+          </p>
           <p
-            className={` text-xl capitalize font-bold ${departureDate ? 'text-custom-blue' : 'text-custom-blue/50'}`}
+            className={`text-sm sm:text-xl capitalize font-bold ${departureDate ? 'text-custom-blue' : 'text-custom-blue/50'}`}
           >
             {departureDate
               ? `${departureDate.getDate()} ${months[departureDate.getMonth()]} ${departureDate.getFullYear()}`
@@ -95,15 +91,17 @@ const BookingMainCard = ({ packageData }: { packageData: PackageType }) => {
           <SelectInput options={options} onChange={handleSelectChange} />
         </div>
         <div className="col-span-3 first-of-type:border-0 border-l border-custom-gray-light py-3 ps-3 cursor-pointer hover:bg-custom-blue/10">
-          <p className="text-base text-custom-blue capitalize font-normal">
+          <p className="text-xs sm:text-base text-custom-blue capitalize font-normal">
             Total Price
           </p>
-          <p className="text-xl text-custom-blue capitalize font-bold">$7200</p>
+          <p className="text-sm sm:text-xl text-custom-blue capitalize font-bold">
+            $7200
+          </p>
         </div>
         <div className="col-span-3 py-3 ps-3 cursor-pointer text-right">
           <button
             onClick={handleBooking}
-            className="rounded-md text-custom-primary bg-custom-blue hover:shadow-md h-full px-6 text-lg font-light"
+            className="rounded-md text-custom-primary bg-custom-blue hover:shadow-md h-full px-3 sm:px-6 text-xs sm:text-lg font-light"
           >
             Book Now
           </button>

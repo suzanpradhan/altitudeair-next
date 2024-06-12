@@ -28,41 +28,6 @@ export default function Reviews() {
     <section className="reviews">
       <div className="review-list">
         {reviews && (
-          // <div className="glide">
-          //   <div className="glide__track" data-glide-el="track">
-          //     <ul className="glide__slides">
-          //       {reviews.map((review, index) => {
-          //         return (
-          //           <li className="glide__slide" key={index}>
-          //             <div className="review-item">
-          //               <h2>WHAT OUR CLIENTS SAY</h2>
-
-          //               <h3>{review.title}</h3>
-          //               {parseHtml(review.content)}
-          //               <h4>{review.author}</h4>
-          //               <div className="ratings">
-          //                 {[...Array(review.rating)].map((x, i) => (
-          //                   <Image
-          //                     key={i}
-          //                     src="./images/icons/star.svg"
-          //                     alt="*"
-          //                     width={25}
-          //                     height={25}
-          //                   />
-          //                 ))}
-          //               </div>
-          //             </div>
-          //           </li>
-          //         );
-          //       })}
-          //     </ul>
-          //   </div>
-          //   <div className="glide__bullets" data-glide-el="controls[nav]">
-          //     <button className="glide__bullet" data-glide-dir="=0" />
-          //     <button className="glide__bullet" data-glide-dir="=1" />
-          //     <button className="glide__bullet" data-glide-dir="=2" />
-          //   </div>
-          // </div>
           <Swiper
             pagination={{
               dynamicBullets: true,

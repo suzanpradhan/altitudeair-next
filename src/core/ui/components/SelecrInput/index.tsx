@@ -43,10 +43,10 @@ const SelectInput: React.FC<CustomSelectProps> = ({ options, onChange }) => {
 
   return (
     <div ref={selectRef} onClick={handleSelectClick}>
-      <p className="text-base text-custom-blue capitalize font-normal">
+      <p className="text-xs sm:text-base text-custom-blue capitalize font-normal">
         Travelers
       </p>
-      <p className="text-xl text-custom-blue capitalize font-bold">
+      <p className="text-sm sm:text-xl text-custom-blue capitalize font-bold">
         {selectedOption ? selectedOption.label : 'Select'}
       </p>
 
