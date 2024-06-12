@@ -1,7 +1,6 @@
 import { FaLocationDot } from 'react-icons/fa6';
 import { IoTimeOutline } from 'react-icons/io5';
 import { PackageType } from '../(components)/PackagesList';
-import BookingCard from './(components)/BookingCard';
 import BookingMainCard from './(components)/BookingMainCard';
 import PackageAdditionalInfo from './(components)/PackageAdditionalInfo';
 import PackageGallery from './(components)/PackageGallery';
@@ -60,7 +59,7 @@ export default function Packages() {
           </div>
           <div className="col-span-12 md:col-span-4 w-full">
             <PackageLocation />
-            <BookingCard />
+            {/* <BookingCard /> */}
           </div>
         </div>
       </div>

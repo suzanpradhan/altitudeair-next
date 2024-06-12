@@ -90,7 +90,7 @@ const BookingMainCard = ({ packageData }: { packageData: PackageType }) => {
         <div className="relative col-span-3 first-of-type:border-0 border-l border-custom-gray-light py-3 ps-3 cursor-pointer hover:bg-custom-blue/10">
           <SelectInput options={options} onChange={handleSelectChange} />
         </div>
-        <div className="col-span-3 first-of-type:border-0 border-l border-custom-gray-light py-3 ps-3 cursor-pointer hover:bg-custom-blue/10">
+        <div className="col-span-3 first-of-type:border-0 border-l border-custom-gray-light py-3 ps-3">
           <p className="text-xs sm:text-base text-custom-blue capitalize font-normal">
             Total Price
           </p>

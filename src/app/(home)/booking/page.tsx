@@ -1,115 +1,40 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { FaLocationDot } from 'react-icons/fa6';
+import { IoTimeOutline } from 'react-icons/io5';
 import BookingForm from './(components)/BookingForm';
 
 const Booking = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const packageId = searchParams.get('packageId');
-  const packageName = searchParams.get('packageName');
-  const departureDate = searchParams.get('departureDate');
-  const selectedOption = searchParams.get('selectedOption');
-
-  const departureDateObject =
-    typeof departureDate === 'string' ? new Date(departureDate) : new Date();
-
-  const [bookingData, setBookingData] = useState({
-    packageId: '',
-    packageName: '',
-    departureDateObject: new Date(),
-    selectedOption: '',
-    // Add other fields as necessary
-  });
-
-  useEffect(() => {
-    if (packageId && packageName && departureDateObject && selectedOption) {
-      setBookingData({
-        packageId,
-        packageName,
-        departureDateObject,
-        selectedOption,
-      });
-    }
-  }, [packageId, packageName, departureDate, selectedOption]);
-
-  const handleBookingSubmit = async (
-    event: React.FormEvent<HTMLFormElement>
-  ) => {
-    event.preventDefault();
-
-    // Example: Make an API call to submit the booking data
-    const res = await fetch('/api/bookings', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bookingData),
-    });
-
-    if (res.ok) {
-      // Handle successful booking, e.g., redirect to a confirmation page
-      router.push('/confirmation');
-    } else {
-      // Handle booking error
-      console.error('Booking failed');
-    }
-  };
-
   return (
-    // <div>
-    //   <h1>Booking for {bookingData.packageName}</h1>
-    //   <form onSubmit={handleBookingSubmit}>
-    //     <input
-    //       type="hidden"
-    //       name="packageId"
-    //       value={bookingData.packageId}
-    //       readOnly
-    //     />
-    //     <div className="mb-4">
-    //       <label className="block mb-2 text-sm font-bold">Package Name</label>
-    //       <input
-    //         type="text"
-    //         name="packageName"
-    //         value={bookingData.packageName}
-    //         readOnly
-    //         className="w-full px-3 py-2 border rounded"
-    //       />
-    //     </div>
-    //     <div className="mb-4">
-    //       <label className="block mb-2 text-sm font-bold">Departure Date</label>
-    //       <input
-    //         type="text"
-    //         name="departureDate"
-    //         value={new Date(bookingData.departureDate).toLocaleDateString()}
-    //         readOnly
-    //         className="w-full px-3 py-2 border rounded"
-    //       />
-    //     </div>
-    //     <div className="mb-4">
-    //       <label className="block mb-2 text-sm font-bold">
-    //         Selected Option
-    //       </label>
-    //       <input
-    //         type="text"
-    //         name="selectedOption"
-    //         value={bookingData.selectedOption}
-    //         readOnly
-    //         className="w-full px-3 py-2 border rounded"
-    //       />
-    //     </div>
-    //     <button
-    //       type="submit"
-    //       className="px-4 py-2 text-white bg-blue-500 rounded"
-    //     >
-    //       Confirm Booking
-    //     </button>
-    //   </form>
-    // </div>
-    <div className="min-h-screen bg-gray-100 py-8">
-      <BookingForm bookingData={bookingData} />
-    </div>
+    <main className="bg-custom-gray">
+      <div
+        className="relative h-[50vh] sm:h-[70vh] w-full bg-no-repeat bg-cover bg-center"
+        style={{ backgroundImage: `url(/images/banner/Sheyphoksundo.png)` }}
+      >
+        <div className="relative z-50 container mx-auto h-[40vh] sm:h-[60vh] px-6 sm:px-0 flex items-end">
+          <div>
+            <h1 className="text-4xl text-white capitalize font-black">
+              Ebc Private Heli Tour
+            </h1>
+            <p className="text-base text-white capitalize font-light flex items-center gap-2">
+              <FaLocationDot /> Everest Base Camp
+            </p>
+            <p className="text-base text-white capitalize font-light flex items-center gap-2">
+              <IoTimeOutline /> Duration: 1 Day
+            </p>
+            <p className="text-base text-white font-light">
+              Starting from <span className="text-[#fbc200]">$1800</span>/p
+            </p>
+          </div>
+        </div>
+        <div className="absolute bottom-0 left-0 top-0 right-0 bg-gradient-to-t from-custom-blue to-transparent"></div>
+      </div>
+      <div className="container mx-auto relative pb-20">
+        <div className="relative -top-24">
+          <BookingForm />
+        </div>
+      </div>
+    </main>
   );
 };
 
