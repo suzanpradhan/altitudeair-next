@@ -4,6 +4,7 @@ export interface PackageType {
   id: number;
   image: string;
   name: string;
+  duration: string;
   location: string;
   description: string;
   rating: number;
@@ -13,9 +14,10 @@ export interface PackageType {
 const data: PackageType[] = [
   {
     id: 1,
-    image: '/images/banner/banner-4.jpg',
+    image: '/images/banner/Sheyphoksundo.png',
     name: 'Gosaikunda Pilgrimage Tour',
-    location: 'NEPAL - Pilgrimage - Rasuwa',
+    duration: '2 Days',
+    location: 'Everest Base Camp',
     description:
       'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
     rating: 4.5,
@@ -25,7 +27,8 @@ const data: PackageType[] = [
     id: 1,
     image: '/images/banner/banner-4.jpg',
     name: 'Gosaikunda Pilgrimage Tour',
-    location: 'NEPAL - Pilgrimage - Rasuwa',
+    duration: '2 Days',
+    location: 'Everest Base Camp',
     description:
       'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
     rating: 5.0,
@@ -33,9 +36,10 @@ const data: PackageType[] = [
   },
   {
     id: 1,
-    image: '/images/banner/banner-4.jpg',
+    image: '/images/banner/altitude.png',
     name: 'Gosaikunda Pilgrimage Tour',
-    location: 'NEPAL - Pilgrimage - Rasuwa',
+    duration: '2 Days',
+    location: 'Everest Base Camp',
     description:
       'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
     rating: 4.0,
@@ -45,7 +49,8 @@ const data: PackageType[] = [
     id: 1,
     image: '/images/banner/banner-4.jpg',
     name: 'Gosaikunda Pilgrimage Tour',
-    location: 'NEPAL - Pilgrimage - Rasuwa',
+    duration: '2 Days',
+    location: 'Everest Base Camp',
     description:
       'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
     rating: 3.5,
@@ -53,9 +58,32 @@ const data: PackageType[] = [
   },
   {
     id: 1,
-    image: '/images/banner/banner-4.jpg',
+    image: '/images/banner/banner.webp',
     name: 'Gosaikunda Pilgrimage Tour',
-    location: 'NEPAL - Pilgrimage - Rasuwa',
+    duration: '2 Days',
+    location: 'Everest Base Camp',
+    description:
+      'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
+    rating: 5.0,
+    elevation: '3700m',
+  },
+  {
+    id: 1,
+    image: '/images/banner/banner-2.webp',
+    name: 'Gosaikunda Pilgrimage Tour',
+    duration: '2 Days',
+    location: 'Everest Base Camp',
+    description:
+      'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
+    rating: 5.0,
+    elevation: '3700m',
+  },
+  {
+    id: 1,
+    image: '/images/banner/banner-3.webp',
+    name: 'Gosaikunda Pilgrimage Tour',
+    duration: '2 Days',
+    location: 'Everest Base Camp',
     description:
       'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
     rating: 5.0,
@@ -65,27 +93,8 @@ const data: PackageType[] = [
     id: 1,
     image: '/images/banner/banner-4.jpg',
     name: 'Gosaikunda Pilgrimage Tour',
-    location: 'NEPAL - Pilgrimage - Rasuwa',
-    description:
-      'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
-    rating: 5.0,
-    elevation: '3700m',
-  },
-  {
-    id: 1,
-    image: '/images/banner/banner-4.jpg',
-    name: 'Gosaikunda Pilgrimage Tour',
-    location: 'NEPAL - Pilgrimage - Rasuwa',
-    description:
-      'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
-    rating: 5.0,
-    elevation: '3700m',
-  },
-  {
-    id: 1,
-    image: '/images/banner/banner-4.jpg',
-    name: 'Gosaikunda Pilgrimage Tour',
-    location: 'NEPAL - Pilgrimage - Rasuwa',
+    duration: '2 Days',
+    location: 'Everest Base Camp',
     description:
       'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
     rating: 5.0,
@@ -95,7 +104,7 @@ const data: PackageType[] = [
 
 const PackagesList = () => {
   return (
-    <div className="grid grid-cols-12 gap-y-5 gap-x-5">
+    <div className="grid grid-cols-12 gap-y-7 gap-x-7 px-5 sm:px-0">
       {data && data.length > 0 ? (
         data.map((item, index) => <PackageCard item={item} key={index} />)
       ) : (

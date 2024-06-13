@@ -8,9 +8,10 @@ import { PackageType } from '../../(components)/PackagesList';
 const packageList: PackageType[] = [
   {
     id: 1,
-    image: '/images/banner/banner-4.jpg',
+    image: '/images/banner/Sheyphoksundo.png',
     name: 'Gosaikunda Pilgrimage Tour',
-    location: 'NEPAL - Pilgrimage - Rasuwa',
+    duration: '2 Days',
+    location: 'Everest Base Camp',
     description:
       'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
     rating: 4.5,
@@ -20,7 +21,8 @@ const packageList: PackageType[] = [
     id: 1,
     image: '/images/banner/banner-4.jpg',
     name: 'Gosaikunda Pilgrimage Tour',
-    location: 'NEPAL - Pilgrimage - Rasuwa',
+    duration: '2 Days',
+    location: 'Everest Base Camp',
     description:
       'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
     rating: 5.0,
@@ -28,9 +30,10 @@ const packageList: PackageType[] = [
   },
   {
     id: 1,
-    image: '/images/banner/banner-4.jpg',
+    image: '/images/banner/altitude.png',
     name: 'Gosaikunda Pilgrimage Tour',
-    location: 'NEPAL - Pilgrimage - Rasuwa',
+    duration: '2 Days',
+    location: 'Everest Base Camp',
     description:
       'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
     rating: 4.0,
@@ -38,11 +41,34 @@ const packageList: PackageType[] = [
   },
   {
     id: 1,
-    image: '/images/banner/banner-4.jpg',
+    image: '/images/banner/banner.webp',
     name: 'Gosaikunda Pilgrimage Tour',
-    location: 'NEPAL - Pilgrimage - Rasuwa',
+    duration: '2 Days',
+    location: 'Everest Base Camp',
     description:
-      'Altitude air takes us through the different villages towards the southern face of Annapurna base camp. Altitude air ...',
+      'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
+    rating: 5.0,
+    elevation: '3700m',
+  },
+  {
+    id: 1,
+    image: '/images/banner/banner-2.webp',
+    name: 'Gosaikunda Pilgrimage Tour',
+    duration: '2 Days',
+    location: 'Everest Base Camp',
+    description:
+      'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
+    rating: 5.0,
+    elevation: '3700m',
+  },
+  {
+    id: 1,
+    image: '/images/banner/banner-3.webp',
+    name: 'Gosaikunda Pilgrimage Tour',
+    duration: '2 Days',
+    location: 'Everest Base Camp',
+    description:
+      'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
     rating: 5.0,
     elevation: '3700m',
   },
@@ -89,7 +115,7 @@ const RelatedPackages = () => {
               ref={swiperRef}
               modules={[Navigation, Pagination]}
               breakpoints={breakpoints}
-              className="w-full pb-10"
+              className="w-full pb-12"
             >
               {packageList && packageList.length > 0 ? (
                 packageList.map((item, index) => (

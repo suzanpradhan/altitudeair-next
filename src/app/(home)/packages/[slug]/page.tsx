@@ -13,6 +13,7 @@ const data: PackageType = {
   image: '/images/banner/Sheyphoksundo.png',
   name: 'Gosaikunda Pilgrimage Tour',
   location: 'NEPAL - Pilgrimage - Rasuwa',
+  duration: '2 Days',
   description:
     'Altitude air takes us through the different villages towards the southern face of Annapurna base camp.',
   rating: 4.5,
@@ -21,7 +22,7 @@ const data: PackageType = {
 
 export default function Packages() {
   return (
-    <main className="bg-custom-gray-light/50 pb-20">
+    <main className="bg-custom-gray-light/50">
       <div
         className="relative h-[50vh] sm:h-[70vh] w-full bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: `url(${data.image})` }}
