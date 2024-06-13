@@ -8,6 +8,7 @@ import Footer from './(components)/(modules)/Footer';
 import Header from './(components)/(modules)/Header';
 import './globals.css';
 // Import Swiper styles
+import Provider from '@/core/redux/provider';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
@@ -32,12 +33,14 @@ export default function RootLayout({
         />
       </Head>
       <body className={inter.className}>
-        <main>
-          <SplashScreen />
-          <Header />
-          {children}
-          <Footer />
-        </main>
+        <Provider>
+          <main>
+            <SplashScreen />
+            <Header />
+            {children}
+            <Footer />
+          </main>
+        </Provider>
       </body>
     </html>
   );

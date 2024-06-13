@@ -1,13 +1,14 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { FaStar } from 'react-icons/fa';
 import { PackageType } from './PackagesList';
 
 export default function PackageCard({ item }: { item: PackageType }) {
   return (
-    <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 bg-white rounded-2xl p-3">
+    <div className="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 rounded bg-white p-3">
       <div className="flex flex-col justify-between h-full">
         <div className="flex flex-col gap-1 mb-2">
-          <div className="w-full h-64 relative overflow-hidden rounded-xl">
+          <div className="w-full h-64 relative overflow-hidden rounded">
             <Image
               src={item.image}
               alt="image"
@@ -31,9 +32,12 @@ export default function PackageCard({ item }: { item: PackageType }) {
           </div>
           <div className="border-b border-slate-100 my-2"></div>
           <div>
-            <button className="w-full text-sm font-medium py-2 px-5 rounded-md bg-custom-primary hover:bg-custom-primary/90 hover:shadow-md">
+            <Link
+              href={`packages/dummy`}
+              className="w-full block text-center text-sm font-medium py-2 px-5 rounded bg-custom-primary hover:bg-custom-primary/90 hover:shadow-md"
+            >
               View Detail
-            </button>
+            </Link>
           </div>
         </div>
       </div>
