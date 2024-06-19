@@ -1,4 +1,3 @@
-// import { getSession } from 'next-auth/react';
 
 export const apiConfig = {
     headers: {
@@ -8,19 +7,14 @@ export const apiConfig = {
 };
 
 export async function setHeaders(headers: Headers) {
-    // const session = await getSession();
-    // if (session) {
-    //     const token = (session! as any).user.accessToken as string;
-    //     if (token) {
-    //         headers.set('authorization', `Bearer ${token}`);
-    //     }
-    // }
-    // headers.set('content-type', 'application/json');
-    // headers.set('Access-Control-Allow-Origin', '*');
+    headers.set('authorization', `Api-Key cMhfWvLs.OnxdEp1sNEm4zajmLRm7uttbYJVXj2a1`);
     return headers;
 }
 
 export const apiPaths = {
     serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
-    baseUrl: process.env.NEXT_PUBLIC_SERVER_URL + '/api/v1',
+    baseUrl: process.env.NEXT_PUBLIC_SERVER_URL,
+    allNewsUrl: '/news/',
+    newsLimitUrl: '/news/latest/',
+    allGalleryUrl: '/gallery/featuredlist/',
 };

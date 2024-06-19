@@ -1,4 +1,5 @@
 import Enquiry from '../(components)/(elements)/Enquiry';
+import SplashScreen from '../(components)/(elements)/SplashScreen';
 import About from '../(components)/(sections)/(landing)/About';
 import Gallery from '../(components)/(sections)/(landing)/Gallery';
 import GetInTouch from '../(components)/(sections)/(landing)/GetInTouch';
@@ -12,6 +13,7 @@ import Services from '../(components)/(sections)/(landing)/Services';
 export default function Home() {
   return (
     <>
+      <SplashScreen />
       <Enquiry />
       <Landing />
       <Highlights />

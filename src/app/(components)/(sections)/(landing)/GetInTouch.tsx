@@ -24,7 +24,7 @@ export default function GetInTouch() {
   };
 
   return (
-    <section className="get_in_touch">
+    <section className="get_in_touch !py-10">
       <div className="touch_container">
         <div className="touch_heading_container">
           <h2>Get in touch with us?</h2>

@@ -1,106 +1,124 @@
-/* eslint-disable @next/next/no-img-element */
 'use client';
-import axiosInst from '@/core/utils/axoisInst';
-import { constants } from '@/core/utils/constants';
+import { apiPaths } from '@/core/api/apiConstants';
+import { useAppDispatch, useAppSelector } from '@/core/redux/hooks';
+import { RootState } from '@/core/redux/store';
+import galleryApi from '@/modules/gallery/galleryApi';
+import { GalleryDataType } from '@/modules/gallery/galleryType';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
-interface ImageType {
-  id: number;
-  title: string;
-  image: string;
-  isImage: boolean;
-}
-
 export default function Gallery() {
-  const [modalImage, setModalImage] = useState<string | null>(null);
-  const [images, setImages] = useState<ImageType[]>([]);
+  const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setIsLoading(true);
+    dispatch(galleryApi.endpoints.getAllGallery.initiate())
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.error('Error fetching news:', error);
+        setError('Error fetching data');
+      });
+  }, [dispatch]);
+
+  const getNews = useAppSelector(
+    (state: RootState) =>
+      state.baseApi.queries[`getAllGallery`]?.data as GalleryDataType[]
+  );
+
+  // const [modalImage, setModalImage] = useState<string | null>(null);
+  // const [images, setImages] = useState<GalleryDataType[]>([]);
   const galleryContainer = useRef<HTMLDivElement>(null);
   let pos = { left: 0, x: 0 };
 
   useEffect(() => {
+    const currentGalleryContainer = galleryContainer.current;
+
     const mouseDownHandler = (e: MouseEvent) => {
-      if (galleryContainer.current) {
+      if (currentGalleryContainer) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         pos = {
-          left: galleryContainer.current.scrollLeft,
+          left: currentGalleryContainer.scrollLeft,
           x: e.clientX,
         };
 
-        galleryContainer.current.addEventListener(
-          'mousemove',
-          mouseMoveHandler
-        );
+        currentGalleryContainer.addEventListener('mousemove', mouseMoveHandler);
         window.addEventListener('mouseup', mouseUpHandler);
       }
     };
 
-    if (galleryContainer.current) {
-      galleryContainer.current.scrollLeft = 0;
-      galleryContainer.current.addEventListener('mousedown', mouseDownHandler);
+    const mouseMoveHandler = (e: MouseEvent) => {
+      if (currentGalleryContainer) {
+        currentGalleryContainer.style.cursor = 'grabbing';
+        currentGalleryContainer.style.userSelect = 'none';
+        currentGalleryContainer.style.scrollSnapType = '';
+        currentGalleryContainer.style.pointerEvents = 'stroke';
+
+        const dx = e.clientX - pos.x;
+        currentGalleryContainer.scrollLeft = pos.left - dx;
+      }
+    };
+
+    const mouseUpHandler = () => {
+      if (currentGalleryContainer) {
+        currentGalleryContainer.style.cursor = 'grab';
+        currentGalleryContainer.style.scrollSnapType = 'x mandatory';
+        currentGalleryContainer.style.removeProperty('user-select');
+        currentGalleryContainer.style.removeProperty('pointer-events');
+        currentGalleryContainer.removeEventListener(
+          'mousemove',
+          mouseMoveHandler
+        );
+      }
+      window.removeEventListener('mouseup', mouseUpHandler);
+    };
+
+    if (currentGalleryContainer) {
+      currentGalleryContainer.scrollLeft = 0;
+      currentGalleryContainer.addEventListener('mousedown', mouseDownHandler);
     }
 
-    axiosInst.get('/gallery/featuredlist/').then((result) => {
-      const data: ImageType[] = result.data.data;
-      setImages(data);
-    });
-
     return () => {
-      if (galleryContainer.current) {
-        galleryContainer.current.removeEventListener(
+      if (currentGalleryContainer) {
+        currentGalleryContainer.removeEventListener(
           'mousedown',
           mouseDownHandler
+        );
+        currentGalleryContainer.removeEventListener(
+          'mousemove',
+          mouseMoveHandler
         );
       }
       window.removeEventListener('mouseup', mouseUpHandler);
     };
   }, []);
+  // const openModal = (imagePath: string) => {
+  //   setModalImage(imagePath);
+  // };
 
-  const mouseMoveHandler = function (e: MouseEvent) {
-    if (galleryContainer.current) {
-      galleryContainer.current.style.cursor = 'grabbing';
-      galleryContainer.current.style.userSelect = 'none';
-      galleryContainer.current.style.scrollSnapType = '';
-      galleryContainer.current.style.pointerEvents = 'stroke';
+  // const closeModal = () => {
+  //   setModalImage(null);
+  // };
 
-      const dx = (e as MouseEvent).clientX - pos.x;
+  // const imageLoader = ({
+  //   src,
+  //   width,
+  //   quality,
+  // }: {
+  //   src: string;
+  //   width: number;
+  //   quality: number;
+  // }) => {
+  //   return `https://example.com/${src}?w=${width}&q=${quality || 75}`;
+  // };
 
-      galleryContainer.current.scrollLeft = pos.left - dx;
-    }
-  };
-
-  const mouseUpHandler = function () {
-    if (galleryContainer.current) {
-      galleryContainer.current.style.cursor = 'grab';
-      galleryContainer.current.style.scrollSnapType = 'x mandatory';
-      galleryContainer.current.style.removeProperty('user-select');
-      galleryContainer.current.style.removeProperty('pointer-events');
-      galleryContainer.current.removeEventListener(
-        'mousemove',
-        mouseMoveHandler
-      );
-    }
-  };
-
-  const openModal = (imagePath: string) => {
-    setModalImage(imagePath);
-  };
-
-  const closeModal = () => {
-    setModalImage(null);
-  };
-
-  const imageLoader = ({
-    src,
-    width,
-    quality,
-  }: {
-    src: string;
-    width: number;
-    quality: number;
-  }) => {
-    return `https://example.com/${src}?w=${width}&q=${quality || 75}`;
-  };
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <section className="gallery">
@@ -112,7 +130,41 @@ export default function Gallery() {
             className="image_flex_container !overflow-x-scroll"
             ref={galleryContainer}
           >
-            {images.map((image) => {
+            {!isLoading
+              ? getNews && getNews.length > 0
+                ? getNews.map((image, index) => {
+                    const title = image.title;
+                    const imageUrl = apiPaths.baseUrl + image.image;
+                    if (!image.isImage) return null;
+                    return (
+                      <div
+                        key={index}
+                        className="image_container relative w-44"
+                        onClick={() => {
+                          // openModal(imageUrl);
+                        }}
+                      >
+                        <Image
+                          // loader={imageLoader}
+                          src={imageUrl}
+                          alt={title}
+                          onError={(e) => {
+                            const target = e.currentTarget as HTMLImageElement;
+                            target.src = '/images/errors/placeholder.webp';
+                          }}
+                          fill
+                          placeholder="blur"
+                          blurDataURL={imageUrl}
+                          quality={75}
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                      </div>
+                    );
+                  })
+                : null
+              : null}
+
+            {/* {getNews.map((image) => {
               const title = image.title;
               const imageUrl = constants.baseUrl + image.image;
               if (!image.isImage) return null;
@@ -121,7 +173,7 @@ export default function Gallery() {
                   key={image.id}
                   className="image_container relative w-44"
                   onClick={() => {
-                    openModal(imageUrl);
+                    // openModal(imageUrl);
                   }}
                 >
                   <Image
@@ -140,7 +192,7 @@ export default function Gallery() {
                   />
                 </div>
               );
-            })}
+            })} */}
           </div>
         </div>
       </div>

@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google';
 import Head from 'next/head';
 import 'react-calendar/dist/Calendar.css';
 import 'react-date-picker/dist/DatePicker.css';
-import SplashScreen from './(components)/(elements)/SplashScreen';
 import Footer from './(components)/(modules)/Footer';
 import Header from './(components)/(modules)/Header';
 import './globals.css';
@@ -35,7 +34,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <Provider>
           <main>
-            <SplashScreen />
             <Header />
             {children}
             <Footer />

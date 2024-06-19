@@ -45,37 +45,33 @@ function Landing() {
 
   return (
     <section className="landing">
-      {/*<div className="parallax-container">*/}
-      {/*  <div className="parallax-element background" data-rellax-speed="-1" />*/}
-      {/*  <div className="parallax-element land" data-rellax-speed="3" />*/}
-      {/*  <div className="heli-container">*/}
-      {/*    <div className="parallax-element heli" data-rellax-speed="5" />*/}
-      {/*  </div>*/}
-      {/*</div>*/}
       <video
         // loop={true}
         src={constants.baseUrl + videoUrl}
         autoPlay={true}
         muted={true}
       />
-
-      <div className="card">
-        <h1>
+      {/* border: 1.1rem solid #202e43; background: rgba(32, 46, 67, .5); max-width:
+      330px; padding: 1rem 1.5rem; z-index: 2; */}
+      <div className="border-[1rem] border-custom-blue bg-custom-blue/50 w-full max-w-sm py-4 px-5 z-10">
+        <h2 className="text-4xl font-black text-white">
           WE ARE <br />
           HERE 24/7
-        </h1>
-        <p>
+        </h2>
+        <p className="text-base text-gray-200">
           Committed to the highest level of safety and performance, our highly
           experienced and qualified team members are our biggest pride and
           strength!!! Driven towards exceptional service and efficiency, we are
           here to do extraordinary.
         </p>
-        <div className="actions">
-          <a href={`tel:${hotline}`}>
-            <h2 className="phone">{hotline}</h2>
+        <div className="flex flex-col justify-center w-full">
+          <a href={`tel:${hotline}`} className="self-center">
+            <h2 className="text-2xl font-black text-custom-primary">
+              {hotline}
+            </h2>
           </a>
-          <p>OR</p>
-          <div className="btn-container">
+          <p className="self-center">OR</p>
+          <div className="self-center">
             <button className="action-button" onClick={openModal}>
               ENQUIRY NOW
             </button>
