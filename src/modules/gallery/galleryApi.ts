@@ -22,7 +22,7 @@ const galleryApi = baseApi
                     return currentArg !== previousArg;
                 },
                 transformResponse: (response: any) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     return response.data as GalleryDataType[];
                 },
             }),

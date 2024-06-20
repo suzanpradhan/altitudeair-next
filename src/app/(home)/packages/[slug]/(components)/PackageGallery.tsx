@@ -73,9 +73,9 @@ const PackageGallery = () => {
                 onError={(e) => {
                   e.currentTarget.src = '/images/errors/placeholder.webp';
                 }}
-                objectFit="cover"
                 fill
                 sizes="(max-width: 2000px) 100vw, 33vw"
+                className="object-cover"
               />
             </div>
           </SwiperSlide>
@@ -87,9 +87,9 @@ const PackageGallery = () => {
                 onError={(e) => {
                   e.currentTarget.src = '/images/errors/placeholder.webp';
                 }}
-                objectFit="cover"
                 fill
                 sizes="(max-width: 2000px) 100vw, 33vw"
+                className="object-cover"
               />
             </div>
           </SwiperSlide>
