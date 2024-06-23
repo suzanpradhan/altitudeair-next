@@ -1,9 +1,9 @@
 'use client';
 import DateSelector from '@/core/ui/components/DateSelector';
 import SelectInput from '@/core/ui/components/SelecrInput';
+import { PackagesDataType } from '@/modules/packages/packagesType';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { PackageType } from '../../(components)/PackagesList';
 
 const options = [
   { value: '1', label: '1 Traveler' },
@@ -13,7 +13,11 @@ const options = [
   { value: '5', label: '5 Travelers' },
 ];
 
-const BookingMainCard = ({ packageData }: { packageData: PackageType }) => {
+const BookingMainCard = ({
+  packageData,
+}: {
+  packageData: PackagesDataType;
+}) => {
   const router = useRouter();
   const slug = useParams();
   console.log(slug);
@@ -52,7 +56,7 @@ const BookingMainCard = ({ packageData }: { packageData: PackageType }) => {
 
   const handleBooking = () => {
     router.push(
-      `/booking?slug=${slug}&packageId=${packageData.id}&packageName=${packageData.name}&departureDate=${departureDate!.toISOString()}&selectedOption=${selectedOption.value}`
+      `/booking?slug=${slug}&packageId=${packageData.id}&packageName=${packageData.title}&departureDate=${departureDate!.toISOString()}&selectedOption=${selectedOption.value}`
     );
   };
 

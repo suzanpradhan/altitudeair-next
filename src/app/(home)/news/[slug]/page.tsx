@@ -1,9 +1,9 @@
 'use client';
-import { NewsItemProps } from '@/app/(components)/(elements)/NewsItem';
 import NotFoundPage from '@/app/(components)/(elements)/NotFoundPage';
 import axiosInst from '@/core/utils/axoisInst';
 import { constants } from '@/core/utils/constants';
 import { dateFromSqlDateTime, parseHtml } from '@/core/utils/helper';
+import { NewsDataType } from '@/modules/news/newsType';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,7 @@ export default function NewsDetail() {
   const slug = useParams() || '';
   const router = useRouter();
 
-  const [news, setNews] = useState<NewsItemProps>();
+  const [news, setNews] = useState<NewsDataType>();
 
   //   console.log(slug);
   useEffect(() => {
