@@ -28,7 +28,10 @@ export default function About() {
   return (
     <section className="about">
       <div className="dash-border">
-        <div className="info" style={{ animationDuration: '.3s' }}>
+        <div
+          className="info max-w-md !w-full"
+          style={{ animationDuration: '.3s' }}
+        >
           <h1>ABOUT US</h1>
           <p>
             Marking a difference in Helicopter Airlines, Altitude Air Pvt .Ltd.

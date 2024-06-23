@@ -53,7 +53,7 @@ export default function Services() {
           services.map((service, pos) => {
             return (
               <div
-                className="card relative"
+                className="card relative flex flex-col gap-4"
                 key={service.id}
                 style={{
                   animationDelay: `${pos * 0.4}s`,
@@ -72,7 +72,7 @@ export default function Services() {
                   width={100}
                   // fill
                 />
-                <h3>{service.title}</h3>
+                <h3 className="font-bold text-lg m-0">{service.title}</h3>
                 <p>
                   {parseHtml(
                     service.blog.description.length > 140

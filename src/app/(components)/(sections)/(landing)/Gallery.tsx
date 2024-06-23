@@ -25,7 +25,7 @@ export default function Gallery() {
       });
   }, [dispatch]);
 
-  const getNews = useAppSelector(
+  const getGalleries = useAppSelector(
     (state: RootState) =>
       state.baseApi.queries[`getAllGallery`]?.data as GalleryDataType[]
   );
@@ -124,15 +124,15 @@ export default function Gallery() {
     <section className="gallery">
       <div className="dashed_news_container">
         <div className="image_content_container">
-          <h2>GALLERY</h2>
+          <h2 className="text-2xl">GALLERY</h2>
 
           <div
             className="image_flex_container !overflow-x-scroll"
             ref={galleryContainer}
           >
             {!isLoading
-              ? getNews && getNews.length > 0
-                ? getNews.map((image, index) => {
+              ? getGalleries && getGalleries.length > 0
+                ? getGalleries.map((image, index) => {
                     const title = image.title;
                     const imageUrl = apiPaths.baseUrl + image.image;
                     if (!image.isImage) return null;

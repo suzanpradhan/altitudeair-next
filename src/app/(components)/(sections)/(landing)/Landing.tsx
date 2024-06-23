@@ -53,12 +53,12 @@ function Landing() {
       />
       {/* border: 1.1rem solid #202e43; background: rgba(32, 46, 67, .5); max-width:
       330px; padding: 1rem 1.5rem; z-index: 2; */}
-      <div className="cardFamily border-[1rem] border-custom-blue bg-custom-blue/50 w-full max-w-sm py-4 px-5 z-10">
+      <div className="cardFamily border-[1rem] border-custom-blue bg-custom-blue/60 w-full max-w-md py-4 px-5 z-10">
         <h2 className="text-4xl font-black text-white">
           WE ARE <br />
           HERE 24/7
         </h2>
-        <p className="text-base text-gray-200">
+        <p className="text-lg text-gray-200 py-4">
           Committed to the highest level of safety and performance, our highly
           experienced and qualified team members are our biggest pride and
           strength!!! Driven towards exceptional service and efficiency, we are
@@ -70,7 +70,9 @@ function Landing() {
               {hotline}
             </h2>
           </a>
-          <p className="self-center">OR</p>
+          <p className="self-center text-2xl font-black text-custom-primary">
+            OR
+          </p>
           <div className="self-center">
             <button className="action-button" onClick={openModal}>
               ENQUIRY NOW
