@@ -1,13 +1,11 @@
 'use client';
 import DateSelector from '@/core/ui/components/DateSelector';
 import SelectInput from '@/core/ui/components/SelectInput';
-import { setBookingDetails } from '@/modules/bookings/bookingSlice';
 import { PackagesDataType } from '@/modules/packages/packagesType';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 
-export const options = [
+const options = [
   { value: '1', label: '1 Traveler' },
   { value: '2', label: '2 Travelers' },
   { value: '3', label: '3 Travelers' },
@@ -15,37 +13,37 @@ export const options = [
   { value: '5', label: '5 Travelers' },
 ];
 
-export const months: Record<number, string> = {
-  0: 'Jan',
-  1: 'Feb',
-  2: 'Mar',
-  3: 'Apr',
-  4: 'May',
-  5: 'Jun',
-  6: 'Jul',
-  7: 'Aug',
-  8: 'Sept',
-  9: 'Oct',
-  10: 'Nov',
-  11: 'Dec',
-};
-
 const BookingMainCard = ({
   packageData,
 }: {
   packageData: PackagesDataType;
 }) => {
   const router = useRouter();
+  const slug = useParams();
+  console.log(slug);
   const [departureDate, setDepartureDate] = useState<Date>(new Date());
   const [selectedOption, setSelectedOption] = useState({
     value: '',
     label: '',
   });
-  const [isOpen, toggleOpen] = useState<boolean>(false);
-  const dispatch = useDispatch();
-
+  const [isOpen, toogleOpen] = useState<boolean>(false);
   const handleChange = (value: Date) => {
     if (isOpen) setDepartureDate(value);
+  };
+
+  const months: Record<number, string> = {
+    0: 'Jan',
+    1: 'Feb',
+    2: 'Mar',
+    3: 'Apr',
+    4: 'May',
+    5: 'Jun',
+    6: 'Jul',
+    7: 'Aug',
+    8: 'Sept',
+    9: 'Oct',
+    10: 'Nov',
+    11: 'Dec',
   };
 
   const handleSelectChange = (selectedOption: {
@@ -57,17 +55,9 @@ const BookingMainCard = ({
   };
 
   const handleBooking = () => {
-    dispatch(
-      setBookingDetails({
-        packageId: packageData.id,
-        packageName: packageData.title,
-        packagePrice: packageData.price,
-        packageCover: packageData.cover_image,
-        departureDate: departureDate,
-        selectedOption: selectedOption.value,
-      })
+    router.push(
+      `/booking?slug=${slug}&packageId=${packageData.id}&packageName=${packageData.title}&departureDate=${departureDate!.toISOString()}&selectedOption=${selectedOption.value}`
     );
-    router.push(`/booking`);
   };
 
   return (
@@ -76,7 +66,7 @@ const BookingMainCard = ({
         <div
           className="col-span-3 first-of-type:border-0 border-l border-custom-gray-light py-3 first-of-type:ps-0 ps-3 hover:bg-custom-blue/10 cursor-pointer"
           onClick={() => {
-            toggleOpen(!isOpen);
+            toogleOpen(!isOpen);
           }}
         >
           <DateSelector
@@ -86,7 +76,7 @@ const BookingMainCard = ({
             isOpen={isOpen}
             onCalendarClose={() => {
               if (isOpen) {
-                toggleOpen(!isOpen);
+                toogleOpen(!isOpen);
               }
             }}
           />

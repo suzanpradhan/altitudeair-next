@@ -2,6 +2,7 @@
 
 import { Value } from '@/core/types/appTypes';
 import DatePicker, { DatePickerProps } from 'react-date-picker';
+import './style.css';
 
 type AdditionalDateSelectorProps = {
   id: string;

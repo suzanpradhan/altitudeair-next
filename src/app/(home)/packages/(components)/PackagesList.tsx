@@ -125,11 +125,6 @@ const PackagesList = () => {
   }
   return (
     <div className="grid grid-cols-12 gap-y-7 gap-x-7 px-5 sm:px-0">
-      {/* {data && data.length > 0 ? (
-        data.map((item, index) => <PackageCard item={item} key={index} />)
-      ) : (
-        <></>
-      )} */}
       {!isLoading ? (
         packagesResponse && packagesResponse.length > 0 ? (
           packagesResponse.map((item, index) => {

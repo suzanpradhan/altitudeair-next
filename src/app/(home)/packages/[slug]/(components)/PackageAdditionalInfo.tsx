@@ -2,8 +2,6 @@ import { GiPathDistance } from 'react-icons/gi';
 import { HiOutlineUserGroup } from 'react-icons/hi2';
 import { IoLocationOutline, IoTimeOutline } from 'react-icons/io5';
 import { LiaMountainSolid } from 'react-icons/lia';
-import { PiMountainsLight, PiTent } from 'react-icons/pi';
-import { TiWeatherPartlySunny } from 'react-icons/ti';
 
 export default function PackageAdditionalInfo() {
   return (
@@ -35,17 +33,6 @@ export default function PackageAdditionalInfo() {
         </div>
         <div className="col-span-6 md:col-span-4">
           <div className="flex items-center gap-2">
-            <PiMountainsLight size={35} className="text-custom-blue" />
-            <div className="flex flex-col items-start justify-center">
-              <p className="text-sm text-custom-blue capitalize font-normal">
-                Trip Grade
-              </p>
-              <p className="text-base text-custom-blue font-semibold">Easy</p>
-            </div>
-          </div>
-        </div>
-        <div className="col-span-6 md:col-span-4">
-          <div className="flex items-center gap-2">
             <GiPathDistance size={35} className="text-custom-blue" />
             <div className="flex flex-col items-start justify-center">
               <p className="text-sm text-custom-blue capitalize font-normal">
@@ -72,19 +59,6 @@ export default function PackageAdditionalInfo() {
         </div>
         <div className="col-span-6 md:col-span-4">
           <div className="flex items-center gap-2">
-            <PiTent size={35} className="text-custom-blue" />
-            <div className="flex flex-col items-start justify-center">
-              <p className="text-sm text-custom-blue capitalize font-normal">
-                Accommodation
-              </p>
-              <p className="text-base text-custom-blue font-semibold">
-                Ask for reservation
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="col-span-6 md:col-span-4">
-          <div className="flex items-center gap-2">
             <LiaMountainSolid size={35} className="text-custom-blue" />
             <div className="flex flex-col items-start justify-center">
               <p className="text-sm text-custom-blue capitalize font-normal">
@@ -104,19 +78,6 @@ export default function PackageAdditionalInfo() {
                 Group Size
               </p>
               <p className="text-base text-custom-blue font-semibold">1 to 5</p>
-            </div>
-          </div>
-        </div>
-        <div className="col-span-6 md:col-span-4">
-          <div className="flex items-center gap-2">
-            <TiWeatherPartlySunny size={35} className="text-custom-blue" />
-            <div className="flex flex-col items-start justify-center">
-              <p className="text-sm text-custom-blue capitalize font-normal">
-                Best Season
-              </p>
-              <p className="text-base text-custom-blue font-semibold">
-                Whole Year, Mostly Spring and Autumn
-              </p>
             </div>
           </div>
         </div>

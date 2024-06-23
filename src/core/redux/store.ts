@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
+import bookingReducer from '../../modules/bookings/bookingSlice';
 import { rtkQueryErrorLogger } from '../api/apiMiddleware';
 import { baseApi } from '../api/apiQuery';
 
 export const makeStore = () => {
     return configureStore({
         reducer: {
-            // counter: cartReducer,
             baseApi: baseApi.reducer,
+            booking: bookingReducer,
         },
         middleware(getDefaultMiddleware) {
             return getDefaultMiddleware()

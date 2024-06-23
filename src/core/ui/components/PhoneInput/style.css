@@ -1,0 +1,13 @@
+.search-emoji {
+  display: none;
+}
+
+.react-tel-input .country-list {
+  min-width: 100% !important;
+  width: 100%;
+  position: static;
+}
+
+.react-tel-input .flag-dropdown.open {
+  width: 100%;
+}

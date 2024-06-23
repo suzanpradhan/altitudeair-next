@@ -1,15 +1,98 @@
-interface BookingType {
-  packageId: string;
-  packageName: string;
-  departureDateObject: Date;
-  selectedOption: string;
-}
+import { useAppDispatch, useAppSelector } from '@/core/redux/hooks';
+import DateSelector from '@/core/ui/components/DateSelector';
+import PhoneInputField from '@/core/ui/components/PhoneInput';
+import bookingApi from '@/modules/bookings/bookingApi';
+import {
+  bookingDetailSchema,
+  BookingDetailSchemaType,
+} from '@/modules/bookings/bookingType';
+import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { toFormikValidate } from 'zod-formik-adapter';
+import { months } from '../../packages/[slug]/(components)/BookingMainCard';
 
 const BookingForm = () => {
+  const {
+    packageId,
+    packageName,
+    packagePrice,
+    departureDate,
+    selectedOption,
+  } = useAppSelector((state) => state.booking);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [isOpen, toggleOpen] = useState<boolean>(false);
+  const [isDepartureDate, setDepartureDate] = useState<Date>(departureDate!);
+  const [isTotalPerson, setTotalPerson] = useState<number>(
+    parseInt(selectedOption)
+  );
+  const [isTotalPrice, setTotalPrice] = useState<string>(
+    packagePrice.toString()
+  );
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const handleChange = (value: Date) => {
+    if (isOpen) setDepartureDate(value);
+  };
+
+  const onSubmit = async (values: BookingDetailSchemaType) => {
+    if (isLoading) {
+      return;
+    }
+    setIsLoading(true);
+    try {
+      var data = await Promise.resolve(
+        dispatch(
+          bookingApi.endpoints.createBooking.initiate({
+            package: parseInt(packageId!),
+            departureDate: values.departureDate,
+            noOfTravelers: values.noOfTravelers,
+            totalPrice: isTotalPrice,
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: values.email,
+            phone: values.phone,
+            requirement: values.requirement,
+          })
+        )
+      );
+
+      if (Object.prototype.hasOwnProperty.call(data, 'data')) {
+        router.push('/admin/accounts/users/all');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
+  const formik = useFormik<BookingDetailSchemaType>({
+    enableReinitialize: true,
+    initialValues: {
+      package: packageId!,
+      departureDate: isDepartureDate,
+      noOfTravelers: parseInt(selectedOption),
+      totalPrice: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      requirement: '',
+    },
+    validate: toFormikValidate(bookingDetailSchema),
+    onSubmit,
+  });
+
   return (
-    <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
+    <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-lg">
       <div className="grid grid-cols-3">
-        <form className="col-span-3 md:col-span-2 px-4 py-5">
+        <form
+          onSubmit={formik.handleSubmit}
+          className="col-span-3 md:col-span-2 px-4 py-5"
+        >
           <h1 className="text-2xl font-bold text-custom-blue mb-4">
             Booking Form
           </h1>
@@ -17,22 +100,45 @@ const BookingForm = () => {
             <div>
               <label className="block text-sm font-normal text-custom-blue mb-1">
                 Trip Date
+                <span className="text-rose-600">*</span>
               </label>
               <input
-                value="12 Jul 2024"
+                value={
+                  isDepartureDate
+                    ? `${isDepartureDate.getDate()} ${months[isDepartureDate.getMonth()]} ${isDepartureDate.getFullYear()}`
+                    : 'Month Days Years'
+                }
                 className="w-full h-10 px-2 border border-custom-gray-light rounded bg-custom-gray-light/30"
                 readOnly
+                onClick={() => {
+                  toggleOpen(!isOpen);
+                }}
+              />
+              <DateSelector
+                id="departure-date"
+                className="date-selector"
+                handleOnChange={handleChange}
+                isOpen={isOpen}
+                onCalendarClose={() => {
+                  if (isOpen) {
+                    toggleOpen(!isOpen);
+                  }
+                }}
               />
             </div>
             <div>
               <label className="block text-sm font-normal text-custom-blue mb-1">
                 No. of Traveler
+                <span className="text-rose-600">*</span>
               </label>
               <input
                 type="number"
-                value="2"
+                max={6}
+                min={1}
                 className="w-full h-10 px-2 border border-custom-gray-light rounded bg-custom-gray-light/30"
-                readOnly
+                onChange={(event) =>
+                  setTotalPerson(parseInt(event.target.value))
+                }
               />
             </div>
           </div>
@@ -46,6 +152,11 @@ const BookingForm = () => {
                 placeholder="First Name"
                 className="w-full h-10 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
               />
+              {!!formik.errors.firstName && (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.firstName}
+                </div>
+              )}
             </div>
             <div>
               <label className="block text-sm font-normal text-custom-blue mb-1">
@@ -56,56 +167,64 @@ const BookingForm = () => {
                 placeholder="Last Name"
                 className="w-full h-10 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
               />
+              {!!formik.errors.lastName && (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.lastName}
+                </div>
+              )}
             </div>
           </div>
-          <div className="mb-6">
-            <label className="block text-sm font-normal text-custom-blue mb-1">
-              Email Address <span className="text-rose-600">*</span>
-            </label>
-            <input
-              type="email"
-              placeholder="Email Address"
-              className="w-full h-10 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
-            />
-          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label className="block text-sm font-normal text-custom-blue mb-1">
+                Email Address <span className="text-rose-600">*</span>
+              </label>
+              <input
+                type="email"
+                placeholder="Email Address"
+                className="w-full h-10 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
+              />
+              {!!formik.errors.email && (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.email}
+                </div>
+              )}
+            </div>
             <div>
               <label className="block text-sm font-normal text-custom-blue mb-1">
                 Country Code + Phone Number{' '}
                 <span className="text-rose-600">*</span>
               </label>
-              <input
-                type="tel"
-                placeholder="Country Code + Phone Number"
-                className="w-full h-10 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-normal text-custom-blue mb-1">
-                Select Your Country <span className="text-rose-600">*</span>
-              </label>
-              <select className="w-full p-2 border border-custom-gray-light rounded outline-none focus-visible:ring-2">
-                <option value="">Nepal</option>
-                <option value="">England</option>
-                <option value="">United State</option>
-              </select>
+              <PhoneInputField />
+              {!!formik.errors.phone && (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.phone}
+                </div>
+              )}
             </div>
           </div>
           <div className="mb-4">
             <label className="block text-sm font-normal text-custom-blue mb-1">
-              Pickup Details/Extra Requirements
+              Pickup Details/Extra Requirements (optional)
             </label>
             <textarea
               className="w-full p-2 border border-custom-gray-light rounded outline-none focus-visible:ring-2"
               rows={4}
               placeholder="Enter pickup details or extra requirements"
             ></textarea>
+            {!!formik.errors.requirement && (
+              <div className="text-red-500 text-sm">
+                {formik.errors.requirement}
+              </div>
+            )}
           </div>
           <div className="flex items-center mb-4">
             <input
               type="checkbox"
               id="terms"
               className="h-4 w-4 text-custom-primary focus:ring-custom-blue border-gray-300 rounded outline-none focus-visible:ring-2"
+              onChange={(event) => setAcceptTerms(event.target.checked)}
             />
             <label
               htmlFor="terms"
@@ -116,7 +235,8 @@ const BookingForm = () => {
           </div>
           <button
             type="submit"
-            className="w-full text-custom-primary bg-custom-blue py-3 px-6 rounded-md hover:bg-opacity-95 hover:shadow-lg"
+            className={`${acceptTerms ? 'text-custom-primary bg-custom-blue hover:bg-opacity-95 hover:shadow-lg' : 'text-custom-gray bg-custom-blue/50'} w-full py-3 px-6 rounded-md`}
+            disabled={!acceptTerms}
           >
             Proceed
           </button>
@@ -130,7 +250,7 @@ const BookingForm = () => {
                 </h2>
                 <div className="mb-4">
                   <h3 className="text-white text-sm font-medium mb-2">
-                    Damodar Kund - Muktinath Helicopter Tour - from Pokhara
+                    {packageName}
                   </h3>
                   <div className="px-2 py-3 bg-custom-gray/5 flex flex-col gap-2">
                     <div className="flex items-start justify-between">
@@ -178,10 +298,10 @@ const BookingForm = () => {
                     <p className="shrink-0 text-custom-gray text-xs font-light">
                       Package Price:
                       <br />
-                      (US$2150 x 2 Person(s))
+                      (US${packagePrice} x {isTotalPerson} Person(s))
                     </p>
                     <p className="text-white text-xs font-light text-right">
-                      US$4300
+                      US${packagePrice * isTotalPerson}
                     </p>
                   </div>
                   <div className="flex items-start justify-between">
@@ -189,7 +309,7 @@ const BookingForm = () => {
                       Total Price:
                     </p>
                     <p className="text-white text-xs font-light text-right">
-                      US$4300
+                      US${packagePrice * isTotalPerson}
                     </p>
                   </div>
                   <div className="flex items-start justify-between">

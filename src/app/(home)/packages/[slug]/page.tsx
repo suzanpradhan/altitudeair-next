@@ -49,7 +49,7 @@ export default function Packages({ params }: { params: { slug: string } }) {
           className="relative h-[50vh] sm:h-[70vh] w-full bg-no-repeat bg-cover bg-center"
           style={{ backgroundImage: `url(${packageData.cover_image})` }}
         >
-          <div className="relative z-50 container mx-auto h-[40vh] sm:h-[60vh] px-6 sm:px-0 flex items-end">
+          <div className="relative z-10 container mx-auto h-[40vh] sm:h-[60vh] px-6 sm:px-0 flex items-end">
             <div>
               <h1 className="text-4xl text-white capitalize font-black">
                 {packageData.title}

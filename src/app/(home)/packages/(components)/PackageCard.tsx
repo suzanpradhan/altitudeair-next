@@ -1,4 +1,3 @@
-import { convertToHours } from '@/core/utils/helpers/convertToHours';
 import { PackagesDataType } from '@/modules/packages/packagesType';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,7 +12,7 @@ export default function PackageCard({ item }: { item: PackagesDataType }) {
       className="relative col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 before:absolute before:-top-3 before:-bottom-3 before:-left-3 before:-right-3 before:border-dashed before:border-custom-blue-light/20 before:-z-10 before:hover:border-2 transition-all duration-200 group"
     >
       <div className="flex flex-col justify-between h-full">
-        <div className="flex flex-col gap-1 mb-2">
+        <div className="flex flex-col gap-2 mb-2">
           <div className="w-full h-64 relative overflow-hidden">
             <Image
               src={coverImage}
@@ -23,26 +22,29 @@ export default function PackageCard({ item }: { item: PackagesDataType }) {
               className="group-hover:scale-105 transition-all duration-300 ease-in-out object-cover"
             />
           </div>
-          <h3 className="text-xl font-medium text-custom-blue">{item.title}</h3>
+          <h3 className="text-lg font-medium text-custom-blue leading-6 line-clamp-2">
+            {item.title}
+          </h3>
           <div className="flex items-center gap-2">
-            <p className="text-sm text-custom-blue-light capitalize font-light flex items-center gap-2">
+            <p className="text-xs text-custom-blue-light capitalize font-light flex items-center gap-2">
               <FaLocationDot /> {item.address}
             </p>
             <p className="text-xs text-custom-blue-light">&#9679;</p>
-            <p className="text-sm text-custom-blue-light capitalize font-light flex items-center gap-2">
+            <p className="text-xs text-custom-blue-light capitalize font-light flex items-center gap-2">
               <span className="font-medium">Duration</span>{' '}
-              {convertToHours(item.duration)}
+              {/* {convertToHours()} */}
+              {item.duration}
             </p>
           </div>
-          <p className="text-sm text-custom-blue line-clamp-4">
+          <p className="text-sm text-custom-blue/60 font-normal line-clamp-4">
             {item.short_description}
           </p>
         </div>
-        <div className="flex items-center justify-start gap-5">
+        <div className="flex items-center justify-start gap-5 mt-2">
           <div className="text-center text-sm font-medium py-2 px-5 text-custom-primary bg-custom-blue hover:bg-custom-blue/90 hover:shadow-md">
             Book Now
           </div>
-          <p className="text-custom-blue-light">
+          <p className="text-custom-blue-light text-sm">
             Starting from{' '}
             <span className="text-custom-blue font-medium">${item.price}</span>
             /p

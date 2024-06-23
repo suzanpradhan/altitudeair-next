@@ -30,7 +30,7 @@ const PackageGallery = () => {
 
   return (
     <>
-      <h3 className="text-2xl font-bold text-custom-blue mt-10">Gallery</h3>
+      <h3 className="text-2xl font-bold text-custom-blue mt-5">Gallery</h3>
       <div className="group relative w-full my-5 transition-all duration-100">
         <div>
           <button
