@@ -2,11 +2,17 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ItemsData } from '../(modules)/MainMenu';
 
 export default function SideDrawer({ show }: { show: boolean }) {
+  const currentPath = usePathname();
   const toggleOpen = 'left-0';
   const toggleClose = '-left-60';
+  const navActiveClass =
+    'font-medium before:bg-custom-blue/85 after:bg-custom-primary/75 hover:before:bg-custom-blue/85 hover:after:bg-custom-primary/75';
+  const navHoverClass =
+    'hover:font-medium before:absolute before:top-1 before:left-2 before:right-7 hover:before:bg-custom-blue/10 before:h-full before:-z-10  after:absolute after:-top-1 after:left-5 after:right-5 hover:after:bg-custom-blue/10 after:h-full after:-z-10';
 
   const menuItems = ItemsData;
 
@@ -32,11 +38,19 @@ export default function SideDrawer({ show }: { show: boolean }) {
           </Link>
         </div>
         {menuItems && menuItems.length > 0 ? (
-          <nav>
-            <ul className="flex flex-col">
+          <nav className="bg-white h-full overflow-x-scroll">
+            <ul className="flex flex-col gap-3">
               {menuItems.map((item, index) => (
-                <li key={index}>
-                  <Link href={item.link ?? '#'}>{item.title}</Link>
+                <li
+                  key={index}
+                  className={`relative z-10 before:skew-x-6 after:skew-x-6 transition-all duration-300 ease-in-out ${navHoverClass} ${currentPath === item.link ? navActiveClass : ''}`}
+                >
+                  <Link
+                    href={item.link ?? '#'}
+                    className="flex items-center justify-center h-16"
+                  >
+                    {item.title}
+                  </Link>
                 </li>
               ))}
             </ul>

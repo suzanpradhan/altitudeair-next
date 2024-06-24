@@ -43,8 +43,8 @@ export default function PackageLocation() {
   }, []);
 
   return (
-    <div className="bg-custom-gray-light/45 overflow-hidden rounded-md shadow-sm hover:shadow-lg mb-10">
-      <div ref={mapContainer} className="!w-full"></div>
+    <div className="bg-custom-gray-light/45 overflow-hidden rounded-md shadow-sm hover:shadow-lg mb-10 h-96">
+      <div ref={mapContainer} className="!w-full !h-full"></div>
     </div>
   );
 }

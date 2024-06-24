@@ -3,8 +3,8 @@ import DateSelector from '@/core/ui/components/DateSelector';
 import PhoneInputField from '@/core/ui/components/PhoneInput';
 import bookingApi from '@/modules/bookings/bookingApi';
 import {
-  bookingDetailSchema,
   BookingDetailSchemaType,
+  bookingDetailSchema,
 } from '@/modules/bookings/bookingType';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/navigation';

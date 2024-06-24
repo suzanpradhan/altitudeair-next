@@ -94,7 +94,7 @@ const MainMenu = () => {
   >([]);
   const [choppers, setChoppers] = useState<ChoppersType[] | undefined>();
   const navActiveClass =
-    'before:absolute before:w-full before:h-full before:top-0 before:left-0 before:bg-white before:-skew-x-12 before:-z-10 before:border-l-4 before:border-custom-blue';
+    'before:bg-white before:border-l-4 before:border-custom-blue';
   const navHoverClass =
     'before:absolute before:w-full before:h-full before:top-0 before:left-0 hover:before:bg-white/60 before:-skew-x-12 before:-z-10';
   return (
