@@ -109,7 +109,7 @@ const BookingMainCard = ({
             Total Price
           </p>
           <p className="text-sm sm:text-xl text-custom-blue capitalize font-bold">
-            $7200
+            ${packageData.price}
           </p>
         </div>
         <div className="col-span-3 py-3 ps-3 cursor-pointer text-right">

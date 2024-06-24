@@ -4,12 +4,14 @@ import Head from 'next/head';
 import 'react-calendar/dist/Calendar.css';
 import 'react-date-picker/dist/DatePicker.css';
 import Footer from './(components)/(modules)/Footer';
-import Header from './(components)/(modules)/Header';
 import './globals.css';
 // Import Swiper styles
 import Provider from '@/core/redux/provider';
+import Notification from '@/core/ui/components/notification';
+import 'react-toastify/dist/ReactToastify.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import Navbar from './(components)/(modules)/Navbar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -32,9 +34,11 @@ export default function RootLayout({
         />
       </Head>
       <body className={inter.className}>
+        <Notification />
         <Provider>
           <main>
-            <Header />
+            {/* <Header /> */}
+            <Navbar />
             {children}
             <Footer />
           </main>

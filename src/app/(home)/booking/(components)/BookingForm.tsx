@@ -28,6 +28,7 @@ const BookingForm = () => {
   const [isTotalPerson, setTotalPerson] = useState<number>(
     parseInt(selectedOption)
   );
+  // const [phone, setPhone] = useState('');
   const [isTotalPrice, setTotalPrice] = useState<string>(
     packagePrice.toString()
   );
@@ -38,17 +39,22 @@ const BookingForm = () => {
     if (isOpen) setDepartureDate(value);
   };
 
+  const handlePhoneChange = (phone: string) => {
+    formik.setFieldValue('phone', phone);
+    console.log(phone);
+  };
+
   const onSubmit = async (values: BookingDetailSchemaType) => {
     if (isLoading) {
       return;
     }
     setIsLoading(true);
     try {
-      var data = await Promise.resolve(
+      await Promise.resolve(
         dispatch(
           bookingApi.endpoints.createBooking.initiate({
             package: parseInt(packageId!),
-            departureDate: values.departureDate,
+            departureDate: isDepartureDate,
             noOfTravelers: values.noOfTravelers,
             totalPrice: isTotalPrice,
             firstName: values.firstName,
@@ -59,10 +65,6 @@ const BookingForm = () => {
           })
         )
       );
-
-      if (Object.prototype.hasOwnProperty.call(data, 'data')) {
-        router.push('/admin/accounts/users/all');
-      }
     } catch (error) {
       console.log(error);
     }
@@ -76,11 +78,11 @@ const BookingForm = () => {
       departureDate: isDepartureDate,
       noOfTravelers: parseInt(selectedOption),
       totalPrice: '',
-      firstName: '',
-      lastName: '',
+      firstName: 'Niwesh',
+      lastName: 'Shrestha',
       email: '',
       phone: '',
-      requirement: '',
+      requirement: 'This is test',
     },
     validate: toFormikValidate(bookingDetailSchema),
     onSubmit,
@@ -133,6 +135,7 @@ const BookingForm = () => {
               </label>
               <input
                 type="number"
+                {...formik.getFieldProps('noOfTravelers')}
                 max={6}
                 min={1}
                 className="w-full h-10 px-2 border border-custom-gray-light rounded bg-custom-gray-light/30"
@@ -150,6 +153,7 @@ const BookingForm = () => {
               <input
                 type="text"
                 placeholder="First Name"
+                {...formik.getFieldProps('firstName')}
                 className="w-full h-10 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
               />
               {!!formik.errors.firstName && (
@@ -165,6 +169,7 @@ const BookingForm = () => {
               <input
                 type="text"
                 placeholder="Last Name"
+                {...formik.getFieldProps('lastName')}
                 className="w-full h-10 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
               />
               {!!formik.errors.lastName && (
@@ -183,6 +188,7 @@ const BookingForm = () => {
               <input
                 type="email"
                 placeholder="Email Address"
+                {...formik.getFieldProps('email')}
                 className="w-full h-10 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
               />
               {!!formik.errors.email && (
@@ -196,7 +202,7 @@ const BookingForm = () => {
                 Country Code + Phone Number{' '}
                 <span className="text-rose-600">*</span>
               </label>
-              <PhoneInputField />
+              <PhoneInputField onChange={handlePhoneChange} />
               {!!formik.errors.phone && (
                 <div className="text-red-500 text-sm">
                   {formik.errors.phone}
@@ -212,6 +218,7 @@ const BookingForm = () => {
               className="w-full p-2 border border-custom-gray-light rounded outline-none focus-visible:ring-2"
               rows={4}
               placeholder="Enter pickup details or extra requirements"
+              {...formik.getFieldProps('requirement')}
             ></textarea>
             {!!formik.errors.requirement && (
               <div className="text-red-500 text-sm">

@@ -20,6 +20,8 @@ const config: Config = {
       colors: {
         'custom-blue': '#202e43',
         'custom-blue-light': '#545564',
+        'custom-text': '#67687b',
+        'custom-bg': '#a7b9c7',
         'custom-gray': '#b3c6d5',
         'custom-gray-light': '#8FA2B2',
         'custom-primary': '#fbc200',

@@ -31,6 +31,9 @@
     text-wrap: balance;
   }
 } */
+.swiper-wrapper {
+  align-items: stretch;
+}
 
 .mapboxgl-control-container {
   display: none;

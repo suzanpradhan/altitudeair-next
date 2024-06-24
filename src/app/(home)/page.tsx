@@ -7,6 +7,7 @@ import Highlights from '../(components)/(sections)/(landing)/Highlights';
 import Landing from '../(components)/(sections)/(landing)/Landing';
 import Missions from '../(components)/(sections)/(landing)/Missions';
 import News from '../(components)/(sections)/(landing)/News';
+import Package from '../(components)/(sections)/(landing)/Package';
 import Reviews from '../(components)/(sections)/(landing)/Reviews';
 import Services from '../(components)/(sections)/(landing)/Services';
 
@@ -22,6 +23,7 @@ export default function Home() {
       <Missions />
       <News />
       <Gallery />
+      <Package />
       <Reviews />
       <GetInTouch />
     </>

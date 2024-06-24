@@ -7,11 +7,23 @@ interface PhoneInputGfgState {
   phone: string;
 }
 
-class PhoneInputField extends Component<{}, PhoneInputGfgState> {
-  constructor(props: {}) {
+interface PhoneInputGfgProps {
+  onChange: (phone: string) => void;
+}
+
+class PhoneInputField extends Component<
+  PhoneInputGfgProps,
+  PhoneInputGfgState
+> {
+  constructor(props: PhoneInputGfgProps) {
     super(props);
     this.state = { phone: '' };
   }
+
+  handlePhoneChange = (phone: string) => {
+    this.setState({ phone });
+    this.props.onChange(phone);
+  };
 
   render() {
     const customSearchStyle = {
@@ -29,12 +41,6 @@ class PhoneInputField extends Component<{}, PhoneInputGfgState> {
     const customInputStyle = {
       width: '100%',
       height: '2.5rem',
-      //   fontSize: '16px',
-      //   border: '1px solid #8FA2B2',
-      //   //   borderRadius: '5px',
-      //   fontWeight: '300',
-      //   outline: 'none',
-      //   transition: 'box-shadow 0.2s',
     };
 
     // const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -50,12 +56,10 @@ class PhoneInputField extends Component<{}, PhoneInputGfgState> {
         <PhoneInput
           country={'np'}
           value={this.state.phone}
-          onChange={(phone: string) => this.setState({ phone })}
+          onChange={this.handlePhoneChange}
           containerStyle={customContainerStyle}
           inputStyle={customInputStyle}
           inputClass="!px-2 border border-custom-gray-light !rounded placeholder:font-light outline-none focus-visible:ring-2"
-          //   onFocus={handleFocus}
-          //   onBlur={handleBlur}
           dropdownClass="static w-full"
           enableSearch={true}
           searchClass=""

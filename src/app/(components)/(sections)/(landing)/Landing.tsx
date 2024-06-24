@@ -53,7 +53,7 @@ function Landing() {
       />
       {/* border: 1.1rem solid #202e43; background: rgba(32, 46, 67, .5); max-width:
       330px; padding: 1rem 1.5rem; z-index: 2; */}
-      <div className="cardFamily border-[1rem] border-custom-blue bg-custom-blue/60 w-full max-w-md py-4 px-5 z-10">
+      <div className="cardFamily border-8 border-custom-blue bg-custom-blue/50 w-full max-w-md py-4 px-5 z-10">
         <h2 className="text-4xl font-black text-white">
           WE ARE <br />
           HERE 24/7

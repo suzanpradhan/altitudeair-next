@@ -14,12 +14,13 @@ const bookingApi = baseApi
                     if (payload.firstName) formData.append('first_name', payload.firstName);
                     if (payload.lastName) formData.append('last_name', payload.lastName);
                     if (payload.totalPrice) formData.append('total_price', payload.totalPrice);
+                    if (payload.departureDate) formData.append('departure_date', payload.departureDate.toISOString());
                     if (payload.noOfTravelers != undefined) formData.append('no_of_travellers', payload.noOfTravelers.toString());
                     if (payload.email) formData.append('email', payload.email);
                     if (payload.phone) formData.append('phone', payload.phone);
                     if (payload.requirement) formData.append('requirement', payload.requirement);
                     return {
-                        url: `${apiPaths.bookingUrl}/`,
+                        url: `${apiPaths.bookingUrl}`,
                         method: 'POST',
                         body: formData,
                         formData: true,

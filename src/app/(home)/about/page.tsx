@@ -84,27 +84,37 @@ export default function About() {
       });
   }, []);
 
-  return (
-    <>
-      <div
-        className="featured-Image
-      height={100}
-      width={100} parallax-container"
-      >
-        <div className="parallax-element sky" data-rellax-speed="-5" />
-        <div className="parallax-element topMountain" data-rellax-speed="-4" />
+  const mainClass = {
+    backgroundImage: 'url(/images/banner/banner-2.webp)',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  };
+  const mainHeading = {
+    fontFamily: 'BankGothic-Regular',
+    wordSpacing: '5px',
+  };
 
-        <div className="parallax-element midMountain" data-rellax-speed="-2" />
-        <h1 className="parallax-element heading" data-rellax-speed="-10">
+  return (
+    <main className="bg-custom-bg">
+      <div
+        className={`relative h-[80vh] w-full flex items-end justify-center`}
+        style={mainClass}
+      >
+        <h2
+          className="text-5xl mb-16 z-10 text-white text-center"
+          style={mainHeading}
+        >
           ABOUT US
-        </h1>
-        <div className="parallax-element botMountain" data-rellax-speed="0" />
+        </h2>
+        <div className="absolute bottom-0 left-0 top-0 right-0 bg-gradient-to-t from-custom-blue to-transparent"></div>
       </div>
 
       <section className="introduction" id="overview">
         <div className="intro_text_wrapper">
-          <h2>INTRODUCTION</h2>
-          {parseHtml(BODMessage?.introduction ?? '')}
+          <h2 className="text-2xl font-bold mb-4">INTRODUCTION</h2>
+          <div className="text-custom-text text-base flex flex-col gap-4">
+            {parseHtml(BODMessage?.introduction ?? '')}
+          </div>
         </div>
       </section>
 
@@ -574,6 +584,6 @@ export default function About() {
           />
         </div>
       </section>
-    </>
+    </main>
   );
 }

@@ -105,28 +105,43 @@ export default function Description() {
     });
   }, []);
 
+  const mainClass = {
+    backgroundImage: 'url(/images/contact/helicopter.webp)',
+    // backgroundPositionY: '-300px',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+  };
+  const mainHeading = {
+    fontFamily: 'BankGothic-Regular',
+    wordSpacing: '5px',
+  };
+
   return (
     <>
-      <section className="contact-featured-section">
-        <div className="featured-img" />
-        <div className="heading">
-          <h1>CONTACT US</h1>
-          {/*<p>{footerData.aboutUs}</p>*/}
-        </div>
+      <section
+        className={`relative h-[40vh] md:h-[60vh] lg:h-[80vh] w-full flex items-end justify-center`}
+      >
+        <div className="block absolute top-0 w-full h-full" style={mainClass} />
+        <h1
+          className="text-5xl mb-16 z-10 text-custom-blue/60 font-bold text-left container"
+          style={mainHeading}
+        >
+          CONTACT US
+        </h1>
 
-        <div className="transition-box" />
+        <div className="absolute bottom-0 left-0 top-0 right-0 bg-gradient-to-t from-[#b3c6d5] to-transparent"></div>
       </section>
       <main className="contact-main">
         {/*TODO: Designs for contact us */}
 
         {/* <section className="contact-section"> */}
-        <section className=" contact-section grid grid-cols-12 gap-10">
+        <section className="contact-section !flex-col lg:!flex-row gap-10">
           <div
             className={
-              'contact-details col-span-6 flex flex-col justify-stretch items-start gap-7'
+              'contact-details flex flex-col justify-stretch items-start gap-7'
             }
           >
-            <h2 className="text-center w-full">Details</h2>
+            <h2 className="!text-left w-full">Details</h2>
             <p>
               <strong>{'Address: '}</strong>
               <span>
@@ -217,7 +232,7 @@ export default function Description() {
             </div>
           </div>
 
-          <div className="contact-form col-span-6">
+          <div className="contact-form !mt-4">
             <h2>Send a Message</h2>
             <ContactForm />
           </div>

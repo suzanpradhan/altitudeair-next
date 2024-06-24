@@ -1,42 +1,50 @@
-import { useEffect, useState } from 'react';
 // import Portal from '../../hoc/Portal';
-import axiosInstance from '@/core/utils/axoisInst';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { ItemsData } from '../(modules)/MainMenu';
 
 export default function SideDrawer({ show }: { show: boolean }) {
-  const [openAbout, setOpenAbout] = useState(false);
-  const [openArea, setOpenArea] = useState(false);
-  const [openHeli, setOpenHeli] = useState(false);
-  const [choppers, setChoppers] = useState([]);
-  const [blogCategories, setBlogCategories] = useState([]);
+  const toggleOpen = 'left-0';
+  const toggleClose = '-left-60';
 
-  const openAboutHandler = () => {
-    setOpenAbout((prev) => !prev);
-  };
-
-  const openAreaHandler = () => {
-    setOpenArea((prev) => !prev);
-  };
-
-  const openHeliHandler = () => {
-    setOpenHeli((prev) => !prev);
-  };
-
-  useEffect(() => {
-    axiosInstance.get('/category/').then((item) => {
-      let newArray = item.data.data.filter((item: any) => {
-        return item.status === true;
-      });
-      setBlogCategories(newArray);
-    });
-
-    axiosInstance.get('/chopper/').then((item) => {
-      const chopperList = item.data.data;
-      setChoppers(chopperList);
-    });
-  }, []);
+  const menuItems = ItemsData;
 
   return (
-    <>Side Drawer</>
+    <>
+      <div
+        className={`fixed top-0 left-0 h-screen w-full z-0 bg-black/75 transition-all delay-300 ${show ? 'fixed ' : 'hidden'}`}
+      ></div>
+      <div
+        className={`fixed top-0 max-w-60 w-full h-screen transition-all delay-300 ease-in-out bg-white/90 backdrop-blur-2xl ${show ? toggleOpen : toggleClose}`}
+      >
+        <div className="bg-white w-full flex justify-center">
+          <Link href="/" className="flex items-center relative h-16 w-16">
+            <Image
+              alt="altitude-air-logo"
+              src="/images/inverse-logo.webp"
+              width={100}
+              height={100}
+              quality={75}
+              sizes="(max-width: 768px) 75vw, 33vw"
+              className="object-contain"
+            />
+          </Link>
+        </div>
+        {menuItems && menuItems.length > 0 ? (
+          <nav>
+            <ul className="flex flex-col">
+              {menuItems.map((item, index) => (
+                <li key={index}>
+                  <Link href={item.link ?? '#'}>{item.title}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ) : null}
+      </div>
+    </>
+    // <>Side Drawer</>
     // <Portal id="sidedrawer">
     //   {show ? <Backdrop remove={close} /> : null}
     //   <div className="side_drawer_container">
