@@ -136,21 +136,25 @@ const ContactPage = () => {
         <div className="container mx-auto py-10">
           <div className="flex flex-col lg:flex-row items-start justify-stretch gap-6">
             {contactData && (
-              <aside className="shrink-0 w-full lg:max-w-lg flex flex-col gap-2">
+              <aside className="shrink-0 w-full lg:max-w-md flex flex-col gap-2">
                 {contactDetails.map(({ title, key, icon: Icon }) => (
                   <div
                     key={key}
-                    className={`px-5 bg-white/75 rounded h-28 ${contactData[key] === '' ? 'hidden' : 'block'}`}
+                    className={`bg-white/75 rounded h-16 overflow-hidden ${contactData[key] === '' ? 'hidden' : 'block'}`}
                   >
-                    <div className="flex justify-start gap-5 items-center h-full">
-                      <div className="shrink-0 rounded overflow-hidden bg-custom-blue/80 h-20 w-20 flex items-center justify-center">
-                        <Icon size="45" variant="Bulk" className="text-white" />
+                    <div className="flex justify-start gap-5 items-stretch h-full">
+                      <div className="relative shrink-0 overflow-hidden h-full w-20 flex items-center justify-center before:absolute before:top-0 before:-left-2 before:bottom-0 before:right-2 before:bg-white before:-z-10 before:skew-x-6 before:border-r-4 before:border-custom-blue/90 z-0">
+                        <Icon
+                          size="30"
+                          variant="Bulk"
+                          className="text-custom-blue"
+                        />
                       </div>
-                      <div className="flex flex-col items-start gap-2">
-                        <h5 className="font-semibold text-custom-blue text-xl">
+                      <div className="flex flex-col justify-center items-start gap-1">
+                        <h5 className="font-semibold text-custom-blue text-base">
                           {title}
                         </h5>
-                        <p className="font-medium text-custom-text text-xl">
+                        <p className="font-medium text-custom-text text-sm">
                           {/* {contactData[key]} */}
                           {contactData[key]
                             ? parseHtml(contactData[key])
