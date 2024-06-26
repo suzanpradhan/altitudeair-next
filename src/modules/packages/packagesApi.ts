@@ -1,12 +1,13 @@
 import { apiPaths } from '@/core/api/apiConstants';
 import { baseApi } from '@/core/api/apiQuery';
+import { PaginatedResponseType } from '@/core/types/responseTypes';
 import { PackagesDataType } from './packagesType';
 
 const packagesApi = baseApi
     .enhanceEndpoints({ addTagTypes: ['Packages'] })
     .injectEndpoints({
         endpoints: (builder) => ({
-            getAllPackages: builder.query<PackagesDataType[], void>({
+            getAllPackages: builder.query<PaginatedResponseType<PackagesDataType>, void>({
                 query: () => `${apiPaths.allPackagesUrl}`,
                 providesTags: (response: any) =>
                     response
@@ -22,8 +23,8 @@ const packagesApi = baseApi
                     return currentArg !== previousArg;
                 },
                 transformResponse: (response: any) => {
-                    // console.log(response);
-                    return response as PackagesDataType[];
+                    console.log(response);
+                    return response as PaginatedResponseType<PackagesDataType>;
                 },
             }),
             // getPackagesLimit: builder.query<PackagesDataType[], number>({

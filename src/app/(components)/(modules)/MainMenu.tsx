@@ -50,6 +50,10 @@ export const ItemsData = [
     link: '/voluntary-hazard-report',
   },
   {
+    title: 'PACKAGES',
+    link: '/packages',
+  },
+  {
     title: 'FLEETS',
     link: '#',
     sub_menu: [

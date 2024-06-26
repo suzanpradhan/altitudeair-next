@@ -1,6 +1,7 @@
 'use client';
 import { useAppDispatch, useAppSelector } from '@/core/redux/hooks';
 import { RootState } from '@/core/redux/store';
+import { PaginatedResponseType } from '@/core/types/responseTypes';
 import packagesApi from '@/modules/packages/packagesApi';
 import { PackagesDataType } from '@/modules/packages/packagesType';
 import { useEffect, useState } from 'react';
@@ -115,9 +116,10 @@ const PackagesList = () => {
       });
   }, [dispatch]);
 
-  const packagesResponse = useAppSelector(
+  const paginatedPackagesResponse = useAppSelector(
     (state: RootState) =>
-      state.baseApi.queries[`getAllPackages`]?.data as PackagesDataType[]
+      state.baseApi.queries[`getAllPackages`]
+        ?.data as PaginatedResponseType<PackagesDataType>
   );
 
   if (error) {
@@ -126,8 +128,9 @@ const PackagesList = () => {
   return (
     <div className="grid grid-cols-12 gap-y-7 gap-x-7 px-5 sm:px-0">
       {!isLoading ? (
-        packagesResponse && packagesResponse.length > 0 ? (
-          packagesResponse.map((item, index) => {
+        paginatedPackagesResponse &&
+        paginatedPackagesResponse.results.length > 0 ? (
+          paginatedPackagesResponse.results.map((item, index) => {
             return <PackageCard item={item} key={index} />;
           })
         ) : (

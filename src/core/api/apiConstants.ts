@@ -7,7 +7,11 @@ export const apiConfig = {
 };
 
 export async function setHeaders(headers: Headers) {
-    headers.set('authorization', `Api-Key o9OIUQqx.uRhNAonmiKd1nBModQQ8JX6b3L3S8jon`);
+    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+    if (apiKey) {
+        headers.set('X-Api-Key', apiKey);
+    }
+    // headers.set('accept', 'application/json');
     return headers;
 }
 
@@ -17,6 +21,6 @@ export const apiPaths = {
     allNewsUrl: '/news/',
     newsLimitUrl: '/news/latest/',
     allGalleryUrl: '/gallery/featuredlist/',
-    allPackagesUrl: '/packages/',
+    allPackagesUrl: '/packages/public/',
     bookingUrl: '/bookings/'
 };

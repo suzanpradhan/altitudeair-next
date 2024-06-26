@@ -1,6 +1,7 @@
 'use client';
 import { useAppDispatch, useAppSelector } from '@/core/redux/hooks';
 import { RootState } from '@/core/redux/store';
+import { PaginatedResponseType } from '@/core/types/responseTypes';
 import packagesApi from '@/modules/packages/packagesApi';
 import { PackagesDataType } from '@/modules/packages/packagesType';
 import { useEffect, useRef, useState } from 'react';
@@ -26,9 +27,10 @@ const Package = () => {
       });
   }, [dispatch]);
 
-  const packagesResponse = useAppSelector(
+  const paginatedPackagesResponse = useAppSelector(
     (state: RootState) =>
-      state.baseApi.queries[`getAllPackages`]?.data as PackagesDataType[]
+      state.baseApi.queries[`getAllPackages`]
+        ?.data as PaginatedResponseType<PackagesDataType>
   );
 
   const swiperRef = useRef<SwiperRef | null>(null);
@@ -77,8 +79,9 @@ const Package = () => {
               breakpoints={breakpoints}
               className="w-full pb-12"
             >
-              {packagesResponse && packagesResponse.length > 0 ? (
-                packagesResponse.map((item, index) => (
+              {paginatedPackagesResponse &&
+              paginatedPackagesResponse.results.length > 0 ? (
+                paginatedPackagesResponse.results.map((item, index) => (
                   <SwiperSlide key={index}>
                     <PackageBoxCard item={item} />
                   </SwiperSlide>
