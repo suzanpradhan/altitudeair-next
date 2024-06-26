@@ -7,7 +7,7 @@ export const apiConfig = {
 };
 
 export async function setHeaders(headers: Headers) {
-    headers.set('authorization', `Api-Key cMhfWvLs.OnxdEp1sNEm4zajmLRm7uttbYJVXj2a1`);
+    headers.set('authorization', `Api-Key o9OIUQqx.uRhNAonmiKd1nBModQQ8JX6b3L3S8jon`);
     return headers;
 }
 
