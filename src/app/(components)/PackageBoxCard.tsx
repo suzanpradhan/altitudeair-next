@@ -1,3 +1,4 @@
+import { parseHtml } from '@/core/utils/helper';
 import { PackagesDataType } from '@/modules/packages/packagesType';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -36,8 +37,8 @@ export default function PackageBoxCard({ item }: { item: PackagesDataType }) {
               {item.duration}
             </p>
           </div>
-          <p className="text-sm text-custom-blue/60 font-normal line-clamp-4">
-            {item.short_description}
+          <p className="text-sm text-custom-blue/60 font-normal line-clamp-4 h-20">
+            {parseHtml(item.description ?? '')}
           </p>
         </div>
         <div className="flex items-center justify-start gap-5 mt-2">

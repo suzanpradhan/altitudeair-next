@@ -1,29 +1,24 @@
 'use client';
 
 import { useAppSelector } from '@/core/redux/hooks';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { FaLocationDot } from 'react-icons/fa6';
 import { IoTimeOutline } from 'react-icons/io5';
 import BookingForm from './(components)/BookingForm';
 
 const Booking = () => {
   const router = useRouter();
-  const {
-    packageId,
-    packageName,
-    packagePrice,
-    packageCover,
-    departureDate,
-    selectedOption,
-  } = useAppSelector((state) => state.booking);
-
-  if (!packageId || !packageName || !packagePrice) {
-    router.push(`/packages`);
+  const param = useParams();
+  const { packageSlug, packageName, packagePrice, packageCover } =
+    useAppSelector((state) => state.booking);
+  if (!packageSlug) {
+    router.push(`/packages/${param.slug}`);
   }
+
   return (
     <main className="bg-custom-gray">
       <div
-        className="relative h-[50vh] sm:h-[70vh] w-full bg-no-repeat bg-cover bg-center"
+        className="relative z-0 h-[50vh] sm:h-[70vh] w-full bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: `url(${packageCover})` }}
       >
         <div className="relative z-50 container mx-auto h-[40vh] sm:h-[60vh] px-6 sm:px-0 flex items-end">

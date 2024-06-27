@@ -59,15 +59,15 @@ const BookingMainCard = ({
   const handleBooking = () => {
     dispatch(
       setBookingDetails({
-        packageId: packageData.id,
+        packageSlug: packageData.slug,
         packageName: packageData.title,
         packagePrice: packageData.price,
         packageCover: packageData.cover_image,
         departureDate: departureDate,
-        selectedOption: selectedOption.value,
+        totalPerson: selectedOption.value,
       })
     );
-    router.push(`/booking`);
+    router.push(`/packages/${packageData.slug}/booking`);
   };
 
   return (
@@ -109,7 +109,7 @@ const BookingMainCard = ({
             Total Price
           </p>
           <p className="text-sm sm:text-xl text-custom-blue capitalize font-bold">
-            ${packageData.price}
+            ${packageData.price}/p
           </p>
         </div>
         <div className="col-span-3 py-3 ps-3 cursor-pointer text-right">

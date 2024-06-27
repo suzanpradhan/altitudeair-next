@@ -2,7 +2,7 @@ import { nonempty } from "@/core/utils/formUtils";
 import { z } from "zod";
 
 export const bookingDetailSchema = z.object({
-    package: z.number(),
+    slug: z.string(),
     departureDate: z.date().optional(),
     noOfTravelers: z.number(),
     totalPrice: z.string().optional(),
@@ -16,7 +16,7 @@ export const bookingDetailSchema = z.object({
 export type BookingDetailSchemaType = z.infer<typeof bookingDetailSchema>;
 
 export interface BookingDataType {
-    id: number;
+    slug: string;
     departure_date: string;
     no_of_travellers: number;
     total_price: string;

@@ -10,7 +10,7 @@ const bookingApi = baseApi
             createBooking: builder.mutation<void, BookingDetailSchemaType>({
                 query: ({ ...payload }) => {
                     var formData = new FormData();
-                    if (payload.package != undefined) formData.append('package', payload.package.toString());
+                    if (payload.slug != undefined) formData.append('slug', payload.slug);
                     if (payload.firstName) formData.append('first_name', payload.firstName);
                     if (payload.lastName) formData.append('last_name', payload.lastName);
                     if (payload.totalPrice) formData.append('total_price', payload.totalPrice);

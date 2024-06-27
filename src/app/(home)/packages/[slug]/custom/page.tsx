@@ -1,5 +1,4 @@
 'use client';
-
 import { useAppDispatch, useAppSelector } from '@/core/redux/hooks';
 import { RootState } from '@/core/redux/store';
 import packagesApi from '@/modules/packages/packagesApi';
@@ -7,21 +6,21 @@ import { PackagesDataType } from '@/modules/packages/packagesType';
 import { useEffect, useState } from 'react';
 import { FaLocationDot } from 'react-icons/fa6';
 import { IoTimeOutline } from 'react-icons/io5';
-import BookingMainCard from './(components)/BookingMainCard';
-import PackageAdditionalInfo from './(components)/PackageAdditionalInfo';
-import PackageGallery from './(components)/PackageGallery';
-import PackageHighlights from './(components)/PackageHighlights';
-import PackageLocation from './(components)/PackageLocation';
-import RelatedPackages from './(components)/RelatedPackages';
+import BookingMainCard from '../../[slug]/(components)/BookingMainCard';
+import PackageAdditionalInfo from '../../[slug]/(components)/PackageAdditionalInfo';
+import PackageGallery from '../../[slug]/(components)/PackageGallery';
+import PackageHighlights from '../../[slug]/(components)/PackageHighlights';
+import PackageLocation from '../../[slug]/(components)/PackageLocation';
+import RelatedPackages from '../../[slug]/(components)/RelatedPackages';
 
-export default function Packages({ params }: { params: { slug: string } }) {
+const PackageLinkPage = ({ params }: { params: { slug: string } }) => {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setIsLoading(true);
-    dispatch(packagesApi.endpoints.getPackage.initiate(params.slug))
+    dispatch(packagesApi.endpoints.getPackageLink.initiate(params.slug))
       .then(() => {
         setIsLoading(false);
       })
@@ -34,18 +33,17 @@ export default function Packages({ params }: { params: { slug: string } }) {
 
   const packageData = useAppSelector(
     (state: RootState) =>
-      state.baseApi.queries[`getPackage`]?.data as PackagesDataType
+      state.baseApi.queries[`getPackageLink`]?.data as PackagesDataType
   );
 
   if (error) {
     return <div>Error: {error}</div>;
   }
-  // console.log(params.slug);
   return !isLoading ? (
     packageData ? (
       <main className="bg-custom-gray-light/50">
         <div
-          className="relative h-[50vh] sm:h-[70vh] w-full bg-no-repeat bg-cover bg-center"
+          className="relative z-0 h-[50vh] sm:h-[70vh] w-full bg-no-repeat bg-cover bg-center"
           style={{ backgroundImage: `url(${packageData.cover_image})` }}
         >
           <div className="relative z-10 container mx-auto h-[40vh] sm:h-[60vh] px-6 sm:px-0 flex items-end">
@@ -87,5 +85,6 @@ export default function Packages({ params }: { params: { slug: string } }) {
   ) : (
     <>Loading...</>
   );
-  // return <div></div>;
-}
+};
+
+export default PackageLinkPage;

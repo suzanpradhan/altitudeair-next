@@ -1,6 +1,7 @@
 'use client';
 import { useAppDispatch, useAppSelector } from '@/core/redux/hooks';
 import { RootState } from '@/core/redux/store';
+import { PaginatedResponseType } from '@/core/types/responseTypes';
 import packagesApi from '@/modules/packages/packagesApi';
 import { PackagesDataType } from '@/modules/packages/packagesType';
 import { useEffect, useRef, useState } from 'react';
@@ -95,9 +96,10 @@ const RelatedPackages = () => {
       });
   }, [dispatch]);
 
-  const packagesResponse = useAppSelector(
+  const paginatedPackagesResponse = useAppSelector(
     (state: RootState) =>
-      state.baseApi.queries[`getAllPackages`]?.data as PackagesDataType[]
+      state.baseApi.queries[`getAllPackages`]
+        ?.data as PaginatedResponseType<PackagesDataType>
   );
 
   const swiperRef = useRef<SwiperRef | null>(null);
@@ -146,8 +148,9 @@ const RelatedPackages = () => {
               breakpoints={breakpoints}
               className="w-full pb-12"
             >
-              {packagesResponse && packagesResponse.length > 0 ? (
-                packagesResponse.map((item, index) => (
+              {paginatedPackagesResponse &&
+              paginatedPackagesResponse.results.length > 0 ? (
+                paginatedPackagesResponse.results.map((item, index) => (
                   <SwiperSlide key={index}>
                     <PackageCard item={item} />
                   </SwiperSlide>
@@ -159,71 +162,6 @@ const RelatedPackages = () => {
           </div>
         </div>
       </div>
-
-      {/* <div className="relative w-full my-5 transition-all duration-100">
-        <div>
-          <button
-            disabled={isBeginning}
-            onClick={() => swiperRef.current?.swiper.slidePrev()}
-            className="text-[#f7c024] disabled:text-gray-400 absolute left-0 top-1/2 -translate-y-1/2 z-50"
-          >
-            <IoIosArrowBack size={60} />
-          </button>
-          <button
-            disabled={isEnd}
-            className="text-[#f7c024] disabled:text-gray-400 absolute right-0 top-1/2 -translate-y-1/2 z-50"
-            onClick={() => swiperRef.current?.swiper.slideNext()}
-          >
-            <IoIosArrowForward size={60} />
-          </button>
-        </div>
-        <Swiper
-          navigation={true}
-          onReachEnd={() => (toggleIsEnd(true), toggleIsBeginning(false))}
-          onReachBeginning={() => (toggleIsBeginning(true), toggleIsEnd(false))}
-          onSlideChange={() => {
-            if (
-              !swiperRef.current?.swiper.isBeginning &&
-              !swiperRef.current?.swiper.isEnd
-            ) {
-              toggleIsBeginning(false), toggleIsEnd(false);
-            }
-          }}
-          ref={swiperRef}
-          modules={[Navigation]}
-          breakpoints={breakpoints}
-          className="w-full"
-        >
-          <SwiperSlide>
-            <div className="relative mx-auto aspect-video">
-              <Image
-                src="/images/banner/Sheyphoksundo.jpg"
-                alt="gosaikunda"
-                onError={(e) => {
-                  e.currentTarget.src = '/images/errors/placeholder.webp';
-                }}
-                objectFit="cover"
-                fill
-                sizes="(max-width: 2000px) 100vw, 33vw"
-              />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="relative mx-auto aspect-video">
-              <Image
-                src="/images/banner/banner-4.jpg"
-                alt="gosaikunda"
-                onError={(e) => {
-                  e.currentTarget.src = '/images/errors/placeholder.webp';
-                }}
-                objectFit="cover"
-                fill
-                sizes="(max-width: 2000px) 100vw, 33vw"
-              />
-            </div>
-          </SwiperSlide>
-        </Swiper>
-      </div> */}
     </>
   );
 };

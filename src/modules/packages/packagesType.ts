@@ -1,6 +1,7 @@
 export interface PackagesDataType {
     id: number;
     title: string;
+    slug: string;
     cover_image: string;
     short_description: string;
     description: string;

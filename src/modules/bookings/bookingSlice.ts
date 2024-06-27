@@ -2,10 +2,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    packageId: null,
+    packageSlug: '',
     packageName: '',
     departureDate: null,
-    selectedOption: '',
+    totalPerson: '',
     packagePrice: 0,
     packageCover: '',
 };
@@ -15,12 +15,12 @@ const bookingSlice = createSlice({
     initialState,
     reducers: {
         setBookingDetails: (state, action) => {
-            state.packageId = action.payload.packageId;
+            state.packageSlug = action.payload.packageSlug;
             state.packageName = action.payload.packageName;
             state.packageCover = action.payload.packageCover;
             state.packagePrice = action.payload.packagePrice;
             state.departureDate = action.payload.departureDate;
-            state.selectedOption = action.payload.selectedOption;
+            state.totalPerson = action.payload.totalPerson;
         },
     },
 });

@@ -21,6 +21,7 @@ export const apiPaths = {
     allNewsUrl: '/news/',
     newsLimitUrl: '/news/latest/',
     allGalleryUrl: '/gallery/featuredlist/',
-    allPackagesUrl: '/packages/public/',
+    allPackagesPublicUrl: '/packages/public/',
+    getPackages: '/packages/',
     bookingUrl: '/bookings/'
 };
