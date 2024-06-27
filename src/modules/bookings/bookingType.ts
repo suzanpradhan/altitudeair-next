@@ -11,6 +11,7 @@ export const bookingDetailSchema = z.object({
     email: z.string().email().pipe(nonempty),
     phone: z.string().pipe(nonempty),
     requirement: z.string().optional(),
+    package: z.number().optional(),
 });
 
 export type BookingDetailSchemaType = z.infer<typeof bookingDetailSchema>;

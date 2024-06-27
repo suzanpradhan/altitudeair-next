@@ -29,6 +29,7 @@ const ContactForm = () => {
   const formik = useFormik<BookingDetailSchemaType>({
     enableReinitialize: true,
     initialValues: {
+      slug: '',
       firstName: '',
       lastName: '',
       email: '',
