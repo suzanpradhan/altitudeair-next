@@ -75,7 +75,8 @@ export default function Packages({ params }: { params: { slug: string } }) {
               <PackageGallery />
               <PackageHighlights />
             </div>
-            <div className="col-span-12 md:col-span-4 w-full">
+            <div className="col-span-12 md:col-span-4 w-full flex flex-col gap-4">
+              {/* <CalendarPicker /> */}
               <PackageLocation />
               {/* <BookingCard /> */}
             </div>

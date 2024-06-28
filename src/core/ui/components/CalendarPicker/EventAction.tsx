@@ -2,7 +2,7 @@ import { Hex } from 'iconsax-react';
 import { useState } from 'react';
 import { classNames } from '.';
 
-export default function CalendarEvents() {
+export default function EventAction() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

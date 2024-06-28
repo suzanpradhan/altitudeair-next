@@ -31,7 +31,7 @@ const DateSelector = ({
     }}
     onCalendarClose={onCalendarClose}
     isOpen={isOpen}
-    className={`pl-1 h-11 border bg-white outline-none ${className}`}
+    className={`border bg-white outline-none ${className}`}
     {...props}
   />
 );
