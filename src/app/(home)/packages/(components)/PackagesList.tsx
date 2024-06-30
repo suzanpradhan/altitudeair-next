@@ -109,7 +109,7 @@ const PackagesList = () => {
       .then(() => {
         setIsLoading(false);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         setIsLoading(false);
         console.error('Error fetching packages:', error);
         setError('Error fetching data');

@@ -23,5 +23,6 @@ export const apiPaths = {
     allGalleryUrl: '/gallery/featuredlist/',
     allPackagesPublicUrl: '/packages/public/',
     getPackages: '/packages/',
-    bookingUrl: '/bookings/'
+    bookingUrl: '/bookings/',
+    employeesUrl: '/'
 };

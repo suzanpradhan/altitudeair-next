@@ -51,7 +51,7 @@ const SelectInput: React.FC<CustomSelectProps> = ({ options, onChange }) => {
       </p>
 
       <div
-        className={`origin-top-right absolute right-0 left-0 top-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${isOpen ? '' : 'hidden'}`}
+        className={`origin-bottom-right absolute right-0 left-0 top-0 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${isOpen ? '' : 'hidden'}`}
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="menu-button"

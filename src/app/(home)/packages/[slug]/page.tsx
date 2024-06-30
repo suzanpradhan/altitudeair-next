@@ -11,7 +11,6 @@ import BookingMainCard from './(components)/BookingMainCard';
 import PackageAdditionalInfo from './(components)/PackageAdditionalInfo';
 import PackageGallery from './(components)/PackageGallery';
 import PackageHighlights from './(components)/PackageHighlights';
-import PackageLocation from './(components)/PackageLocation';
 import RelatedPackages from './(components)/RelatedPackages';
 
 export default function Packages({ params }: { params: { slug: string } }) {
@@ -25,7 +24,7 @@ export default function Packages({ params }: { params: { slug: string } }) {
       .then(() => {
         setIsLoading(false);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         setIsLoading(false);
         console.error('Error fetching package:', error);
         setError('Error fetching data');
@@ -77,7 +76,7 @@ export default function Packages({ params }: { params: { slug: string } }) {
             </div>
             <div className="col-span-12 md:col-span-4 w-full flex flex-col gap-4">
               {/* <CalendarPicker /> */}
-              <PackageLocation />
+              {/* <PackageLocation /> */}
               {/* <BookingCard /> */}
             </div>
           </div>

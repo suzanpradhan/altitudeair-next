@@ -1,5 +1,6 @@
 'use client';
 
+import { AvailableSeatsDataType } from '@/modules/availableSeats/avaiableSeatsType';
 import {
   add,
   eachDayOfInterval,
@@ -17,13 +18,15 @@ import {
 } from 'date-fns';
 import { ArrowLeft2, ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import EventAction from './EventAction';
 
 interface CalendarPickerProps {
   customElement?: boolean;
   children?: ReactNode;
   onDateSelect: (date: Date) => void;
+  hasAvailableSeats: (seats: number | null) => void;
+  availableSeats?: AvailableSeatsDataType[];
 }
 
 interface MeetingType {
@@ -35,51 +38,40 @@ interface MeetingType {
   noOfPerson: number;
 }
 
-const meetings: MeetingType[] = [
+// const meetings: MeetingType[] = [
+//   {
+//     id: 1,
+//     name: 'Leslie Alexander',
+//     imageUrl:
+//       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+//     startDatetime: '2024-05-11T13:00',
+//     endDatetime: '2024-05-11T14:30',
+//     noOfPerson: 3,
+//   },
+// ];
+
+const availableSeats: AvailableSeatsDataType[] = [
   {
     id: 1,
-    name: 'Leslie Alexander',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    startDatetime: '2024-05-11T13:00',
-    endDatetime: '2024-05-11T14:30',
-    noOfPerson: 3,
+    package: {
+      id: 1,
+      title: 'Travel to Olanchungola',
+      slug: 'travel-to-olanchungola',
+      cover_image: '/media/package_covers/Screenshot.png',
+    },
+    date: '2024-06-30',
+    seats: 15,
   },
   {
-    id: 2,
-    name: 'Michael Foster',
-    imageUrl:
-      'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    startDatetime: '2024-06-20T09:00',
-    endDatetime: '2024-06-20T11:30',
-    noOfPerson: 3,
-  },
-  {
-    id: 3,
-    name: 'Dries Vincent',
-    imageUrl:
-      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    startDatetime: '2024-06-20T17:00',
-    endDatetime: '2024-06-20T18:30',
-    noOfPerson: 5,
-  },
-  {
-    id: 4,
-    name: 'Leslie Alexander',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    startDatetime: '2024-07-09T13:00',
-    endDatetime: '2024-07-09T14:30',
-    noOfPerson: 1,
-  },
-  {
-    id: 5,
-    name: 'Michael Foster',
-    imageUrl:
-      'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    startDatetime: '2024-07-13T14:00',
-    endDatetime: '2024-07-13T14:30',
-    noOfPerson: 2,
+    id: 1,
+    package: {
+      id: 1,
+      title: 'Travel to Olanchungola',
+      slug: 'travel-to-olanchungola',
+      cover_image: '/media/package_covers/Screenshot.png',
+    },
+    date: '2024-07-30',
+    seats: 10,
   },
 ];
 
@@ -91,6 +83,8 @@ export default function CalendarPicker({
   customElement,
   children,
   onDateSelect,
+  hasAvailableSeats,
+  availableSeats,
 }: CalendarPickerProps) {
   const [isOpen, toggleOpen] = useState<boolean>(false);
   let today = startOfToday();
@@ -115,18 +109,45 @@ export default function CalendarPicker({
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'));
   }
 
-  let selectedDayMeetings = meetings.filter((meeting) =>
-    isSameDay(parseISO(meeting.startDatetime), selectedDay)
-  );
+  // let selectedDayMeetings = meetings.filter((meeting) =>
+  //   isSameDay(parseISO(meeting.startDatetime), selectedDay)
+  // );
 
   const handleDayClick = (day: Date) => {
     setSelectedDay(day);
     onDateSelect(day);
     toggleOpen((prev) => !prev);
+
+    if (availableSeats) {
+      const foundSeat = availableSeats.find((availableSeat) =>
+        isSameDay(parseISO(availableSeat.date), day)
+      );
+
+      if (foundSeat) {
+        hasAvailableSeats(foundSeat.seats); // Assuming hasAvailableSeats is a function in the parent component
+      } else {
+        hasAvailableSeats(null); // Handle case where no seat is found
+      }
+    }
   };
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (ref.current && !ref.current.contains(event.target as Node)) {
+      toggleOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
   return (
-    <div className="relative z-20">
+    <div ref={ref} className="relative z-20">
       {customElement ? (
         <div onClick={() => toggleOpen((prev) => !prev)}>{children}</div>
       ) : (
@@ -144,7 +165,7 @@ export default function CalendarPicker({
         <div className="w-11/12 max-w-xs px-2 sm:px-4 md:max-w-6xl md:px-6 pt-2 bg-white rounded">
           <div className="md:grid md:grid-cols-1 md:divide-x md:divide-gray-200">
             {/* <div className="md:pr-14"> */}
-            <div className="">
+            <div>
               <div className="flex items-center">
                 <h2 className="flex-auto font-semibold text-gray-900">
                   {format(firstDayCurrentMonth, 'MMMM yyyy')}
@@ -219,21 +240,38 @@ export default function CalendarPicker({
                       <time dateTime={format(day, 'yyyy-MM-dd')}>
                         {format(day, 'd')}
                       </time>
-                      {meetings.some((meeting) =>
-                        isSameDay(parseISO(meeting.startDatetime), day)
+                      {/* {availableSeats.some((availableSeat) =>
+                        isSameDay(parseISO(availableSeat.date), day)
                       ) && (
                         <div className="absolute bottom-1 left-1 right-1 bg-custom-blue text-xs font-medium text-custom-primary rounded">
-                          2 left
+                          availableSeat
                         </div>
-                      )}
+                      )} */}
+                      {availableSeats &&
+                        (() => {
+                          const foundSeat = availableSeats.find(
+                            (availableSeat) =>
+                              isSameDay(parseISO(availableSeat.date), day)
+                          );
+                          return foundSeat ? (
+                            <div className="absolute bottom-1 left-1 right-1 bg-custom-blue text-xs font-medium text-custom-primary rounded">
+                              {foundSeat.seats} seats
+                            </div>
+                          ) : null;
+                        })()}
                     </button>
 
                     <div className="w-1 h-1 mx-auto mt-1">
-                      {meetings.some((meeting) =>
-                        isSameDay(parseISO(meeting.startDatetime), day)
-                      ) && (
-                        <div className="w-1 h-1 rounded-full bg-sky-500"></div>
-                      )}
+                      {availableSeats &&
+                        (() => {
+                          const foundSeat = availableSeats.find(
+                            (availableSeat) =>
+                              isSameDay(parseISO(availableSeat.date), day)
+                          );
+                          return foundSeat ? (
+                            <div className="w-1 h-1 rounded-full bg-sky-500"></div>
+                          ) : null;
+                        })()}
                     </div>
                   </div>
                 ))}
