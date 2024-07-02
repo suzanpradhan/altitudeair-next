@@ -11,7 +11,7 @@ const bookingApi = baseApi
                 query: ({ ...payload }) => {
                     var formData = new FormData();
                     if (payload.slug != undefined) formData.append('slug', payload.slug);
-                    if (payload.fullname) formData.append('full_name', payload.fullname);
+                    if (payload.fullName) formData.append('full_name', payload.fullName);
                     if (payload.totalPrice) formData.append('total_price', payload.totalPrice);
                     if (payload.departureDate) formData.append('departure_date', payload.departureDate.toISOString());
                     if (payload.noOfTravelers != undefined) formData.append('no_of_travellers', payload.noOfTravelers.toString());
