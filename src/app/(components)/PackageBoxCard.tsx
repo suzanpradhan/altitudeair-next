@@ -10,7 +10,7 @@ export default function PackageBoxCard({ item }: { item: PackagesDataType }) {
   return (
     <Link
       href={`packages/${item.slug}`}
-      className="relative col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 transition-all duration-200 group bg-custom-gray block h-full px-1 py-1"
+      className="relative col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 transition-all duration-200 group block h-full px-1 py-1"
     >
       <div className="flex flex-col justify-between h-full">
         <div className="flex flex-col gap-2 mb-2">

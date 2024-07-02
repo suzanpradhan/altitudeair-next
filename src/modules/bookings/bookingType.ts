@@ -6,8 +6,7 @@ export const bookingDetailSchema = z.object({
     departureDate: z.date().optional(),
     noOfTravelers: z.number(),
     totalPrice: z.string().optional(),
-    firstName: z.string().pipe(nonempty),
-    lastName: z.string().pipe(nonempty),
+    fullname: z.string().pipe(nonempty),
     email: z.string().email().pipe(nonempty),
     phone: z.string().pipe(nonempty),
     requirement: z.string().optional(),
@@ -21,8 +20,7 @@ export interface BookingDataType {
     departure_date: string;
     no_of_travellers: number;
     total_price: string;
-    first_name: string;
-    last_name: string;
+    full_name: string;
     email: string;
     phone: string;
     requirement: string;
