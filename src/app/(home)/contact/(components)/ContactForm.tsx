@@ -30,8 +30,7 @@ const ContactForm = () => {
     enableReinitialize: true,
     initialValues: {
       slug: '',
-      firstName: '',
-      lastName: '',
+      fullName: '',
       email: '',
       phone: '',
       requirement: '',
@@ -50,30 +49,26 @@ const ContactForm = () => {
           <input
             type="text"
             placeholder="Your Name"
-            {...formik.getFieldProps('firstName')}
+            {...formik.getFieldProps('fullName')}
             className="w-full h-16 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
           />
-          {!!formik.errors.firstName && (
-            <div className="text-red-500 text-sm">
-              {formik.errors.firstName}
-            </div>
+          {!!formik.errors.fullName && (
+            <div className="text-red-500 text-sm">{formik.errors.fullName}</div>
           )}
         </div>
         <div>
           <input
             type="email"
             placeholder="eg: example@email.com"
-            {...formik.getFieldProps('firstName')}
+            {...formik.getFieldProps('fullName')}
             className="w-full h-16 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
           />
-          {!!formik.errors.firstName && (
-            <div className="text-red-500 text-sm">
-              {formik.errors.firstName}
-            </div>
+          {!!formik.errors.fullName && (
+            <div className="text-red-500 text-sm">{formik.errors.fullName}</div>
           )}
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
           <input
             type="text"
@@ -96,7 +91,7 @@ const ContactForm = () => {
             <div className="text-red-500 text-sm">{formik.errors.lastName}</div>
           )}
         </div>
-      </div>
+      </div> */}
       <div className="mb-4">
         <textarea
           className="w-full p-2 border border-custom-gray-light rounded outline-none focus-visible:ring-2"

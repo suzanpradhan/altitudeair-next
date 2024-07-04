@@ -63,9 +63,9 @@ const Package = () => {
 
   return (
     <>
-      <div className="bg-custom-blue py-10">
+      <div className="bg-custom-gray/60 py-10">
         <div className="news_content_container max-w-6xl mx-auto !text-left">
-          <h2 className="text-2xl font-bold !text-white mb-10 px-6 sm:px-0 text-center">
+          <h2 className="text-2xl font-bold !text-custom-blue mb-10 px-6 sm:px-0 text-center">
             Packages
           </h2>
           <div className="relative w-full h-full my-5 transition-all duration-100 px-6 sm:px-0">

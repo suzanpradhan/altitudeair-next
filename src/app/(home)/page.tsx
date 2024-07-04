@@ -17,12 +17,13 @@ export default function Home() {
       <Enquiry />
       <Landing />
       <Highlights />
+      <Package />
       <Services />
       <About />
       {/* <Missions /> */}
       <News />
       <Gallery />
-      <Package />
+
       <Reviews />
       <GetInTouch />
     </>

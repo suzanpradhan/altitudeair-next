@@ -44,8 +44,7 @@ const BookingForm = () => {
             departureDate: isDepartureDate,
             noOfTravelers: values.noOfTravelers,
             totalPrice: values.totalPrice,
-            firstName: values.firstName,
-            lastName: values.lastName,
+            fullName: values.fullName,
             email: values.email,
             phone: values.phone,
             requirement: values.requirement,
@@ -65,8 +64,7 @@ const BookingForm = () => {
       departureDate: isDepartureDate,
       noOfTravelers: parseInt(totalPerson),
       totalPrice: (packagePrice * parseInt(totalPerson)).toString(),
-      firstName: 'Niwesh',
-      lastName: 'Shrestha',
+      fullName: '',
       email: '',
       phone: '',
       requirement: 'This is test',
@@ -85,6 +83,44 @@ const BookingForm = () => {
           <h1 className="text-2xl font-bold text-custom-blue mb-4">
             Booking Form
           </h1>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+            <div className="md:col-span-2">
+              <label className="block text-sm font-normal text-custom-blue mb-1">
+                Full Name <span className="text-rose-600">*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter passenger full name"
+                className="w-full h-10 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
+                {...formik.getFieldProps('fullName')}
+                onBlur={formik.handleBlur}
+              />
+              {!!formik.errors.fullName && (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.fullName}
+                </div>
+              )}
+            </div>
+            {/* <div>
+              <label className="block text-sm font-normal text-custom-blue mb-1">
+                Last Name <span className="text-rose-600">*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Last Name"
+                className="w-full h-10 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
+                {...formik.getFieldProps('lastName')}
+                onBlur={formik.handleBlur}
+              />
+              {!!formik.errors.lastName && (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.lastName}
+                </div>
+              )}
+            </div> */}
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
             <div>
               <label className="block text-sm font-normal text-custom-blue mb-1">
@@ -138,42 +174,6 @@ const BookingForm = () => {
               />
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-              <label className="block text-sm font-normal text-custom-blue mb-1">
-                First Name <span className="text-rose-600">*</span>
-              </label>
-              <input
-                type="text"
-                placeholder="First Name"
-                className="w-full h-10 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
-                {...formik.getFieldProps('firstName')}
-                onBlur={formik.handleBlur}
-              />
-              {!!formik.errors.firstName && (
-                <div className="text-red-500 text-sm">
-                  {formik.errors.firstName}
-                </div>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-normal text-custom-blue mb-1">
-                Last Name <span className="text-rose-600">*</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Last Name"
-                className="w-full h-10 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
-                {...formik.getFieldProps('lastName')}
-                onBlur={formik.handleBlur}
-              />
-              {!!formik.errors.lastName && (
-                <div className="text-red-500 text-sm">
-                  {formik.errors.lastName}
-                </div>
-              )}
-            </div>
-          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
@@ -206,6 +206,7 @@ const BookingForm = () => {
               )}
             </div>
           </div>
+
           <div className="mb-4">
             <label className="block text-sm font-normal text-custom-blue mb-1">
               Pickup Details/Extra Requirements (optional)
@@ -223,6 +224,7 @@ const BookingForm = () => {
               </div>
             )}
           </div>
+
           <div className="flex items-center mb-4">
             <input
               type="checkbox"
@@ -237,6 +239,7 @@ const BookingForm = () => {
               I accept terms and conditions
             </label>
           </div>
+
           <button
             type="submit"
             className={`${acceptTerms ? 'text-custom-primary bg-custom-blue hover:bg-opacity-95 hover:shadow-lg' : 'text-custom-gray bg-custom-blue/50'} w-full py-3 px-6 rounded-md`}
