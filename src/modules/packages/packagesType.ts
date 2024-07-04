@@ -16,3 +16,10 @@ export interface PackagesDataType {
     pricing_type?: string;
     type?: string;
 }
+
+export interface PackageGalleryDataType {
+    id: number;
+    package: number;
+    file: string;
+    file_type: string;
+}

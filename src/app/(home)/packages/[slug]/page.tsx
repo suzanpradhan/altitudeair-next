@@ -71,7 +71,7 @@ export default function Packages({ params }: { params: { slug: string } }) {
           <div className="grid grid-cols-12 place-content-start gap-x-10 gap-y-10 px-6 md:px-0">
             <div className="col-span-12 md:col-span-8 w-full">
               <PackageAdditionalInfo />
-              <PackageGallery />
+              <PackageGallery packageSlug={packageData.slug} />
               <PackageHighlights />
             </div>
             <div className="col-span-12 md:col-span-4 w-full flex flex-col gap-4">
