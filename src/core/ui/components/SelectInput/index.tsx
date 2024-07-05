@@ -57,19 +57,21 @@ const SelectInput: React.FC<CustomSelectProps> = ({ options, onChange }) => {
         aria-labelledby="menu-button"
         tabIndex={-1}
       >
-        <div className="py-1 px-2 bg-custom-gray " role="none">
+        <div className="px-2 bg-custom-gray" role="none">
           <p className="text-base px-4 pt-3">Options</p>
-          {options.map((option) => (
-            <p
-              key={option.value}
-              className="text-custom-blue text-lg font-medium px-4 py-2 bg-custom-gray"
-              // role="menuitem"
-              tabIndex={-1}
-              onClick={() => handleOptionClick(option)}
-            >
-              {option.label}
-            </p>
-          ))}
+          <div className="max-h-60 overflow-y-auto">
+            {options.map((option) => (
+              <p
+                key={option.value}
+                className="text-custom-blue text-lg font-medium px-4 py-2 bg-custom-gray"
+                // role="menuitem"
+                tabIndex={-1}
+                onClick={() => handleOptionClick(option)}
+              >
+                {option.label}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
     </div>

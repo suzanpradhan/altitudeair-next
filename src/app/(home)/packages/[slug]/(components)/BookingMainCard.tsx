@@ -92,12 +92,12 @@ const BookingMainCard = ({
   const handleAvailableSeats = (seats: number | null) => {
     console.log(seats);
     if (seats != null && packageData.max_size) {
-      if (seats < packageData.max_size) {
-        console.log('seats is less than max size');
-        setOptions(generateOptions(seats));
-      } else {
-        setOptions(initialOptions);
-      }
+      // if (seats < packageData.max_size) {
+      // console.log('seats is less than max size');
+      setOptions(generateOptions(seats));
+      // } else {
+      // setOptions(initialOptions);
+      // }
     }
   };
 
