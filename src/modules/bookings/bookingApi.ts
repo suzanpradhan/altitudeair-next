@@ -1,16 +1,16 @@
 import { apiPaths } from '@/core/api/apiConstants';
 import { baseApi } from '@/core/api/apiQuery';
 import { toast } from 'react-toastify';
-import { BookingDataType, BookingDetailSchemaType } from './bookingType';
+import { BookingDetailType, BookingFormType } from './bookingType';
 
 const bookingApi = baseApi
     .enhanceEndpoints({ addTagTypes: ['Bookings'] })
     .injectEndpoints({
         endpoints: (builder) => ({
-            createBooking: builder.mutation<BookingDataType, BookingDetailSchemaType>({
+            createBooking: builder.mutation<BookingDetailType, BookingFormType>({
                 query: ({ ...payload }) => {
                     var formData = new FormData();
-                    if (payload.slug != undefined) formData.append('slug', payload.slug);
+                    if (payload.package != undefined) formData.append('package', payload.package as string);
                     if (payload.fullName) formData.append('full_name', payload.fullName);
                     if (payload.totalPrice) formData.append('total_price', payload.totalPrice);
                     if (payload.departureDate) formData.append('departure_date', payload.departureDate.toISOString());
@@ -36,9 +36,9 @@ const bookingApi = baseApi
                         toast.error('Opps! bookings fail.');
                     }
                 },
-                transformResponse: (response: BookingDataType) => {
+                transformResponse: (response: BookingDetailType) => {
                     console.log(response);
-                    return response as BookingDataType;
+                    return response as BookingDetailType;
                 },
             }),
         }),

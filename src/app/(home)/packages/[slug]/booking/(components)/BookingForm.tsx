@@ -2,10 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/core/redux/hooks';
 import DateSelector from '@/core/ui/components/DateSelector';
 import PhoneInputField from '@/core/ui/components/PhoneInput';
 import bookingApi from '@/modules/bookings/bookingApi';
-import {
-  BookingDetailSchemaType,
-  bookingDetailSchema,
-} from '@/modules/bookings/bookingType';
+import { BookingFormType, bookingSchema } from '@/modules/bookings/bookingType';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { toFormikValidate } from 'zod-formik-adapter';
@@ -28,19 +25,18 @@ const BookingForm = () => {
 
   const handlePhoneChange = (phone: string) => {
     formik.setFieldValue('phone', phone);
-    console.log(phone);
   };
 
-  const onSubmit = async (values: BookingDetailSchemaType) => {
+  const onSubmit = async (values: BookingFormType) => {
     if (isLoading) {
       return;
     }
     setIsLoading(true);
     try {
-      await Promise.resolve(
+      const response = await Promise.resolve(
         dispatch(
           bookingApi.endpoints.createBooking.initiate({
-            slug: packageSlug,
+            package: packageSlug,
             departureDate: isDepartureDate,
             noOfTravelers: values.noOfTravelers,
             totalPrice: values.totalPrice,
@@ -51,25 +47,31 @@ const BookingForm = () => {
           })
         )
       );
+      if (
+        response.data?.transactions &&
+        response.data?.transactions.length > 0
+      ) {
+        window.location.href = response.data.transactions[0].payment_url;
+      }
     } catch (error) {
       console.log(error);
     }
     setIsLoading(false);
   };
 
-  const formik = useFormik<BookingDetailSchemaType>({
+  const formik = useFormik<BookingFormType>({
     enableReinitialize: true,
     initialValues: {
-      slug: packageSlug,
+      package: packageSlug,
       departureDate: isDepartureDate,
       noOfTravelers: parseInt(totalPerson),
       totalPrice: (packagePrice * parseInt(totalPerson)).toString(),
       fullName: '',
       email: '',
       phone: '',
-      requirement: 'This is test',
+      requirement: '',
     },
-    validate: toFormikValidate(bookingDetailSchema),
+    validate: toFormikValidate(bookingSchema),
     onSubmit,
   });
 
