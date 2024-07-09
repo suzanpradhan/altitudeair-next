@@ -1,9 +1,6 @@
 import { useAppDispatch } from '@/core/redux/hooks';
 import bookingApi from '@/modules/bookings/bookingApi';
-import {
-  BookingDetailSchemaType,
-  bookingDetailSchema,
-} from '@/modules/bookings/bookingType';
+import { BookingFormType, bookingSchema } from '@/modules/bookings/bookingType';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { toFormikValidate } from 'zod-formik-adapter';
@@ -11,7 +8,7 @@ import { toFormikValidate } from 'zod-formik-adapter';
 const ContactForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
-  const onSubmit = async (values: BookingDetailSchemaType) => {
+  const onSubmit = async (values: BookingFormType) => {
     if (isLoading) {
       return;
     }
@@ -26,20 +23,19 @@ const ContactForm = () => {
     setIsLoading(false);
   };
 
-  const formik = useFormik<BookingDetailSchemaType>({
+  const formik = useFormik<BookingFormType>({
     enableReinitialize: true,
     initialValues: {
-      slug: '',
       fullName: '',
       email: '',
       phone: '',
       requirement: '',
       noOfTravelers: 1,
-      package: 1,
+      package: '',
       departureDate: undefined,
       totalPrice: '',
     },
-    validate: toFormikValidate(bookingDetailSchema),
+    validate: toFormikValidate(bookingSchema),
     onSubmit,
   });
   return (
