@@ -32,14 +32,12 @@ export default function PackageBoxCard({ item }: { item: PackagesDataType }) {
             </p>
             <p className="text-xs text-custom-blue-light">&#9679;</p>
             <p className="text-xs text-custom-blue-light capitalize font-light flex items-center gap-2">
-              <span className="font-medium">Duration</span>{' '}
-              {/* {convertToHours()} */}
-              {item.duration}
+              <span className="font-medium">Duration</span> {item.duration}
             </p>
           </div>
-          <p className="text-sm text-custom-blue/60 font-normal line-clamp-4 h-20">
+          <div className="text-sm text-custom-blue/60 font-normal line-clamp-4 h-20">
             {parseHtml(item.description ?? '')}
-          </p>
+          </div>
         </div>
         <div className="flex items-center justify-start gap-5 mt-2">
           <div className="text-center text-sm font-medium py-2 px-5 text-custom-primary bg-custom-blue hover:bg-custom-blue/90 hover:shadow-md">
