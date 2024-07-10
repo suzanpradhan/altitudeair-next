@@ -1,4 +1,4 @@
 export const constants = {
-    baseUrl: "https://administration.altitudeairnepal.com",
-    reCaptchaKey: "6Ldrw4kcAAAAAO_RYcnzTPy4zUhBNTywNzc_uv3H",
+    baseUrl: process.env.NEXT_PUBLIC_SERVER_URL,
+    reCaptchaKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
 };
