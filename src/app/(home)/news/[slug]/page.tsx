@@ -1,5 +1,4 @@
 'use client';
-import NotFoundPage from '@/app/(components)/(elements)/NotFoundPage';
 import axiosInst from '@/core/utils/axoisInst';
 import { constants } from '@/core/utils/constants';
 import { dateFromSqlDateTime, parseHtml } from '@/core/utils/helper';
@@ -9,7 +8,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function NewsDetail() {
-  const slug = useParams() || '';
+  const { slug } = useParams();
   const router = useRouter();
 
   const [news, setNews] = useState<NewsDataType>();
@@ -47,7 +46,7 @@ export default function NewsDetail() {
 
   return (
     <>
-      {news ? (
+      {news && (
         <main className="news-item-main">
           <div className="featured-img">
             <Image
@@ -73,8 +72,6 @@ export default function NewsDetail() {
             <span>{dateFromSqlDateTime(news.date)}</span>
           </article>
         </main>
-      ) : (
-        <NotFoundPage /> // Render your 404 page component
       )}
     </>
   );
