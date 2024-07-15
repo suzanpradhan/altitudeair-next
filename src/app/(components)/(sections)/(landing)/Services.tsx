@@ -1,6 +1,5 @@
 'use client';
 
-import animateOnScroll from '@/core/utils/animateOnScroll';
 import { constants } from '@/core/utils/constants';
 import { parseHtml } from '@/core/utils/helper';
 import Image from 'next/image';
@@ -34,32 +33,22 @@ export default function Services() {
   useEffect(() => {
     axiosInst.get('/service/3').then((item: any) => {
       setServices(item.data.data);
-      animateOnScroll(
-        '.services .card',
-        '.services .animation-observer-helper',
-        'animate__pulse'
-      );
+      // animateOnScroll(
+      //   '.services .card',
+      //   '.services .animation-observer-helper',
+      //   'animate__pulse'
+      // );
     });
   }, []);
 
   return (
     <section className="services">
       <h2>WHAT WE DO</h2>
-
-      <div className="cards-container">
-        <div className="animation-observer-helper" />
-
+      <div className="flex justify-center flex-wrap">
         {services &&
           services.map((service, pos) => {
             return (
-              <div
-                className="card relative flex flex-col gap-4"
-                key={service.id}
-                style={{
-                  animationDelay: `${pos * 0.4}s`,
-                  animationDuration: `${pos * 0.1 + 0.2}s`,
-                }}
-              >
+              <div className="card flex flex-col gap-4" key={service.id}>
                 <Image
                   src={constants.baseUrl + service.blog.coverImage}
                   alt="Heli Tours"

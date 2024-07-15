@@ -786,7 +786,6 @@ header nav ul .header_li::after {
   width: 300px;
   margin: 3rem;
   font-family: 'QuickSand-Regular';
-  visibility: hidden;
   -webkit-animation-duration: 0.3s;
   animation-duration: 0.3s;
 }
