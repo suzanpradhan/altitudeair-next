@@ -240,9 +240,9 @@ const MainMenu = () => {
 
         <MenuItems>
           <li
-            className={`relative px-5 group ${navHoverClass} ${currentPath.startsWith('/blog') ? navActiveClass : ''}`} // add active class letter
+            className={`relative px-5 group ${navHoverClass} ${currentPath.startsWith('/description') ? navActiveClass : ''}`} // add active class letter
           >
-            <Link href={'/blog'} className="flex items-center h-full">
+            <Link href={'#'} className="flex items-center h-full">
               FLEETS
             </Link>
             <div className="hidden group-hover:block group-hover:shadow absolute top-full -left-[6px] min-w-full w-max bg-custom-blue/90">

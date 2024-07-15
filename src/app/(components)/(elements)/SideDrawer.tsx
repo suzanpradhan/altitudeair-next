@@ -1,20 +1,50 @@
-// import Portal from '../../hoc/Portal';
+'use client';
 
+import { classNames } from '@/core/ui/components/CalendarPicker';
+import axiosInstance from '@/core/utils/axoisInst';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { ItemsData } from '../(modules)/MainMenu';
+
+interface BlogCategoriesType {
+  slug: string;
+  name: string;
+}
+
+interface ChoppersType {
+  id: number;
+  name: string;
+}
 
 export default function SideDrawer({ show }: { show: boolean }) {
   const currentPath = usePathname();
   const toggleOpen = 'left-0';
   const toggleClose = '-left-60';
-  const navActiveClass =
-    'font-medium before:bg-custom-blue/85 after:bg-custom-primary/75 hover:before:bg-custom-blue/85 hover:after:bg-custom-primary/75';
-  const navHoverClass =
-    'hover:font-medium before:absolute before:top-1 before:left-2 before:right-7 hover:before:bg-custom-blue/10 before:h-full before:-z-10  after:absolute after:-top-1 after:left-5 after:right-5 hover:after:bg-custom-blue/10 after:h-full after:-z-10';
+  const [blogCategories, setBlogCategories] = useState<
+    BlogCategoriesType[] | undefined
+  >([]);
+  const [choppers, setChoppers] = useState<ChoppersType[] | undefined>();
 
   const menuItems = ItemsData;
+  useEffect(() => {
+    axiosInstance.get('/category/').then((item) => {
+      let newArray = item.data.data.filter((item: any) => {
+        return item.status === true;
+      });
+      setBlogCategories(newArray);
+    });
+
+    axiosInstance.get('/chopper/').then((item) => {
+      const chopperList = item.data.data;
+      setChoppers(chopperList);
+    });
+  }, []);
+
+  const [blogsDropActive, setBlogsDrop] = useState(false);
+  const [aboutDropActive, setAboutDrop] = useState(false);
+  const [fleetsDropActive, setFleetsDrop] = useState(false);
 
   return (
     <>
@@ -37,17 +67,217 @@ export default function SideDrawer({ show }: { show: boolean }) {
             />
           </Link>
         </div>
+        <nav className="bg-white h-full overflow-x-scroll">
+          <ul className="flex flex-col">
+            <li
+              className={classNames(
+                `relative z-10`,
+                currentPath.startsWith('/about')
+                  ? 'bg-custom-blue/85 text-white'
+                  : ''
+              )}
+              onClick={() => setAboutDrop(!aboutDropActive)}
+            >
+              <Link href={'/about'} className="flex items-center px-4 h-16">
+                ABOUT
+              </Link>
+            </li>
+            {aboutDropActive ? (
+              [
+                {
+                  title: 'Overview',
+                  link: '/about#overview',
+                },
+                {
+                  title: 'Message From Executive Chairman',
+                  link: '/about#message',
+                },
+                {
+                  title: 'Board Of Directors',
+                  link: '/about#board_info',
+                },
+                {
+                  title: 'Crew',
+                  link: '/about#crew',
+                },
+                {
+                  title: 'Mission & Vision',
+                  link: '/about#mission&vision',
+                },
+                {
+                  title: 'Mission Statistics',
+                  link: '/about#statistics',
+                },
+              ].map((item) => {
+                return (
+                  <li
+                    key={item.title}
+                    className={classNames(
+                      `relative z-10 hover:bg-gray-500 hover:text-white`,
+                      currentPath.startsWith(item.link)
+                        ? 'bg-custom-blue/95 text-white hover:bg-none'
+                        : ''
+                    )}
+                  >
+                    <Link
+                      href={item.link}
+                      className="flex items-center h-14 px-4"
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
+                );
+              })
+            ) : (
+              <></>
+            )}
+            <li
+              className={classNames(
+                `relative z-10 hover:bg-gray-500 hover:text-white`,
+                currentPath.startsWith('/blog')
+                  ? 'bg-custom-blue/85 text-white hover:bg-none'
+                  : ''
+              )}
+              onClick={() => setBlogsDrop(!blogsDropActive)}
+            >
+              <Link href={'/blog'} className="flex items-center px-4 h-16">
+                AREA OF OPERATION
+              </Link>
+            </li>
+            {blogsDropActive ? (
+              blogCategories?.map((item) => {
+                return (
+                  <li
+                    key={item.name}
+                    className={classNames(
+                      `relative z-10 hover:bg-gray-500 hover:text-white`,
+                      currentPath === `/blog?category=${item.slug}`
+                        ? 'bg-custom-blue/95 text-white hover:bg-none'
+                        : ''
+                    )}
+                  >
+                    <Link
+                      href={`/blog?category=${item.slug}`}
+                      className="flex items-center h-14 px-4"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                );
+              })
+            ) : (
+              <></>
+            )}
+            <li
+              className={classNames(
+                `relative z-10 hover:bg-gray-500 hover:text-white`,
+                currentPath === '/voluntary-hazard-report'
+                  ? 'bg-custom-blue/85 text-white hover:bg-none'
+                  : ''
+              )}
+            >
+              <Link
+                href={'/voluntary-hazard-report'}
+                className="flex items-center px-4 h-16"
+              >
+                VOLUNTARY HAZARD
+              </Link>
+            </li>
+            <li
+              className={classNames(
+                `relative z-10 hover:bg-gray-500 hover:text-white`,
+                currentPath === '/packages'
+                  ? 'bg-custom-blue/85 text-white hover:bg-none'
+                  : ''
+              )}
+            >
+              <Link href={'/packages'} className="flex items-center px-4 h-16">
+                PACKAGES
+              </Link>
+            </li>
+            <li
+              className={classNames(
+                `relative z-10 hover:bg-gray-500 hover:text-white`,
+                currentPath.startsWith('/description')
+                  ? 'bg-custom-blue/85 text-white hover:bg-none'
+                  : ''
+              )}
+              onClick={() => setFleetsDrop(!fleetsDropActive)}
+            >
+              <Link href={'#'} className="flex items-center px-4 h-16">
+                FLEETS
+              </Link>
+            </li>
+            {fleetsDropActive ? (
+              choppers?.map((item) => {
+                return (
+                  <li
+                    key={item.name}
+                    className={classNames(
+                      `relative z-10 hover:bg-gray-500 hover:text-white`,
+                      currentPath === `/description/${item.id}`
+                        ? 'bg-custom-blue/95 text-white hover:bg-none'
+                        : ''
+                    )}
+                  >
+                    <Link
+                      href={`/description/${item.id}`}
+                      className="flex items-center h-14 px-4"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                );
+              })
+            ) : (
+              <></>
+            )}
+            <li
+              className={classNames(
+                `relative z-10 hover:bg-gray-500 hover:text-white`,
+                currentPath === '/gallery'
+                  ? 'bg-custom-blue/85 text-white hover:bg-none'
+                  : ''
+              )}
+            >
+              <Link href={'/gallery'} className="flex items-center px-4 h-16">
+                GALLERY
+              </Link>
+            </li>
+            <li
+              className={classNames(
+                `relative z-10 hover:bg-gray-500 hover:text-white`,
+                currentPath === '/news'
+                  ? 'bg-custom-blue/85 text-white hover:bg-none'
+                  : ''
+              )}
+            >
+              <Link href={'/news'} className="flex items-center px-4 h-16">
+                NEWS
+              </Link>
+            </li>
+            <li
+              className={classNames(
+                `relative z-10 hover:bg-gray-500 hover:text-white`,
+                currentPath === '/contact'
+                  ? 'bg-custom-blue/85 text-white hover:bg-none'
+                  : ''
+              )}
+            >
+              <Link href={'/contact'} className="flex items-center px-4 h-16">
+                CONTACT
+              </Link>
+            </li>
+          </ul>
+        </nav>
         {menuItems && menuItems.length > 0 ? (
           <nav className="bg-white h-full overflow-x-scroll">
             <ul className="flex flex-col gap-3">
               {menuItems.map((item, index) => (
-                <li
-                  key={index}
-                  className={`relative z-10 before:skew-x-6 after:skew-x-6 transition-all duration-300 ease-in-out ${navHoverClass} ${currentPath === item.link ? navActiveClass : ''}`}
-                >
+                <li key={index} className={`relative z-10`}>
                   <Link
                     href={item.link ?? '#'}
-                    className="flex items-center justify-center h-16"
+                    className="flex items-center px-4 h-16"
                   >
                     {item.title}
                   </Link>
