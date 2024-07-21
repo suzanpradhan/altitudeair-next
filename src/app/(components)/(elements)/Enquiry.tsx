@@ -36,8 +36,8 @@ export default function Enquiry() {
               {/* <FontAwesomeIcon icon={faPhone} title="Phone" /> */}
             </div>
             <div className="contact_container">
-              <h3>Mingma Sherpa</h3>
-              <p>+977 9801249907</p>
+              <h3>Chandra Pyakurel(Sudip)</h3>
+              <p>+977 9801249908</p>
             </div>
           </div>
 

@@ -64,7 +64,7 @@ const Booking = () => {
       </div>
       <div className="container mx-auto relative pb-20">
         <div className="relative -top-14">
-          {payment != undefined ? (
+          {payment != undefined || payment == 'cancel' ? (
             <div className="max-w-4xl mx-4 md:mx-auto bg-white shadow-xl rounded-lg">
               {payment == 'success' ? (
                 <div className="flex flex-col items-center p-8">
@@ -79,6 +79,23 @@ const Booking = () => {
                 <div className="flex flex-col items-center p-8">
                   <IoCloseCircleOutline size={80} className="text-red-500" />
                   <div className="text-lg font-bold">Booking failed.</div>
+                  <div className="text-sm text-center">
+                    Please try booking again or contact us.
+                  </div>
+                  <Link
+                    href={`/packages/${params.slug}`}
+                    type="submit"
+                    className={
+                      'text-white text-sm mt-4 bg-custom-blue hover:bg-opacity-95 hover:shadow-lg py-2 px-4 rounded-md'
+                    }
+                  >
+                    Go back to package
+                  </Link>
+                </div>
+              ) : payment == 'cancel' ? (
+                <div className="flex flex-col items-center p-8">
+                  <IoCloseCircleOutline size={80} className="text-red-500" />
+                  <div className="text-lg font-bold">Booking cancelled.</div>
                   <div className="text-sm text-center">
                     Please try booking again or contact us.
                   </div>
