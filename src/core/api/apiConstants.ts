@@ -24,5 +24,6 @@ export const apiPaths = {
     allPackagesPublicUrl: '/packages/public/',
     getPackages: '/packages/',
     bookingUrl: '/bookings/',
-    employeesUrl: '/'
+    employeesUrl: '/',
+    contactUsUrl: '/contactUs'
 };

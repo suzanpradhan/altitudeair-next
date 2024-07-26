@@ -19,6 +19,8 @@ export const bookingSchema = z.object({
     package: z.string().or(z.custom<PackagesDataType>()),
 });
 
+
+
 export const bookingDetailSchema = bookingSchema.extend({
     transactions: z.array(transactionSchema)
 })

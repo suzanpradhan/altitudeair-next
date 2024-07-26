@@ -1,21 +1,25 @@
 import { useAppDispatch } from '@/core/redux/hooks';
-import bookingApi from '@/modules/bookings/bookingApi';
-import { BookingFormType, bookingSchema } from '@/modules/bookings/bookingType';
+import contactApi from '@/modules/contact/contactApi';
+import {
+  contactFormSchema,
+  ContactFormType,
+} from '@/modules/contact/contactType';
+
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import { toFormikValidate } from 'zod-formik-adapter';
+import { ZodError } from 'zod';
 
 const ContactForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
-  const onSubmit = async (values: BookingFormType) => {
+  const onSubmit = async (values: ContactFormType) => {
     if (isLoading) {
       return;
     }
     setIsLoading(true);
     try {
       await Promise.resolve(
-        dispatch(bookingApi.endpoints.createBooking.initiate(values))
+        dispatch(contactApi.endpoints.postContactUs.initiate(values))
       );
     } catch (error) {
       console.log(error);
@@ -23,46 +27,83 @@ const ContactForm = () => {
     setIsLoading(false);
   };
 
-  const formik = useFormik<BookingFormType>({
-    enableReinitialize: true,
+  const validateForm = (values: ContactFormType) => {
+    try {
+      contactFormSchema.parse(values);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        return error.formErrors.fieldErrors;
+      }
+    }
+  };
+
+  const formik = useFormik<ContactFormType>({
+    enableReinitialize: false,
     initialValues: {
-      fullName: '',
+      firstName: '',
+      lastName: '',
       email: '',
-      phone: '',
-      requirement: '',
-      noOfTravelers: 1,
-      package: '',
-      departureDate: undefined,
-      totalPrice: '',
+      date: new Date(Date.now()),
+      tel: '',
     },
-    validate: toFormikValidate(bookingSchema),
+    validate: validateForm,
+    validateOnChange: true,
+    validateOnBlur: true,
     onSubmit,
   });
+
+  console.log(formik.values);
   return (
     <form onSubmit={formik.handleSubmit} className="py-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <div>
+        <div className="flex flex-col gap-1">
           <input
             type="text"
-            placeholder="Your Name"
-            {...formik.getFieldProps('fullName')}
-            className="w-full h-16 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
+            placeholder="Your First Name"
+            // {...formik.getFieldProps('firstName')}
+            value={formik.values.firstName}
+            onChange={(e) => formik.setFieldValue('firstName', e.target.value)}
+            className="w-full h-12 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
           />
-          {!!formik.errors.fullName && (
-            <div className="text-red-500 text-sm">{formik.errors.fullName}</div>
+          {!!formik.errors.firstName && (
+            <div className="text-red-500 text-sm">
+              {formik.errors.firstName}
+            </div>
           )}
         </div>
-        <div>
+        <div className="flex flex-col gap-1">
           <input
-            type="email"
-            placeholder="eg: example@email.com"
-            {...formik.getFieldProps('fullName')}
-            className="w-full h-16 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
+            type="text"
+            placeholder="Your Last Name"
+            {...formik.getFieldProps('lastName')}
+            className="w-full h-12 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
           />
-          {!!formik.errors.fullName && (
-            <div className="text-red-500 text-sm">{formik.errors.fullName}</div>
+          {!!formik.errors.lastName && (
+            <div className="text-red-500 text-sm">{formik.errors.lastName}</div>
           )}
         </div>
+      </div>
+      <div className="mb-6 flex flex-col gap-1">
+        <input
+          type="text"
+          placeholder="Your Phone Number"
+          {...formik.getFieldProps('tel')}
+          className="w-full h-12 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
+        />
+        {!!formik.errors.tel && (
+          <div className="text-red-500 text-sm">{formik.errors.tel}</div>
+        )}
+      </div>
+      <div className="mb-6 flex flex-col gap-1">
+        <input
+          type="email"
+          placeholder="email@example.com"
+          {...formik.getFieldProps('email')}
+          className="w-full h-12 px-2 border border-custom-gray-light rounded placeholder:font-light outline-none focus-visible:ring-2"
+        />
+        {!!formik.errors.email && (
+          <div className="text-red-500 text-sm">{formik.errors.email}</div>
+        )}
       </div>
       {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
@@ -88,17 +129,15 @@ const ContactForm = () => {
           )}
         </div>
       </div> */}
-      <div className="mb-4">
+      <div className="mb-4 flex flex-col gap-1">
         <textarea
           className="w-full p-2 border border-custom-gray-light rounded outline-none focus-visible:ring-2"
           rows={5}
           placeholder="Type your message here"
-          {...formik.getFieldProps('requirement')}
+          {...formik.getFieldProps('details')}
         ></textarea>
-        {!!formik.errors.requirement && (
-          <div className="text-red-500 text-sm">
-            {formik.errors.requirement}
-          </div>
+        {!!formik.errors.details && (
+          <div className="text-red-500 text-sm">{formik.errors.details}</div>
         )}
       </div>
       <button

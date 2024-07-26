@@ -168,14 +168,14 @@ const ContactPage = () => {
             )}
 
             <div className="grow bg-white/60 py-10 px-6 rounded">
-              <h2 className="text-2xl font-bold text-custom-blue mb-2">
+              <h2 className="text-2xl font-bold text-custom-blue">
                 Send Message
               </h2>
-              <p className="text-base font-normal text-custom-blue">
+              {/* <p className="text-base font-normal text-custom-blue">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae
                 tempora earum accusantium impedit voluptatum maiores?
-              </p>
-              <div className="mt-4">
+              </p> */}
+              <div className="mt-2">
                 <ContactForm />
               </div>
             </div>
