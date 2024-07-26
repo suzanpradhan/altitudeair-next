@@ -3,6 +3,7 @@
 import { constants } from '@/core/utils/constants';
 import { parseHtml } from '@/core/utils/helper';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import axiosInst from '../../../../core/utils/axoisInst';
 // import Modal from '../../elements/Modal';
@@ -21,6 +22,7 @@ interface BlogType {
 export default function Services() {
   const [services, setServices] = useState<ServicesType[] | undefined>();
   const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
 
   const openModal = () => {
     setShowModal(true);
@@ -48,7 +50,11 @@ export default function Services() {
         {services &&
           services.map((service, pos) => {
             return (
-              <div className="card flex flex-col gap-4" key={service.id}>
+              <button
+                className="card flex flex-col gap-4 cursor-pointer"
+                key={service.id}
+                // onClick={() => router.push()}
+              >
                 <Image
                   src={constants.baseUrl + service.blog.coverImage}
                   alt="Heli Tours"
@@ -62,14 +68,15 @@ export default function Services() {
                   // fill
                 />
                 <h3 className="font-bold text-lg m-0">{service.title}</h3>
-                <p>
+                <p className="text-left">
                   {parseHtml(
-                    service.blog.description.length > 140
-                      ? service.blog.description.slice(0, 140) + '...'
+                    // service.blog.description
+                    service.blog.description.length > 100
+                      ? service.blog.description.slice(0, 100) + '...'
                       : service.blog.description
                   )}
                 </p>
-              </div>
+              </button>
             );
           })}
       </div>

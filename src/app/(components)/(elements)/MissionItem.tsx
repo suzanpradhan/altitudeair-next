@@ -123,7 +123,7 @@ const MissionItem: React.FC<MissionItemProps> = ({
 
   return (
     <div
-      className={`mission-item ${onFocus ? 'focused' : ''} 
+      className={`mission-item h-32 ${onFocus ? 'focused' : ''} 
         ${readClicked.clicked && readClicked.clickedBy === index && !mobileOnly ? 'read-more-active' : ''}
         ${readClicked.clicked && readClicked.clickedBy === index && mobileOnly ? 'read-more-active-mobile' : ''}
         ${mobileOnly ? (fadeClass ? 'fade-in-one' : 'fade-in-two') : ''}
@@ -156,14 +156,24 @@ const MissionItem: React.FC<MissionItemProps> = ({
         />
       </div>
 
-      <div className={`mission_content_wrapper`}>
-        <Image
+      <div className={`flex w-full`}>
+        <div className="relative max-md:h-44 max-sm:hidden w-full h-full">
+          <Image
+            src={imageUrl}
+            alt="Mission ${index}"
+            fill
+            objectFit="cover"
+            sizes="(max-width: 768px) 100vw, 700px"
+            className="object-contain"
+          />
+        </div>
+        {/* <Image
           src={imageUrl}
           alt={`Mission ${index}`}
           className="rescue_image"
           width={100}
           height={100}
-        />
+        /> */}
         <div className="info">
           <h3>{name}</h3>
           <p>{info}</p>
