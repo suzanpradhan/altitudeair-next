@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { constants } from '@/core/utils/constants';
 import Dialog from '../../(elements)/Dialog';
 import ScrollIndicator from '../../(elements)/ScrollIndicator';
-import StepForm from '../../(elements)/StepForm';
+import StepFormV2 from '../../(elements)/StepFormV2';
 import axiosInst from '../../../../core/utils/axoisInst';
 // import animateOnScroll from "../../../util/animateOnScroll";
 // import { constants } from "../../../util/constants";
@@ -85,11 +85,12 @@ function Landing() {
         </div>
       </div>
       <ScrollIndicator id="highlights" />
-      {showModal && (
-        <Dialog isDialogOpen={showModal} setIsDialogOpen={setShowModal}>
-          <StepForm hide={closeModal} />
-        </Dialog>
-      )}
+
+      <Dialog isDialogOpen={showModal} setIsDialogOpen={setShowModal}>
+        {/* <StepForm hide={closeModal} /> */}
+        <StepFormV2 />
+      </Dialog>
+
       <div className="animation-observer-helper" />
     </section>
   );

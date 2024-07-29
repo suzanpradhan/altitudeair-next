@@ -100,12 +100,7 @@ export default function StepForm({ hide }: any) {
       <div
         className="cross_container"
         style={{ justifyContent: 'flex-end', paddingRight: '25px' }}
-      >
-        {/* <div className="drawer_cross_container" onClick={hide}>
-          <div style={{ background: 'black' }}>sdaf</div>
-          <div style={{ background: 'black' }}>sfasdfsdafds</div>
-        </div> */}
-      </div>
+      ></div>
       <StepsContainer
         pickedStep={pickedStep}
         setPickedStep={setPickedStep}
@@ -567,7 +562,7 @@ function Destination({
       );
     }
 
-    pickupMarker.current = new mapboxgl.Marker({ color: '#00db00' })
+    pickupMarker.current = new mapboxgl.Marker({ color: '#00db00', scale: 3 })
       .setLngLat(pickDestPos.pickup)
       .addTo(map.current);
 
@@ -600,7 +595,7 @@ function Destination({
       setCurrentlyClicked(-1);
       currentlyRef.current = -1;
     });
-  });
+  }, [pickDestPos, setPickDestPos, setPickupChosenBy]);
 
   function setCurrentLocation() {
     setCurrentlyClicked(1);
@@ -664,6 +659,8 @@ function Destination({
     setClickedService(key);
     setError(null);
   }
+
+  console.log('pickDestPos', pickDestPos, pickupMarker.current);
 
   return (
     <div className="destination_container">

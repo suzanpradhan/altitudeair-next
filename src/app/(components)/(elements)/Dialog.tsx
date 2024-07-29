@@ -16,17 +16,17 @@ const Dialog = ({
     isDialogOpen ? dialogRef.current?.showModal() : dialogRef.current?.close();
   }, [isDialogOpen]);
 
+  if (!isDialogOpen) return;
+
   return (
-    isDialogOpen && (
-      <dialog
-        ref={dialogRef}
-        // onBlur={() => setIsDialogOpen(false)}
-        // onClick={() => setIsDialogOpen(false)}
-        className=" backdrop:bg-componentBgGrey backdrop:bg-opacity-60 rounded-xl"
-      >
-        {children}
-      </dialog>
-    )
+    <dialog
+      ref={dialogRef}
+      // onBlur={() => setIsDialogOpen(false)}
+      // onClick={() => setIsDialogOpen(false)}
+      className=" backdrop:bg-componentBgGrey backdrop:bg-opacity-60 rounded-xl"
+    >
+      {children}
+    </dialog>
   );
 };
 

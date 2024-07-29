@@ -3,35 +3,39 @@
 import ScrollIndicator from '@/app/(components)/(elements)/ScrollIndicator';
 import axiosInstance from '@/core/utils/axoisInst';
 import { constants } from '@/core/utils/constants';
-import { hazardFormSchema, HazardFormType } from '@/modules/hazard/hazard';
+import { hazardFormSchema, HazardFormType } from '@/modules/hazard/hazardType';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+// import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { toast } from 'react-toastify';
 import { toFormikValidate } from 'zod-formik-adapter';
 
 const VoluntaryHazardReport = () => {
   const [hazardFormLink, setHazardFormLink] = useState('');
 
-  const { executeRecaptcha } = useGoogleReCaptcha();
+  // const { executeRecaptcha } = useGoogleReCaptcha();
 
   async function formSubmitHandler(values: HazardFormType, resetForm: any) {
-    let obj = { ...values, isContact: false };
+    let obj = {
+      ...values,
+      isContact: false,
+      date: `${values.date.getFullYear()}-${values.date.getMonth()}-${values.date.getDate()}`,
+    };
     let res;
 
-    if (!executeRecaptcha) {
-      console.log('Execute recaptcha not yet available');
-    }
+    // if (!executeRecaptcha) {
+    //   console.log('Execute recaptcha not yet available');
+    // }
 
-    if (!executeRecaptcha) {
-      return;
-    }
-    const token = await executeRecaptcha('hello');
+    // if (!executeRecaptcha) {
+    //   return;
+    // }
+    // const token = await executeRecaptcha('hello');
 
-    if (!token) {
-      toast.error('Error submitting form!');
-      return;
-    }
+    // if (!token) {
+    //   toast.error('Error submitting form!');
+    //   return;
+    // }
 
     try {
       res = await axiosInstance.post('/contactUs', obj);
@@ -114,85 +118,113 @@ const VoluntaryHazardReport = () => {
             tel: '',
             date: new Date(),
             details: '',
+            isContact: false,
           }}
           validate={toFormikValidate(hazardFormSchema)}
           onSubmit={async (values, { resetForm }) => {
             formSubmitHandler(values, resetForm);
           }}
         >
-          <Form>
-            <div className="form-field">
-              <label htmlFor="given-name">First Name</label>
-              <Field
-                id="firstName"
-                placeholder="First Name"
-                type="text"
-                name="firstName"
-              />
-            </div>
-            <div className="error-message">
-              <ErrorMessage name="firstName" />
-            </div>
-            <div className="form-field">
-              <label htmlFor="lastName">Last Name</label>
-              <Field
-                id="lastName"
-                placeholder="Last Name"
-                type="text"
-                name="lastName"
-              />
-            </div>
-            <div className="error-message">
-              <ErrorMessage name="lastName" />
-            </div>
-            <div className="form-field">
-              <label htmlFor="email">Email</label>
-              <Field id="email" placeholder="Email" type="text" name="email" />
-            </div>
-            <div className="error-message">
-              <ErrorMessage name="email" />
-            </div>
+          {({ setFieldValue, values }) => (
+            <Form>
+              <div className="form-field">
+                <label htmlFor="given-name">First Name</label>
+                <Field
+                  id="firstName"
+                  placeholder="First Name"
+                  type="text"
+                  name="firstName"
+                />
+              </div>
+              <div className="error-message">
+                <ErrorMessage name="firstName" />
+              </div>
+              <div className="form-field">
+                <label htmlFor="lastName">Last Name</label>
+                <Field
+                  id="lastName"
+                  placeholder="Last Name"
+                  type="text"
+                  name="lastName"
+                />
+              </div>
+              <div className="error-message">
+                <ErrorMessage name="lastName" />
+              </div>
+              <div className="form-field">
+                <label htmlFor="email">Email</label>
+                <Field
+                  id="email"
+                  placeholder="Email"
+                  type="text"
+                  name="email"
+                />
+              </div>
+              <div className="error-message">
+                <ErrorMessage name="email" />
+              </div>
 
-            <div className="form-field">
-              <label htmlFor="tel">Contact Number</label>
-              <Field
-                id="tel"
-                placeholder="Contact Number"
-                type="text"
-                name="tel"
-              />
-            </div>
-            <div className="error-message">
-              <ErrorMessage name="tel" />
-            </div>
+              <div className="form-field">
+                <label htmlFor="tel">Contact Number</label>
+                <Field
+                  id="tel"
+                  placeholder="Contact Number"
+                  type="text"
+                  name="tel"
+                />
+              </div>
+              <div className="error-message">
+                <ErrorMessage name="tel" />
+              </div>
 
-            <div className="form-field">
-              <label htmlFor="date" className="required">
-                Date of Occurrence /<br /> Hazard
-              </label>
-              <Field id="date" type="date" name="date" />
-            </div>
-            <div className="error-message">
-              <ErrorMessage name="date" />
-            </div>
+              <div className="form-field">
+                <label htmlFor="date" className="required">
+                  Date of Occurrence /<br /> Hazard
+                </label>
+                {/* <Field id="date" type="date" name="date" /> */}
+                {/* <input type="date" id="date" name="date" /> */}
+                {/* <FormikDatePicker name="date" /> */}
+                {/* <Field name="date" component={FormikDatePicker} />
+                 */}
+                <Field name="date">
+                  {({ field }: { field: any }) => (
+                    <input
+                      type="date"
+                      {...field}
+                      value={
+                        values.date instanceof Date
+                          ? values.date.toISOString().substring(0, 10)
+                          : values.date
+                      }
+                      onChange={(event) => {
+                        setFieldValue(field.name, new Date(event.target.value));
+                      }}
+                    />
+                  )}
+                </Field>
+              </div>
+              <div className="error-message">
+                <ErrorMessage name="date" />
+              </div>
 
-            <div className="form-field">
-              <label htmlFor="details" className="required">
-                Details of Occurrence /<br /> Hazard
-              </label>
-              <Field as="textarea" id="details" name="details" rows="5" />
-            </div>
-            <div className="error-message">
-              <ErrorMessage name="details" />
-            </div>
+              <div className="form-field">
+                <label htmlFor="details" className="required">
+                  Details of Occurrence /<br /> Hazard
+                </label>
+                <Field as="textarea" id="details" name="details" rows="5" />
+              </div>
+              <div className="error-message">
+                <ErrorMessage name="details" />
+              </div>
 
-            <div className="form-field">
-              <div />
-              <button className="button-outline-light" type="submit">
-                Submit
-              </button>
-            </div>
-          </Form>
+              <div className="form-field">
+                <div />
+                <button className="button-outline-light" type="submit">
+                  Submit
+                </button>
+              </div>
+            </Form>
+          )}
         </Formik>
         <div className="corner-border--bottom" />
       </section>
