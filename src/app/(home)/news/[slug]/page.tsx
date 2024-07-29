@@ -44,9 +44,9 @@ export default function NewsDetail() {
   }, [slug]);
 
   return (
-    <>
+    <div className="bg-[#A7B9C7]">
       {news && (
-        <div className="bg-[#A7B9C7] py-32 px-24">
+        <div className="md:max-w-3xl px-10 sm:px-20 md:px-0 mx-auto py-32">
           <h2 className="font-bold text-4xl pb-4">{news.title}</h2>
           <p className="pb-4">
             <a href="#" className="pr-2 text-base">
@@ -56,7 +56,7 @@ export default function NewsDetail() {
             <span className="pl-2">{dateFromSqlDateTime(news.date)}</span>
           </p>
 
-          <div className="w-full md:h-[32rem] h-96 relative ">
+          <div className="w-full md:h-96 h-80 relative ">
             <Image
               src={constants.baseUrl + news.coverImage}
               alt="News item"
@@ -73,6 +73,6 @@ export default function NewsDetail() {
           </article>
         </div>
       )}
-    </>
+    </div>
   );
 }

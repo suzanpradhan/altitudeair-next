@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import Head from 'next/head';
 import 'react-calendar/dist/Calendar.css';
 import 'react-date-picker/dist/DatePicker.css';
-import Footer from './(components)/(modules)/Footer';
+import FooterV2 from './(components)/(modules)/FooterV2';
+
 import './globals.css';
 // Import Swiper styles
 import Provider from '@/core/redux/provider';
@@ -14,6 +16,11 @@ import 'swiper/css/pagination';
 import Navbar from './(components)/(modules)/Navbar';
 
 const inter = Inter({ subsets: ['latin'] });
+const gilroy = localFont({
+  src: '../../public/fonts/Gilroy-Light.ttf',
+  variable: '--font-gilroy',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Altitude Air Nepal',
@@ -36,14 +43,14 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </Head>
-      <body className={inter.className}>
+      <body className={`${inter.className} ${gilroy.variable}`}>
         <Notification />
         <Provider>
           <main>
             {/* <Header /> */}
             <Navbar />
             {children}
-            <Footer />
+            <FooterV2 />
           </main>
         </Provider>
       </body>
