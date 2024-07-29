@@ -660,8 +660,6 @@ function Destination({
     setError(null);
   }
 
-  console.log('pickDestPos', pickDestPos, pickupMarker.current);
-
   return (
     <div className="destination_container">
       <h2>Where are you headed?</h2>
@@ -914,7 +912,6 @@ function PersonalInfo({
       phone: values.tel,
       details: values.details,
     };
-    console.log(finalObj);
     let result;
     try {
       result = await axiosInstance.post('/enquiry/', finalObj, {

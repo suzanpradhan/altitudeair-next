@@ -13,7 +13,6 @@ export default function NewsDetail() {
 
   const [news, setNews] = useState<NewsDataType>();
 
-  //   console.log(slug);
   useEffect(() => {
     if (!slug) {
       return;

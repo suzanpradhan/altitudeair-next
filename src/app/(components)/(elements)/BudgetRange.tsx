@@ -9,7 +9,6 @@ export default function BudgetRange({
   formik: FormikProps<EnquirySchemaType>;
   setPickedStep: Dispatch<SetStateAction<number>>;
 }) {
-  console.log(formik.values.budgetForm);
   return (
     <div className="budget_step_section">
       <h2>What about your budget?</h2>
@@ -62,13 +61,6 @@ export default function BudgetRange({
                 formik.values.budgetForm.maxbudget <=
                 formik.values.budgetForm.minbudget
               ) {
-                console.log(
-                  'codition check',
-                  formik.values.budgetForm.maxbudget <=
-                    formik.values.budgetForm.minbudget,
-                  formik.values.budgetForm.maxbudget,
-                  formik.values.budgetForm.minbudget
-                );
                 alert('Invalid values entered');
               } else {
                 setPickedStep(4);

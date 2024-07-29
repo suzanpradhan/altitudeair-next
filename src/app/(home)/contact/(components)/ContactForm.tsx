@@ -52,7 +52,6 @@ const ContactForm = () => {
     onSubmit,
   });
 
-  console.log(formik.values);
   return (
     <form onSubmit={formik.handleSubmit} className="py-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">

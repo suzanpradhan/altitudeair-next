@@ -78,8 +78,6 @@ const DestinationV2 = ({
     });
   };
 
-  console.log('departureMarkerPos', destinationMarkerPos);
-
   return (
     <div className="destination_container">
       <h2>Where are you headed?</h2>
@@ -198,10 +196,7 @@ const DestinationV2 = ({
               },
             };
           });
-          console.log(
-            'formik.values.destinationForm',
-            formik.values.destinationForm
-          );
+
           if (
             formik.values.destinationForm.service.length === 0 ||
             !destinationMarkerPos ||
@@ -210,10 +205,6 @@ const DestinationV2 = ({
             setError(1);
           } else {
             setError(null);
-            console.log(
-              'formik.values.destinationForm',
-              formik.values.destinationForm
-            );
             setPickedStep(3);
           }
         }}

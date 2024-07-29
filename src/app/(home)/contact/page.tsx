@@ -88,8 +88,6 @@ const ContactPage = () => {
     });
   }, []);
 
-  console.log(contactData['inquiry4']);
-
   const mainClass = {
     backgroundImage: 'url(/images/contact/helicopter.webp)',
     backgroundPositionY: '-300px',

@@ -88,7 +88,6 @@ export default function PersonalInfo({
           className="action-button final_btn"
           type="submit"
           onClick={() => {
-            console.log(formik.values.infosForm);
             formSubmitHandler(formik.values);
           }}
           //   disabled={formSubmitted}
