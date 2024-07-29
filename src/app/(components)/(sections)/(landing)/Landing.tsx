@@ -45,8 +45,6 @@ function Landing() {
     // );
   }, []);
 
-  console.log(showModal);
-
   return (
     <section className="landing">
       <video

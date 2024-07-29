@@ -54,7 +54,6 @@ const StepFormV2 = () => {
   const dispatch = useAppDispatch();
 
   const formSubmitHandler = (values: EnquirySchemaType) => {
-    console.log('here');
     const submitresponse = dispatch(
       enquiryApi.endpoints.postEnquiry.initiate(values)
     );
@@ -99,7 +98,6 @@ const StepFormV2 = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={async (values) => {
-          console.log('here');
           formSubmitHandler(values);
         }}
         validate={validateForm}

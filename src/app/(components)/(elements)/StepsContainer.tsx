@@ -42,7 +42,6 @@ export default function StepsContainer({
             setPickedStep((prevState) =>
               index < pickedStep ? index : prevState
             );
-            console.log('pickedStep', pickedStep, index);
           }}
         >
           <img src={item.iconUrl} alt="Form Step 1" />

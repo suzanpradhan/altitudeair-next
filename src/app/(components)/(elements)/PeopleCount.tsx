@@ -36,10 +36,6 @@ export default function PeopleCount({
           }`}
           onClick={() => {
             formik.setFieldValue('countForm.count', 2);
-            console.log(
-              'formik.values.countForm.count',
-              formik.values.countForm.count
-            );
           }}
         >
           <img src="/icons/form/user.svg" alt="Form Step 1" />

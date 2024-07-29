@@ -77,6 +77,7 @@ export default function PersonalInfo({
               as="textarea"
               rows="5"
               cols="56"
+              className="p-2 border-[1px] border-black"
               value={formik.values.infosForm.details}
             ></Field>
             <p>
