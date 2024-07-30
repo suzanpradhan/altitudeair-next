@@ -16,7 +16,7 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       fontFamily: {
-        gilroy: ['Gilroy-ExtraBold', 'sans-serif'],
+        gilroy: ['var(--font-gilroy)', 'sans-serif'],
       },
       colors: {
         'custom-blue': '#202e43',

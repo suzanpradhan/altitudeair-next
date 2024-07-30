@@ -1,9 +1,7 @@
 'use client';
-// import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 
-export default function Enquiry() {
+export default function Enquiry({ children }: { children: React.ReactNode }) {
   const [opened, setOpened] = useState(false);
 
   const openHandler = () => {
@@ -20,46 +18,7 @@ export default function Enquiry() {
         <div className="enquiry" onClick={openHandler}>
           <h5>ENQUIRY</h5>
         </div>
-        <div className="info_container">
-          <div className="person_container">
-            <div className="icon_container">
-              {/* <FontAwesomeIcon icon={faPhone} title="Phone" /> */}
-            </div>
-            <div className="contact_container">
-              <h3>Sitaram Sapkota</h3>
-              <p>977 9801249917</p>
-            </div>
-          </div>
-
-          <div className="person_container">
-            <div className="icon_container">
-              {/* <FontAwesomeIcon icon={faPhone} title="Phone" /> */}
-            </div>
-            <div className="contact_container">
-              <h3>Chandra Pyakurel(Sudip)</h3>
-              <p>+977 9801249908</p>
-            </div>
-          </div>
-
-          <hr />
-          <div className="email_container">
-            {/* <FontAwesomeIcon icon={faEnvelope} title="Email" /> */}
-            <h3>EMAIL</h3>
-          </div>
-
-          <p>
-            For Booking:{' '}
-            <a href="mailto:reservation@altitudeheli.com">
-              reservation@altitudeheli.com
-            </a>
-          </p>
-          <p>
-            For Enquiry:{' '}
-            <a href="mailto:marketing@altitudeheli.com">
-              marketing@altitudeheli.com
-            </a>{' '}
-          </p>
-        </div>
+        {children}
       </div>
     </>
   );

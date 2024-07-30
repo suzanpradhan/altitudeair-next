@@ -6,17 +6,7 @@ import Link from 'next/dist/client/link';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-
-interface BlogItemType {
-  id: string | null;
-  title?: string;
-  description?: string;
-  content?: string;
-  date: string | null;
-  publisher?: string;
-  coverImage?: string;
-  blogCategory: string | null;
-}
+import { BlogItemType } from '../(components)/BlogItem';
 
 export default function BlogItem() {
   const router = useRouter();
@@ -28,6 +18,7 @@ export default function BlogItem() {
     title: '',
     description: '',
     content: '',
+    direction: '',
     date: null,
     publisher: '',
     coverImage: '',

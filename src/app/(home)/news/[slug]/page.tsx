@@ -13,7 +13,6 @@ export default function NewsDetail() {
 
   const [news, setNews] = useState<NewsDataType>();
 
-  //   console.log(slug);
   useEffect(() => {
     if (!slug) {
       return;
@@ -45,34 +44,35 @@ export default function NewsDetail() {
   }, [slug]);
 
   return (
-    <>
+    <div className="bg-[#A7B9C7]">
       {news && (
-        <main className="news-item-main">
-          <div className="featured-img">
+        <div className="md:max-w-3xl px-10 sm:px-20 md:px-0 mx-auto py-32">
+          <h2 className="font-bold text-4xl pb-4">{news.title}</h2>
+          <p className="pb-4">
+            <a href="#" className="pr-2 text-base">
+              {news.publisher}
+            </a>
+            &#x2022;
+            <span className="pl-2">{dateFromSqlDateTime(news.date)}</span>
+          </p>
+
+          <div className="w-full md:h-96 h-80 relative ">
             <Image
               src={constants.baseUrl + news.coverImage}
               alt="News item"
-              height={100}
-              width={100}
+              fill
+              objectFit="cover"
               quality={75}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             <div className="fading-bottom" />
           </div>
 
-          <article>
-            <h2>{news.title}</h2>
+          <article className="pt-8">
             <div className="content">{parseHtml(news.description ?? '')}</div>
-
-            <span>
-              {'- Published in '}
-              <a href="#">{news.publisher}</a>
-            </span>
-            <br />
-            <span>{dateFromSqlDateTime(news.date)}</span>
           </article>
-        </main>
+        </div>
       )}
-    </>
+    </div>
   );
 }

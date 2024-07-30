@@ -1,6 +1,7 @@
 import Enquiry from '../(components)/(elements)/Enquiry';
+import EnquiryDetails from '../(components)/(elements)/EnquiryDetails';
 import About from '../(components)/(sections)/(landing)/About';
-import Gallery from '../(components)/(sections)/(landing)/Gallery';
+import GalleryV2 from '../(components)/(sections)/(landing)/GalleryV2';
 import GetInTouch from '../(components)/(sections)/(landing)/GetInTouch';
 import Highlights from '../(components)/(sections)/(landing)/Highlights';
 import Landing from '../(components)/(sections)/(landing)/Landing';
@@ -14,7 +15,9 @@ export default function Home() {
   return (
     <>
       {/* <SplashScreen /> */}
-      <Enquiry />
+      <Enquiry>
+        <EnquiryDetails />
+      </Enquiry>
       <Landing />
       <Highlights />
       <Package />
@@ -22,7 +25,8 @@ export default function Home() {
       <About />
       <Missions />
       <News />
-      <Gallery />
+      {/* <Gallery /> */}
+      <GalleryV2 />
       <Reviews />
       <GetInTouch />
     </>

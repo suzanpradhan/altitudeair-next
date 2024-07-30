@@ -20,7 +20,6 @@ const BookingMainCard = ({
 }) => {
   const router = useRouter();
   const slug = useParams();
-  console.log(slug);
   const [departureDate, setDepartureDate] = useState<Date>(new Date());
   const [selectedOption, setSelectedOption] = useState({
     value: '',
@@ -51,7 +50,6 @@ const BookingMainCard = ({
     label: string;
   }) => {
     setSelectedOption(selectedOption);
-    console.log('Selected option:', selectedOption);
   };
 
   const handleBooking = () => {
