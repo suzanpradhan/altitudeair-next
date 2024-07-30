@@ -30,8 +30,9 @@ export default function NewsItem({ data }: { data: NewsDataType }) {
           {data.title}
         </h2>
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-start gap-2">
           <p className="text-xs font-medium text-gray-500">{data.publisher}</p>
+          <p className="text-xs text-custom-blue-light">&#9679;</p>
           <p className="text-xs font-normal text-gray-500">
             {dateFromSqlDateTime(data.date)}
           </p>
