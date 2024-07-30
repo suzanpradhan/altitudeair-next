@@ -42,7 +42,7 @@ const NewsList = () => {
       <section className="news-section">
         <div className="container mx-auto">
           <h2 className="text-center text-xl font-bold mb-10">IN THE NEWS</h2>
-          <div className="grid grid-cols-12 gap-6 max-w-6xl mx-auto my-5">
+          <div className="grid grid-cols-12 gap-y-10 gap-x-10 max-w-6xl mx-auto my-5">
             {!isLoading ? (
               newsResponse && newsResponse.length > 0 ? (
                 newsResponse.map((item, index) => {
