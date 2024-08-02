@@ -1,3 +1,4 @@
+import { parseHtml } from '@/core/utils/helper';
 import { PackagesDataType } from '@/modules/packages/packagesType';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -22,7 +23,7 @@ export default function PackageCard({ item }: { item: PackagesDataType }) {
               className="group-hover:scale-105 transition-all duration-300 ease-in-out object-cover"
             />
           </div>
-          <h3 className="text-lg font-medium text-custom-blue leading-6 line-clamp-2">
+          <h3 className="text-lg font-medium text-custom-blue leading-6 line-clamp-1">
             {item.title}
           </h3>
           <div className="flex items-center gap-2">
@@ -37,7 +38,7 @@ export default function PackageCard({ item }: { item: PackagesDataType }) {
             </p>
           </div>
           <p className="text-sm text-custom-blue/60 font-normal line-clamp-4">
-            {/* {parseHtml(item.description ?? '')} */}
+            {parseHtml(item.description ?? '')}
           </p>
         </div>
         <div className="flex items-center justify-start gap-5 mt-2">
