@@ -19,7 +19,7 @@ const VoluntaryHazardReport = () => {
     let obj = {
       ...values,
       isContact: false,
-      date: `${values.date.getFullYear()}-${values.date.getMonth()}-${values.date.getDate()}`,
+      date: `${values.date?.getFullYear()}-${values.date?.getMonth()}-${values.date?.getDate()}`,
     };
     let res;
 
@@ -40,7 +40,7 @@ const VoluntaryHazardReport = () => {
     try {
       res = await axiosInstance.post('/contactUs', obj);
       toast.success(
-        'Your request has been submitted. Check your email for verification.'
+        'Your request has been submitted. Check your email or phone for verification.'
       );
     } catch (error) {
       toast.error('Error submitting form!');
