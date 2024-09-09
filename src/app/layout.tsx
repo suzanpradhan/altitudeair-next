@@ -28,6 +28,9 @@ export const metadata: Metadata = {
     'Altitude Air offers top-rated helicopter services and scenic package tours to beautiful destinations.',
   keywords:
     'helicopter flights, helicopter tours, helicopter rescue, Altitude Air, Nepal',
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default function RootLayout({
