@@ -1,3 +1,4 @@
+import { selectorDataSchema } from "@/core/types/selectorTypes";
 import { nonempty } from "@/core/utils/formUtils";
 import { z } from "zod";
 import { PackagesDataType } from "../packages/packagesType";
@@ -10,6 +11,7 @@ export const transactionSchema = z.object({
 
 export const bookingSchema = z.object({
     departureDate: z.date().optional(),
+    currency: selectorDataSchema,
     noOfTravelers: z.number(),
     totalPrice: z.string().optional(),
     fullName: z.string().pipe(nonempty),

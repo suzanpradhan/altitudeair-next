@@ -7,8 +7,14 @@ import { BookingFormType, bookingSchema } from '@/modules/bookings/bookingType';
 import { PackagesDataType } from '@/modules/packages/packagesType';
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import Select, { components } from 'react-select';
 import { toFormikValidate } from 'zod-formik-adapter';
 import { months } from '../../(components)/BookingMainCard';
+
+const currencyOptions = [
+  { value: 'usd', label: 'USD' },
+  { value: 'npr', label: 'NPR' },
+];
 
 const BookingForm = () => {
   const { packageSlug, packageName, packagePrice, departureDate, totalPerson } =
@@ -46,6 +52,7 @@ const BookingForm = () => {
         dispatch(
           bookingApi.endpoints.createBooking.initiate({
             package: packageSlug ?? packageData?.slug,
+            currency: values.currency,
             departureDate: values.departureDate,
             noOfTravelers: values.noOfTravelers,
             totalPrice: values.totalPrice,
@@ -72,6 +79,7 @@ const BookingForm = () => {
     enableReinitialize: true,
     initialValues: {
       package: packageSlug ?? packageData?.slug,
+      currency: { label: '', value: '' },
       departureDate: kDepartureDate,
       noOfTravelers: totalPerson ? parseInt(totalPerson) : 1,
       totalPrice: (
@@ -192,8 +200,8 @@ const BookingForm = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
+          <div className="grid grid-cols-1 md:grid-cols-9 gap-6 mb-6">
+            <div className="md:col-span-3">
               <label className="block text-sm font-normal text-custom-blue mb-1">
                 Email Address <span className="text-rose-600">*</span>
               </label>
@@ -210,7 +218,65 @@ const BookingForm = () => {
                 </div>
               )}
             </div>
-            <div>
+            <div className="md:col-span-2">
+              <label className="block text-sm font-normal text-custom-blue mb-1">
+                Currency <span className="text-rose-600">*</span>
+              </label>
+
+              <Select
+                required={true}
+                options={currencyOptions}
+                name={'currency'}
+                placeholder={'Select'}
+                value={
+                  currencyOptions.filter(
+                    (item, index) => item.value === formik.values.currency.value
+                  )[0]
+                }
+                onChange={(e) => {
+                  formik.setFieldValue('currency', e);
+                }}
+                components={{
+                  Control: ({ children, ...props }) => {
+                    return (
+                      <components.Control {...props}>
+                        {children}
+                      </components.Control>
+                    );
+                  },
+                }}
+                styles={{
+                  control: (base) => ({
+                    ...base,
+                    minHeight: 36,
+                    maxHeight: 36,
+                    border: 'none',
+                    outline: 'none',
+                    borderRadius: 2,
+                    backgroundColor: '#F5F8FA',
+                    flexWrap: 'wrap',
+                  }),
+                }}
+                theme={(theme) => {
+                  return {
+                    ...theme,
+                    borderRadius: 0,
+                    colors: {
+                      ...theme.colors,
+                      primary25: '#F2F3F5',
+                      primary: '#2560AA',
+                    },
+                  };
+                }}
+                className={`w-full border rounded-md bg-transparent text-sm focus:outline-none custom-scrollbar `}
+              />
+              {!!formik.errors.currency && (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.currency.value || formik.errors.currency.label}
+                </div>
+              )}
+            </div>
+            <div className="md:col-span-4">
               <label className="block text-sm font-normal text-custom-blue mb-1">
                 Country Code + Phone Number{' '}
                 <span className="text-rose-600">*</span>
