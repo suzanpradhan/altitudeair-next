@@ -16,9 +16,6 @@ const PackageGallery = ({ packageSlug }: { packageSlug: string }) => {
   );
   const [isEnd, toggleIsEnd] = useState<boolean | undefined>(undefined);
 
-  console.log('isBeginning:', isBeginning);
-  console.log('isEnd:', isEnd);
-
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -60,6 +57,12 @@ const PackageGallery = ({ packageSlug }: { packageSlug: string }) => {
     },
   };
 
+  useEffect(() => {
+    if (packageGalleryData?.length === 1) {
+      toggleIsBeginning(true), toggleIsEnd(true);
+    }
+  }, [packageGalleryData?.length]);
+
   return (
     <>
       <h3 className="text-2xl font-bold text-custom-blue mt-5">Gallery</h3>
@@ -82,8 +85,18 @@ const PackageGallery = ({ packageSlug }: { packageSlug: string }) => {
         </div>
         <Swiper
           navigation={true}
-          onReachBeginning={() => (toggleIsBeginning(true), toggleIsEnd(false))}
-          onReachEnd={() => (toggleIsBeginning(false), toggleIsEnd(true))}
+          onReachBeginning={() => {
+            if (packageGalleryData?.length !== 1) {
+              toggleIsBeginning(true);
+              toggleIsEnd(false);
+            }
+          }}
+          onReachEnd={() => {
+            if (packageGalleryData?.length !== 1) {
+              toggleIsBeginning(true);
+              toggleIsEnd(false);
+            }
+          }}
           onSlideChange={() => {
             if (
               !swiperRef.current?.swiper.isBeginning &&

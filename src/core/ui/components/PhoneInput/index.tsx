@@ -43,14 +43,6 @@ class PhoneInputField extends Component<
       height: '2.5rem',
     };
 
-    // const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    //   //   e.target.style.boxShadow = '0 0 0 2px #000'; // Adjust color as needed
-    // };
-
-    // const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    //   //   e.target.style.boxShadow = 'none';
-    // };
-
     return (
       <div className="w-full relative">
         <PhoneInput

@@ -37,8 +37,7 @@ export default function Missions() {
   const [lat, setLat] = useState<number>(28.5);
   const [zoom, setZoom] = useState<number>(5.5);
 
-  mapboxgl.accessToken =
-    'pk.eyJ1IjoiaWN5aG90c2hvdG8iLCJhIjoiY2tmeHQwc3E5MjRxajJxbzhmbDN1bjJ5aiJ9.mNKmhIjRyKxFkJYrm4dMqg';
+  mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_KEY ?? '';
 
   function flyTo(coords: [number, number]) {
     if (!map.current) {
