@@ -43,6 +43,8 @@ export default function NewsDetail() {
     //   });
   }, [slug]);
 
+  console.log(news);
+
   return (
     <div className="bg-[#A7B9C7]">
       {news && (
@@ -69,7 +71,9 @@ export default function NewsDetail() {
           </div>
 
           <article className="pt-8">
-            <div className="content">{parseHtml(news.description ?? '')}</div>
+            <div className="content !text-gray-600">
+              {parseHtml(news.description ?? '')}
+            </div>
           </article>
         </div>
       )}

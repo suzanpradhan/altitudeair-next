@@ -34,15 +34,6 @@ function Landing() {
       const data = result.data.data;
       setVideoUrl(data.VideoUrl);
     });
-
-    // new Rellax('.parallax-element');
-
-    // animateOnScroll(
-    //   ".landing .heli-container",
-    //   ".landing .animation-observer-helper",
-    //   "chopper-fly",
-    //   true
-    // );
   }, []);
 
   return (

@@ -14,7 +14,7 @@ export default function News() {
 
   useEffect(() => {
     setIsLoading(true);
-    dispatch(newsApi.endpoints.getNewsLimit.initiate(4))
+    dispatch(newsApi.endpoints.getNewsLimit.initiate(3))
       .then(() => {
         setIsLoading(false);
       })

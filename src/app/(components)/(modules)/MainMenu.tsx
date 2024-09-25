@@ -105,7 +105,7 @@ const MainMenu = () => {
       link: '/gallery',
     },
     {
-      title: 'NEWS',
+      title: 'Article',
       link: '/news',
     },
     {
@@ -281,7 +281,7 @@ const MainMenu = () => {
             className={`relative px-5 group ${navHoverClass} ${currentPath === '/news' ? navActiveClass : ''}`} // add active class letter
           >
             <Link href={'/news'} className="flex items-center h-full">
-              NEWS
+              ARTICLE
             </Link>
           </li>
         </MenuItems>

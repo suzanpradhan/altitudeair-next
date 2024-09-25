@@ -6,6 +6,7 @@ import { PackagesDataType } from '@/modules/packages/packagesType';
 import { useEffect, useState } from 'react';
 import { FaLocationDot } from 'react-icons/fa6';
 import { IoTimeOutline } from 'react-icons/io5';
+import axiosInst from '../../../../../core/utils/axoisInst';
 import BookingMainCard from '../../[slug]/(components)/BookingMainCard';
 import PackageAdditionalInfo from '../../[slug]/(components)/PackageAdditionalInfo';
 import PackageGallery from '../../[slug]/(components)/PackageGallery';
@@ -17,6 +18,14 @@ const PackageLinkPage = ({ params }: { params: { slug: string } }) => {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [hotline, setHotline] = useState('');
+
+  useEffect(() => {
+    axiosInst.get('/footer/').then((result) => {
+      const data = result.data.data;
+      setHotline(data[0].hotline);
+    });
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
@@ -71,7 +80,10 @@ const PackageLinkPage = ({ params }: { params: { slug: string } }) => {
             <div className="col-span-12 md:col-span-8 w-full">
               <PackageAdditionalInfo />
               <PackageGallery packageSlug={packageData.slug} />
-              <PackageHighlights />
+              <PackageHighlights
+                data={packageData.description}
+                hotline={hotline}
+              />
             </div>
             <div className="col-span-12 md:col-span-4 w-full">
               <PackageLocation />
