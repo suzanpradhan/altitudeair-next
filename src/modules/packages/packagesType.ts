@@ -11,6 +11,7 @@ export interface PackagesDataType {
     duration?: string;
     flight_time?: string;
     price?: number;
+    currency?: string;
     min_size?: number;
     max_size?: number;
     pricing_type?: string;

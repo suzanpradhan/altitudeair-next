@@ -57,12 +57,6 @@ const PackageGallery = ({ packageSlug }: { packageSlug: string }) => {
     },
   };
 
-  useEffect(() => {
-    if (packageGalleryData?.length === 1) {
-      toggleIsBeginning(true), toggleIsEnd(true);
-    }
-  }, [packageGalleryData?.length]);
-
   return (
     <>
       {!isLoading ? (
@@ -74,14 +68,14 @@ const PackageGallery = ({ packageSlug }: { packageSlug: string }) => {
             <div className="group relative w-full my-5 transition-all duration-100">
               <div>
                 <button
-                  disabled={isBeginning}
+                  disabled={isBeginning || packageGalleryData?.length === 1}
                   onClick={() => swiperRef.current?.swiper.slidePrev()}
                   className="text-[#f7c024] disabled:text-gray-400 absolute left-0 top-1/2 -translate-y-1/2 z-20"
                 >
                   <IoIosArrowBack size={45} />
                 </button>
                 <button
-                  disabled={isEnd}
+                  disabled={isEnd || packageGalleryData?.length === 1}
                   className="text-[#f7c024] disabled:text-gray-400 absolute right-0 top-1/2 -translate-y-1/2 z-20"
                   onClick={() => swiperRef.current?.swiper.slideNext()}
                 >

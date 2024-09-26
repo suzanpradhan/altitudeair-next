@@ -151,7 +151,7 @@ const RelatedPackages = () => {
               {paginatedPackagesResponse &&
               paginatedPackagesResponse.results.length > 0 ? (
                 paginatedPackagesResponse.results.map((item, index) => (
-                  <SwiperSlide key={index}>
+                  <SwiperSlide key={index} className="h-auto">
                     <PackageCard item={item} />
                   </SwiperSlide>
                 ))

@@ -151,7 +151,7 @@ const BookingMainCard = ({
             Total Price
           </p>
           <p className="text-sm sm:text-xl text-custom-blue font-bold">
-            $
+            {packageData.currency === 'USD' ? '$ ' : 'NPR '}
             {packageData.pricing_type === 'per_person'
               ? `${packageData.price! * parseInt(selectedOption.value)} /p`
               : `${packageData.price} /f`}
