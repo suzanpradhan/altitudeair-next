@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   keywords:
     'helicopter flights, helicopter tours, helicopter rescue, Altitude Air, Nepal',
   icons: {
-    icon: '/favicon.png',
+    icon: './favicon.ico',
   },
 };
 
