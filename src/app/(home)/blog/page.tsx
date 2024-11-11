@@ -13,6 +13,21 @@ interface BlogItemType {
 }
 export const metadata: Metadata = {
   title: 'Area of Operation',
+  description: 'Area of Operation Page',
+  openGraph: {
+    title: 'Area of Operation',
+    description: 'Area of Operation Page',
+    images: [
+      {
+        url: 'https://altitudeairnepal.com/public/images/banner/banner-4.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Area of Operation ',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 export default async function Blog(props: any) {
   const category = props.searchParams.category as string[];

@@ -42,6 +42,15 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
     siteName: 'Altitude Air',
+    url: 'https://altitudeairnepal.com',
+    images: [
+      {
+        url: 'https://altitudeairnepal.com/public/images/banner/banner-4.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Scenic view from Altitude Air helicopter tour',
+      },
+    ],
   },
 };
 
@@ -50,6 +59,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  ``;
   return (
     <html lang="en">
       <Head>
