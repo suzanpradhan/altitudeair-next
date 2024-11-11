@@ -39,6 +39,10 @@ interface CrewsType {
 interface SubType {
   title: string;
 }
+// export const metadata: Metadata = {
+//   title: '...',
+//   description: '...',
+// };
 
 export default function About() {
   const [BODs, setBODs] = useState<BODsType[]>([]);
@@ -133,7 +137,7 @@ export default function About() {
               onError={(e) => {
                 e.currentTarget.src = '/images/errors/placeholder.webp';
               }}
-              src={constants.baseUrl + BODMessage?.image ?? ''}
+              src={constants.baseUrl + BODMessage?.image}
               alt="BODs Image"
             />
           </div>
@@ -162,7 +166,7 @@ export default function About() {
                         height={100}
                         quality={75}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        src={constants.baseUrl + member?.image ?? ''}
+                        src={constants.baseUrl + member?.image}
                         alt="Crew Image"
                         onError={(e) => {
                           e.currentTarget.src =

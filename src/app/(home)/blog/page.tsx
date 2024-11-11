@@ -1,4 +1,5 @@
 import { apiPaths } from '@/core/api/apiConstants';
+import { Metadata } from 'next';
 import BlogItem from './(components)/BlogItem';
 import Title from './(components)/Title';
 
@@ -10,7 +11,9 @@ interface BlogItemType {
   coverImage: string;
   direction: string;
 }
-
+export const metadata: Metadata = {
+  title: 'Area of Operation',
+};
 export default async function Blog(props: any) {
   const category = props.searchParams.category as string[];
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;

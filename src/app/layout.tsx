@@ -23,13 +23,25 @@ const gilroy = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Altitude Air Nepal',
+  title: {
+    default: 'Altitude Air Nepal',
+    template: '%s | Altitude Air Nepal',
+  },
+
   description:
     'Altitude Air offers top-rated helicopter services and scenic package tours to beautiful destinations.',
   keywords:
     'helicopter flights, helicopter tours, helicopter rescue, Altitude Air, Nepal',
   icons: {
     icon: './favicon.ico',
+  },
+  openGraph: {
+    title: 'Altitude Air Nepal',
+    description:
+      'Altitude Air offers top-rated helicopter services and scenic package tours to beautiful destinations.',
+    locale: 'en_US',
+    type: 'website',
+    siteName: 'Altitude Air',
   },
 };
 

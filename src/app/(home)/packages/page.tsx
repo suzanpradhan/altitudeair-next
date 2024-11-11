@@ -1,5 +1,9 @@
+import { Metadata } from 'next';
 import PackagesList from './(components)/PackagesList';
 
+export const metadata: Metadata = {
+  title: 'Packages',
+};
 export default function Packages() {
   return (
     <main className="bg-custom-gray-light/50 pb-20">
