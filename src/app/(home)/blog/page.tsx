@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description: 'Area of Operation Page',
     images: [
       {
-        url: 'https://altitudeairnepal.com/public/images/banner/banner-4.jpg',
+        url: 'https://altitudeairnepal.com/images/banner/banner-4.jpg',
         width: 1200,
         height: 630,
         alt: 'Area of Operation ',

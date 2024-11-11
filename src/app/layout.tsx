@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     url: 'https://altitudeairnepal.com',
     images: [
       {
-        url: 'https://altitudeairnepal.com/public/images/banner/banner-4.jpg',
+        url: 'https://altitudeairnepal.com/images/banner/banner-4.jpg',
         width: 1200,
         height: 630,
         alt: 'Scenic view from Altitude Air helicopter tour',

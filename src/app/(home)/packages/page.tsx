@@ -11,7 +11,7 @@ export const metadata: Metadata = {
       'Helicopter tour over the Himalayas is indeed a lifetime experience. The magnificent views of the Himalayas is the unique specialty of helicopter treks.',
     images: [
       {
-        url: 'https://altitudeairnepal.com/public/images/banner/banner.webp',
+        url: 'https://altitudeairnepal.com/images/banner/banner.webp',
         width: 1200,
         height: 630,
         alt: 'Altitude Air Packages',

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     url: 'https://altitudeairnepal.com',
     images: [
       {
-        url: 'https://altitudeairnepal.com/public/images/banner/banner.webp',
+        url: 'https://altitudeairnepal.com/images/banner/banner-4.jpg',
         width: 1200,
         height: 630,
         alt: 'Altitude Air Article',

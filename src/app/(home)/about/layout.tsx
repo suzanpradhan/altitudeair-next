@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: 'Contact page',
     images: [
       {
-        url: 'https://altitudeairnepal.com/public/images/banner/banner-2.webp',
+        url: 'https://altitudeairnepal.com/images/banner/banner-2.webp',
         width: 1200,
         height: 630,
         alt: 'Altitude Air Contact',
