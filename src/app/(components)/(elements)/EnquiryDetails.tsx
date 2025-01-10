@@ -7,8 +7,8 @@ export default function EnquiryDetails() {
             {/* <FontAwesomeIcon icon={faPhone} title="Phone" /> */}
           </div>
           <div className="contact_container">
-            <h3>Mingma T. sherpa</h3>
-            <p>977 9801249907</p>
+            <h3>Mingma T. Sherpa</h3>
+            <p>+977 9801249907</p>
           </div>
         </div>
         <div className="person_container">
@@ -16,7 +16,7 @@ export default function EnquiryDetails() {
             {/* <FontAwesomeIcon icon={faPhone} title="Phone" /> */}
           </div>
           <div className="contact_container">
-            <h3>Chandra Pyakurel(Sudip)</h3>
+            <h3>Chandra Pyakurel (Sudip)</h3>
             <p>+977 9801249908</p>
           </div>
         </div>

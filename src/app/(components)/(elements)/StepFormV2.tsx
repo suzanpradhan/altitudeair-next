@@ -75,7 +75,6 @@ const StepFormV2 = () => {
         throw err;
       });
   };
-
   const validateForm = (values: EnquirySchemaType) => {
     try {
       enquirySchema.parse(values);
