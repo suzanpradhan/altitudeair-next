@@ -12,17 +12,17 @@ interface BlogItemType {
   direction: string;
 }
 export const metadata: Metadata = {
-  title: 'Area of Operation',
-  description: 'Area of Operation Page',
+  title: 'Our Services',
+  description: 'Our Services Page',
   openGraph: {
-    title: 'Area of Operation',
-    description: 'Area of Operation Page',
+    title: 'Our Services',
+    description: 'Our Services Page',
     images: [
       {
         url: 'https://altitudeairnepal.com/images/banner/banner-4.jpg',
         width: 1200,
         height: 630,
-        alt: 'Area of Operation ',
+        alt: 'Our Services ',
       },
     ],
     locale: 'en_US',
@@ -47,10 +47,10 @@ export default async function Blog(props: any) {
   const blogs = response ? ((await response.json()) as any) : undefined;
 
   return (
-    <main className="blog-main">
+    <main className="blog-main pb-10 ">
       <Title />
       {/* {loading && <div className="loader" />} */}
-      <div className="blog-item-list" id="blog">
+      <div className="blog-item-list " id="blog">
         {(blogs?.data as Array<any>).map((item, index) => (
           <BlogItem
             blogCategory={blogs}

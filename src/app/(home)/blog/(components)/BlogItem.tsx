@@ -26,7 +26,7 @@ export default function BlogItem({
   return (
     <div className={`blog-item ${direction || ''}`} id={id ?? undefined}>
       <div className="image_container">
-        <div className="absolute_shadow relative" />
+        <div className="absolute_shadow relative " />
         <Image
           src={constants.baseUrl + coverImage}
           alt="blog heli image"
@@ -36,6 +36,7 @@ export default function BlogItem({
           height={100}
           width={100}
           quality={75}
+          className="rounded-md cursor-pointer "
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>

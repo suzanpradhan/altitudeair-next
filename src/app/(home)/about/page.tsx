@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 // import Rellax from 'rellax';
+import Mission from '@/app/(components)/(modules)/Mission';
 import axiosInst from '@/core/utils/axoisInst';
 import { constants } from '@/core/utils/constants';
 import { parseHtml } from '@/core/utils/helper';
@@ -124,7 +125,7 @@ export default function About() {
 
       <section className="director_section" id="message">
         <div className="h2_wrapper">
-          <h2>MESSAGE FROM EXECUTIVE CHAIRMAN</h2>
+          <h2>MESSAGE FROM THE EXECUTIVE CHAIRMAN</h2>
         </div>
         <div className="director_message_wrapper">
           <div className="image_wrapper relative">
@@ -141,7 +142,7 @@ export default function About() {
               alt="BODs Image"
             />
           </div>
-          <div className="text_wrapper">
+          <div className="text_wrapper text-base flex flex-col gap-2">
             {parseHtml(BODMessage?.content ?? '')}
             <span>{BODs[0]?.director}</span>
             <span>{BODs[0]?.position}</span>
@@ -512,13 +513,10 @@ export default function About() {
             <div className="mission_para_wrapper">
               <ul>
                 <li>Work safely and efficiently</li>
-                <li>Continuously review and improve our performance</li>
-                <li>Constantly focus and ensure Customer Satisfaction</li>
-                <li>Work in innovative partnership with our clients</li>
-                <li>
-                  Place values on the contribution of our employees, their job
-                  satisfaction and well-being
-                </li>
+                <li>Seek constant improvement to enhance our performance</li>
+                <li>Develop innovative partnerships with our clients</li>
+                <li>Prioritize our employees’ contributions and well-being</li>
+                <li>Ensure customer satisfaction</li>
               </ul>
             </div>
           </div>
@@ -528,12 +526,10 @@ export default function About() {
               <h2>VISION</h2>
             </div>
             <div className="mission_para_wrapper">
-              <p>
-                Our vision is to be recognized as the number one helicopter
-                operator and maintenance organization in standard and safety to
-                meet all our clients expectation and to be a leader in Improving
-                the helicopter industry’s safety and standard.
-              </p>
+              <ul>
+                <li>Exceed customer expectations</li>
+                <li>Lead with our exceptional safety and standards</li>
+              </ul>
             </div>
           </div>
 
@@ -543,13 +539,11 @@ export default function About() {
             </div>
             <div className="mission_para_wrapper">
               <ul>
-                <li>Safety – above anything</li>
-                <li>
-                  Quality and Excellence – set and achieve high standards in
-                  everything we do
-                </li>
-                <li>Teamwork – transparency and respect for one another</li>
-                <li>Integrity & Ethics – do the right things</li>
+                <li>Excellence</li>
+                <li>Safety</li>
+                <li>Quality</li>
+                <li>Teamwork</li>
+                <li>Integrity</li>
               </ul>
             </div>
           </div>
@@ -559,16 +553,13 @@ export default function About() {
               <h2>GOAL</h2>
             </div>
             <div className="mission_para_wrapper">
-              <p>
-                Altitude Air’s primary goal and essential core value is safety,
-                which is never compromised. We value services that are
-                inventive, punctual, efficient, cost-effective, dependable and
-                the highest quality. We are dedicated to provide the best
-                possible service to our customers. We value our team’s
-                commitment for achieving our purpose, and we support and
-                encourage collaboration in order to maintain a high level of
-                competence, and expertise.
-              </p>
+              <ul>
+                <li>Safety is our number one goal</li>
+                <li>
+                  Inventive, punctual, efficient, cost-effective, dependable,
+                  and quality services
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -577,15 +568,8 @@ export default function About() {
         <div className="h2_wrapper">
           <h2>MISSION&nbsp;STATISTICS</h2>
         </div>
-        <div className="circle-background relative">
-          <Image
-            width={100}
-            height={100}
-            quality={75}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            src="/images/about/infographic.webp"
-            alt="circle"
-          />
+        <div className="circle-background relative mt-52 ml-64">
+          <Mission />
         </div>
       </section>
     </main>

@@ -141,7 +141,7 @@ export default function SideDrawer({ show }: { show: boolean }) {
               onClick={() => setBlogsDrop(!blogsDropActive)}
             >
               <Link href={'/blog'} className="flex items-center px-4 h-16">
-                AREA OF OPERATION
+                Our Services
               </Link>
             </li>
             {blogsDropActive ? (

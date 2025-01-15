@@ -10,6 +10,7 @@ import './globals.css';
 // Import Swiper styles
 import Provider from '@/core/redux/provider';
 import Notification from '@/core/ui/components/notification';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'swiper/css';
 import 'swiper/css/pagination';

@@ -40,7 +40,7 @@ const Navbar = () => {
         }`}
       >
         <div className="lg:container mx-auto">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between">
             <div className="w-24 flex justify-center">
               <Link href="/" className="flex items-center relative h-16 w-16">
                 <Image
@@ -54,15 +54,14 @@ const Navbar = () => {
                 />
               </Link>
             </div>
-
             <MainMenu />
             <MobileNav />
           </div>
         </div>
       </div>
       {isStickyLogoVisible && (
-        <div className="fixed top-0 left-0 w-full z-40">
-          <div className="lg:container mx-auto flex items-center h-16">
+        <div className="fixed top-0 sm:left-0 w-full left-2 z-40">
+          <div className="lg:container mx-auto ">
             <div className="bg-white w-24 flex justify-center">
               <Link href="/" className="flex items-center relatives h-16 w-16">
                 <Image
