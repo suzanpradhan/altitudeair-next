@@ -56,7 +56,7 @@ export const ItemsData = [
   },
   {
     title: 'FLEETS',
-    link: '#',
+    link: '/description',
     sub_menu: [
       {
         title: 'Overview',
@@ -219,7 +219,7 @@ const MainMenu = () => {
           <li
             className={`relative px-5 group ${navHoverClass} ${currentPath.startsWith('/description') ? navActiveClass : ''}`} // add active class letter
           >
-            <Link href={'#'} className="flex items-center h-full">
+            <Link href={'/description'} className="flex items-center h-full">
               FLEETS
             </Link>
             <div className="hidden group-hover:block group-hover:shadow absolute top-full -left-[6px] min-w-full w-max bg-custom-blue/90">

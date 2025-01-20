@@ -1,3 +1,4 @@
+'use client';
 import { constants } from '@/core/utils/constants';
 import { dateFromSqlDateTime, parseHtml } from '@/core/utils/helper';
 import Image from 'next/image';
@@ -49,14 +50,13 @@ export default function BlogItem({
           Published on {date ? dateFromSqlDateTime(date) : ''}
         </p>
         <p>{parseHtml(description ?? '')}</p>
-        <button
-          className="button-outline-light"
-          // onClick={() => {
-          //   router.push(`/blog/${id}`);
-          // }}
-        >
-          VIEW MORE
-        </button>
+        <Link href={`/blog/${id}`}>
+          <div className="mt-3">
+            <button className="font-extrabold p-3 border-[2px] cursor-pointer hover:bg-[#2c5f9699] transition-colors duration-500 ease-in-out">
+              VIEW MORE
+            </button>
+          </div>
+        </Link>
       </div>
     </div>
   );

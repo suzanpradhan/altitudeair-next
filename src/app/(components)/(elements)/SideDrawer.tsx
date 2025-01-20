@@ -204,7 +204,10 @@ export default function SideDrawer({ show }: { show: boolean }) {
               )}
               onClick={() => setFleetsDrop(!fleetsDropActive)}
             >
-              <Link href={'#'} className="flex items-center px-4 h-16">
+              <Link
+                href={'/description'}
+                className="flex items-center px-4 h-16"
+              >
                 FLEETS
               </Link>
             </li>

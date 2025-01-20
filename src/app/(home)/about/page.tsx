@@ -128,12 +128,13 @@ export default function About() {
           <h2>MESSAGE FROM THE EXECUTIVE CHAIRMAN</h2>
         </div>
         <div className="director_message_wrapper">
-          <div className="image_wrapper relative">
+          <div className="image_wrapper relative ">
             <Image
               width={100}
               height={100}
               //   fill
               quality={75}
+              className="rounded-md"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               onError={(e) => {
                 e.currentTarget.src = '/images/errors/placeholder.webp';
@@ -510,7 +511,7 @@ export default function About() {
             <div className="heading_container">
               <h2>MISSION</h2>
             </div>
-            <div className="mission_para_wrapper">
+            <div className="mission_para_wrapper w-full">
               <ul>
                 <li>Work safely and efficiently</li>
                 <li>Seek constant improvement to enhance our performance</li>
@@ -525,7 +526,7 @@ export default function About() {
             <div className="heading_container">
               <h2>VISION</h2>
             </div>
-            <div className="mission_para_wrapper">
+            <div className="mission_para_wrapper w-full">
               <ul>
                 <li>Exceed customer expectations</li>
                 <li>Lead with our exceptional safety and standards</li>
@@ -537,7 +538,7 @@ export default function About() {
             <div className="heading_container">
               <h2>VALUES</h2>
             </div>
-            <div className="mission_para_wrapper">
+            <div className="mission_para_wrapper w-full">
               <ul>
                 <li>Excellence</li>
                 <li>Safety</li>
@@ -552,7 +553,7 @@ export default function About() {
             <div className="heading_container">
               <h2>GOAL</h2>
             </div>
-            <div className="mission_para_wrapper">
+            <div className="mission_para_wrapper w-full">
               <ul>
                 <li>Safety is our number one goal</li>
                 <li>
@@ -568,7 +569,7 @@ export default function About() {
         <div className="h2_wrapper">
           <h2>MISSION&nbsp;STATISTICS</h2>
         </div>
-        <div className="circle-background relative mt-52 ml-64">
+        <div className="circle-background relative mx-auto">
           <Mission />
         </div>
       </section>

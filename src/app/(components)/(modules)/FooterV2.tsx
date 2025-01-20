@@ -1,6 +1,6 @@
 'use client';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Formik } from 'formik';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
@@ -143,7 +143,7 @@ export default function FooterV2() {
               }}
             >
               <>
-                <Form className="flex items-stretch w-full justify-between">
+                {/* <Form className="flex items-stretch w-full justify-between">
                   <Field
                     className="bg-transparent border border-white border-r-0 py-2 px-3  w-1/2 "
                     name="email"
@@ -160,7 +160,7 @@ export default function FooterV2() {
                 </Form>
                 <p className="error_email">
                   <ErrorMessage name="email" />
-                </p>
+                </p> */}
               </>
             </Formik>
 

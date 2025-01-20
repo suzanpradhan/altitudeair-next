@@ -7,9 +7,8 @@ export default function Title() {
         <div className="p-wrapper">
           <div className="corner-border--open" />
           <p>
-            In 2016 Altitude Air bought the first Airbus Helicopter for
-            commercial operation in Nepal and is continuing to provide services
-            in the country
+            We are the first aviators in Nepal to bring an Airbus Helicopter for
+            commercial operation.
           </p>
           <div className="corner-border--close" />
         </div>

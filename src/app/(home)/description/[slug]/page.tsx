@@ -1,6 +1,7 @@
 'use client';
 
 import axiosInstance from '@/core/utils/axoisInst';
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Rellax from 'rellax';
@@ -41,19 +42,22 @@ export default function Description() {
 
   return (
     <main className="description-main">
-      <section className="intro ">
-        <div className="parallax-container">
-          <div
-            className="bg-img parallax-element background-img"
-            data-rellax-speed="-6"
-          />
-          <h1 className="bg-img parallax-element" data-rellax-speed="-10">
+      <section className="intro relative">
+        <div className="absolute inset-0 bg-black opacity-70 z-10"></div>
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 text-center px-4">
+          <h1 className="">
             {chopperInfo.name} <br />
             DESCRIPTION
           </h1>
         </div>
-        <div className="bg-img mountain-img">
-          <img src="/images/description/down.webp" alt="mountain background" />
+
+        <div className="bg-img mountain-img relative h-64 sm:h-80 md:h-96 lg:h-[32rem] ">
+          <Image
+            src="/images/description/Altitude1.jpg"
+            alt="mountain background"
+            fill
+            className="object-cover"
+          />
         </div>
       </section>
 

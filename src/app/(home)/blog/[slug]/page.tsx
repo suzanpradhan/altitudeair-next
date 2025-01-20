@@ -10,7 +10,7 @@ import { BlogItemType } from '../(components)/BlogItem';
 
 export default function BlogItem() {
   const router = useRouter();
-  const slug = useParams() || '';
+  const param = useParams();
   const [url, setUrl] = useState('');
   const [news, setNews] = useState<BlogItemType[]>([]);
   const [blogItem, setBlogItem] = useState<BlogItemType>({
@@ -25,19 +25,24 @@ export default function BlogItem() {
     blogCategory: null,
   });
 
+  console.log('useParams id:', param.slug);
+
   useEffect(() => {
-    if (slug) {
+    if (param.slug) {
       axiosInstance
-        .get(`/blog/${slug[0]}/`)
+        .get(`/blog/${param.slug[0]}/`)
         .then((item) => {
+          console.log('API Response:', item.data);
           setBlogItem(item.data.data);
         })
         .catch((err) => {
+          console.error('Error fetching blog:', err);
           if (err.response.status === 404) {
             router.push('/404');
           }
         });
     }
+    // console.log(`/blog/${param.slug[0]}/`, 'slug values numbers ');
 
     axiosInstance
       .get('/news/latest/3/')
@@ -45,8 +50,8 @@ export default function BlogItem() {
         setNews(item.data.data);
       })
       .catch((err) => {});
-    setUrl(window.location.origin + '/blog/' + slug);
-  }, [slug]);
+    setUrl(window.location.origin + '/blog/' + param.slug);
+  }, [param.slug, router]);
 
   function sharePopup(url: string) {
     window.open(

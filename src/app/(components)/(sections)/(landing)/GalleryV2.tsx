@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use client';
 import { apiPaths } from '@/core/api/apiConstants';
 import { useAppDispatch, useAppSelector } from '@/core/redux/hooks';
@@ -6,7 +7,7 @@ import galleryApi from '@/modules/gallery/galleryApi';
 import { GalleryDataType } from '@/modules/gallery/galleryType';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import Dialog from '../../(elements)/Dialog';
+import { Dialog } from '../../(elements)/Dialog';
 
 export default function Gallery() {
   const dispatch = useAppDispatch();
@@ -202,8 +203,8 @@ export default function Gallery() {
         </div>
       </div>
       {modalImage && (
-        <Dialog isDialogOpen={showModal} setIsDialogOpen={setShowModal}>
-          <img
+        <Dialog>
+          <Image
             src={modalImage}
             alt="Gallery Image"
             onError={(e) => {
