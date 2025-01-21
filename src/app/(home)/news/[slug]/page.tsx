@@ -43,8 +43,6 @@ export default function NewsDetail() {
     //   });
   }, [slug]);
 
-  console.log(news);
-
   return (
     <div className="bg-[#A7B9C7]">
       {news && (

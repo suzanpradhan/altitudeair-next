@@ -62,6 +62,7 @@ export default function Services() {
                     e.currentTarget.src = '/images/errors/placeholder.webp';
                   }}
                   quality={75}
+                  className="rounded-md"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   height={100}
                   width={100}

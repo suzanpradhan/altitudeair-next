@@ -52,7 +52,7 @@ export default function BlogItem({
         <p>{parseHtml(description ?? '')}</p>
         <Link href={`/blog/${id}`}>
           <div className="mt-3">
-            <button className="font-extrabold p-3 border-[2px] cursor-pointer hover:bg-[#2c5f9699] transition-colors duration-500 ease-in-out">
+            <button className="font-extrabold p-3 border-[2px] cursor-pointer hover:bg-[#c0d9f499] transition-colors duration-500 ease-in-out">
               VIEW MORE
             </button>
           </div>

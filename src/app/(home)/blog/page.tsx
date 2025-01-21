@@ -55,7 +55,7 @@ export default async function Blog(props: any) {
           <BlogItem
             blogCategory={blogs}
             key={index}
-            id={item.id}
+            id={item.slug}
             direction={index % 2 === 0 ? 'right' : 'left'}
             title={item.title}
             description={item.description}
