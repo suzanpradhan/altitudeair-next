@@ -25,12 +25,10 @@ export default function BlogItem() {
     blogCategory: null,
   });
 
-  // console.log('useParams id:', param.slug);
-
   useEffect(() => {
-    if (param?.slug) {
+    if (param?.id) {
       axiosInstance
-        .get('/blog/' + param.slug)
+        .get('/blog/' + param.id)
         .then((item) => {
           console.log('API Response:', item.data);
           setBlogItem(item.data.data);
@@ -42,7 +40,6 @@ export default function BlogItem() {
           }
         });
     }
-    // console.log(`/blog/${param.slug[0]}/`, 'slug values numbers ');
 
     axiosInstance
       .get('/news/latest/3/')

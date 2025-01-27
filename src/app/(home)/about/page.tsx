@@ -2,9 +2,13 @@
 import { useEffect, useState } from 'react';
 // import Rellax from 'rellax';
 import Mission from '@/app/(components)/(modules)/Mission';
+import { useAppDispatch, useAppSelector } from '@/core/redux/hooks';
+import { RootState } from '@/core/redux/store';
+import { PaginatedResponseType } from '@/core/types/responseTypes';
 import axiosInst from '@/core/utils/axoisInst';
 import { constants } from '@/core/utils/constants';
 import { parseHtml } from '@/core/utils/helper';
+import crewApi from '@/modules/crew/crewApi';
 import Image from 'next/image';
 
 interface BODsType {
@@ -47,6 +51,7 @@ interface SubType {
 
 export default function About() {
   const [BODs, setBODs] = useState<BODsType[]>([]);
+  const dispatch = useAppDispatch();
   const [crews, setCrews] = useState<CrewsType[]>([]);
   const [BODMessage, setBODMessage] = useState<BODMessageType>({
     id: 1,
@@ -54,6 +59,16 @@ export default function About() {
     content: '',
     image: '',
   });
+
+  useEffect(() => {
+    dispatch(crewApi.endpoints.getAllCrew.initiate(1));
+  }, [dispatch]);
+
+  const crewData = useAppSelector(
+    (state: RootState) =>
+      state.baseApi.queries['getAllCrew(1)']
+        ?.data as PaginatedResponseType<CrewsType>
+  );
 
   useEffect(() => {
     // new Rellax('.parallax-element');
@@ -202,19 +217,19 @@ export default function About() {
           </div>
 
           <div className="card_container">
-            {crews &&
-              crews.map((member) => {
+            {crewData &&
+              crewData.results.map((member, index) => {
                 if (member.team === 'crew') {
                   return (
-                    <div className="crew_card" key={member.id}>
+                    <div className="crew_card" key={index}>
                       <div className="image_overlay_wrapper relative">
                         <Image
+                          src={member.image as string}
+                          alt={member.fname ?? ''}
                           width={100}
                           height={100}
                           quality={75}
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          src={constants.baseUrl + member.image}
-                          alt="Crew Image"
                           onError={(e) => {
                             e.currentTarget.src =
                               '/images/errors/placeholder.webp';
@@ -226,7 +241,9 @@ export default function About() {
                             {member.fname + ' ' + member.lname}
                           </h2>
                           <p className="type">
-                            <strong>{member.type?.title.toUpperCase()}</strong>
+                            <strong>
+                              Captain{member.type?.title?.toUpperCase()}
+                            </strong>
                             <br />
                           </p>
                           <h3 className="cap-details">
@@ -263,17 +280,17 @@ export default function About() {
           </div>
 
           <div className="card_container">
-            {crews.map((member) => {
+            {crewData?.results.map((member, index) => {
               if (member.team === 'management') {
                 return (
-                  <div className="crew_card" key={member.id}>
+                  <div className="crew_card" key={index}>
                     <div className="image_overlay_wrapper relative">
                       <Image
                         width={100}
                         height={100}
                         quality={75}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        src={constants.baseUrl + member.image}
+                        src={member.image as string}
                         alt="Crew Image"
                         onError={(e) => {
                           e.currentTarget.src =
@@ -311,17 +328,17 @@ export default function About() {
           </div>
 
           <div className="card_container">
-            {crews.map((member) => {
+            {crewData?.results.map((member, index) => {
               if (member.team === 'technical') {
                 return (
-                  <div className="crew_card" key={member.id}>
+                  <div className="crew_card" key={index}>
                     <div className="image_overlay_wrapper relative">
                       <Image
                         width={100}
                         height={100}
                         quality={75}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        src={constants.baseUrl + member.image}
+                        src={member.image as string}
                         alt="Crew Image"
                         onError={(e) => {
                           e.currentTarget.src =
@@ -359,17 +376,17 @@ export default function About() {
           </div>
 
           <div className="card_container">
-            {crews.map((member) => {
+            {crewData?.results.map((member, index) => {
               if (member.team === 'quality') {
                 return (
-                  <div className="crew_card" key={member.id}>
+                  <div className="crew_card" key={index}>
                     <div className="image_overlay_wrapper relative">
                       <Image
                         width={100}
                         height={100}
                         quality={75}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        src={constants.baseUrl + member.image}
+                        src={member.image as string}
                         alt="Crew Image"
                         onError={(e) => {
                           e.currentTarget.src =
@@ -407,17 +424,17 @@ export default function About() {
           </div>
 
           <div className="card_container">
-            {crews.map((member) => {
+            {crewData?.results.map((member, index) => {
               if (member.team === 'safety') {
                 return (
-                  <div className="crew_card" key={member.id}>
+                  <div className="crew_card" key={index}>
                     <div className="image_overlay_wrapper relative">
                       <Image
                         width={100}
                         height={100}
                         quality={75}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        src={constants.baseUrl + member.image}
+                        src={member.image as string}
                         alt="Crew Image"
                         onError={(e) => {
                           e.currentTarget.src =
@@ -458,7 +475,7 @@ export default function About() {
           </div>
 
           <div className="card_container">
-            {crews.map((member) => {
+            {crews?.map((member) => {
               if (member.team === 'mission') {
                 return (
                   <div className="crew_card" key={member.id}>

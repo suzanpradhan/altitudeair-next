@@ -20,6 +20,8 @@ export const apiPaths = {
     baseUrl: process.env.NEXT_PUBLIC_SERVER_URL,
     allNewsUrl: '/news/',
     newsLimitUrl: '/news/latest/',
+    crewUrl: '/crew/',
+    serviceUrl: '/services/',
     allGalleryUrl: '/gallery/featuredlist/',
     allPackagesPublicUrl: '/packages/public/',
     getPackages: '/packages/',

@@ -9,7 +9,9 @@ export const baseApi = createApi({
     }),
     tagTypes: [
         'Gallery',
-        'News'
+        'News',
+        'Crew',
+        'Service'
     ],
     endpoints: () => ({}),
 });

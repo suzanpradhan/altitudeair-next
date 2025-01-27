@@ -176,7 +176,7 @@ const Mission = () => {
           <p
             className=" text-yellow-400"
             style={{
-              fontSize: 'clamp(0.2rem, 2vw, 1.8rem)',
+              fontSize: 'clamp(0.2rem, 2vw, 5rem)',
               marginBottom: '0.2rem',
             }}
           >

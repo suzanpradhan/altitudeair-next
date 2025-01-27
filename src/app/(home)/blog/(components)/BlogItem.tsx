@@ -45,7 +45,6 @@ export default function BlogItem({
         <Link href={`/blog/${id}`} passHref>
           <h2>{title}</h2>
         </Link>
-
         <p className="publish-date">
           Published on {date ? dateFromSqlDateTime(date) : ''}
         </p>

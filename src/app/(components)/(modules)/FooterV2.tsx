@@ -105,7 +105,7 @@ export default function FooterV2() {
             </ul>
           </div>
           <div className="flex flex-col gap-2 max-w-80">
-            <h5>SUBSCRIBE TO OUR NEWSLETTER</h5>
+            {/* <h5>SUBSCRIBE TO OUR NEWSLETTER</h5>
             <p className="font-gilroy md:text-sm text-xs flex flex-col gap-4">
               Subscribe for Latest News and Updates from <br />
               Altitude Air
@@ -141,9 +141,9 @@ export default function FooterV2() {
                   setSubmitting(false);
                 }
               }}
-            >
-              <>
-                {/* <Form className="flex items-stretch w-full justify-between">
+            > */}
+            {/* <>
+                <Form className="flex items-stretch w-full justify-between">
                   <Field
                     className="bg-transparent border border-white border-r-0 py-2 px-3  w-1/2 "
                     name="email"
@@ -160,9 +160,9 @@ export default function FooterV2() {
                 </Form>
                 <p className="error_email">
                   <ErrorMessage name="email" />
-                </p> */}
+                </p>
               </>
-            </Formik>
+            </Formik> */}
 
             <div className="socials">
               {socialLinks.facebook ? (
