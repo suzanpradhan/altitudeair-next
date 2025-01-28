@@ -59,7 +59,7 @@ const Page = () => {
               className="object-cover"
             />
             <div className="absolute inset-0 flex items-center justify-center z-30 group-hover:hidden transition-all duration-300">
-              <span className="text-white text-2xl font-semibold">9N-ANX</span>
+              <span className="text-white text-2xl font-semibold">9N-AMX</span>
             </div>
           </Link>
         </div>
