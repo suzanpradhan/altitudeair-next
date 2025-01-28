@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 export default async function Blog(props: any) {
   const category = props.searchParams.category as string[];
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-  const path = category ? `/blog/${category}/` : '/blog/';
+  const path = category ? `/blog${category}/` : '/blog/';
   const response = apiKey
     ? await fetch(`${apiPaths.baseUrl}${path}`, {
         method: 'GET',
@@ -51,7 +51,7 @@ export default async function Blog(props: any) {
       <Title />
       {/* {loading && <div className="loader" />} */}
       <div className="blog-item-list " id="blog">
-        {(blogs?.data as Array<any>).map((item, index) => (
+        {(blogs?.data as Array<any>)?.map((item, index) => (
           <BlogItem
             blogCategory={blogs}
             key={index}
