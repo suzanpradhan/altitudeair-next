@@ -160,29 +160,27 @@ export default function FooterV2() {
                 </p>
               </>
             </Formik> */}
-
-            <div className="lg:flex lg:space-x-4 md:mr-20 md:mt-10 ">
-              <a
-                href="https://www.facebook.com/altitude.airlines"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cursor-pointer text-[#b33935] hover:text-white text-xs sm:text-sm md:text-lg lg:text-xl"
-              >
-                <Facebook size="32" />
-              </a>
-
-              <a
-                href="https://www.instagram.com/altitude.air/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cursor-pointer text-[#b33935] hover:text-white text-xs sm:text-sm md:text-lg lg:text-xl"
-              >
-                <Instagram size="32" />
-              </a>
-            </div>
           </div>
         </div>
+        <div className="flex justify-end mb-2 mr-20 space-x-5 ">
+          <a
+            href="https://www.facebook.com/altitude.airlines"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer text-[#b33935] hover:text-white text-xs sm:text-sm md:text-lg lg:text-xl"
+          >
+            <Facebook size="32" />
+          </a>
 
+          <a
+            href="https://www.instagram.com/altitude.air/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer text-[#b33935] hover:text-white text-xs sm:text-sm md:text-lg lg:text-xl"
+          >
+            <Instagram size="32" />
+          </a>
+        </div>
         <div className="copyright_container font-gilroy">
           {parseHtml(footerData.copyright)}
           <p>

@@ -4639,6 +4639,12 @@ header nav ul .header_li::after {
   justify-content: center;
 }
 
+@media only screen and (max-width: 768px) {
+  .crew_info_section .crew_info_wrapper .card_container {
+    -ms-grid-columns: 300px 300px;
+    grid-template-columns: 300px 300px;
+  }
+}
 @media only screen and (max-width: 480px) {
   .crew_info_section .crew_info_wrapper .card_container {
     -ms-grid-columns: 300px;

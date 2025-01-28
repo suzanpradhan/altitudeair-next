@@ -36,7 +36,7 @@ const blogApi = baseApi.injectEndpoints({
         }),
 
         getEachBlog: builder.query<BlogType, number>({
-            query: (blogId) => `${apiPaths.blogUrl}${blogId}/`,
+            query: (blogId) => `${apiPaths.blogUrl}${`${blogId}`}`,
             providesTags: (result, error, id) => {
                 return [{ type: 'Blog', id }];
             },

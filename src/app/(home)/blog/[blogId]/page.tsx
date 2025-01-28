@@ -20,6 +20,8 @@ export default function BlogItem() {
   const [url, setUrl] = useState('');
   const [news, setNews] = useState<BlogItemType[]>([]);
 
+  console.log(param, 'param');
+
   // const [blogItem, setBlogItem] = useState<BlogItemType>({
   //   id: null,
   //   title: '',
@@ -41,7 +43,7 @@ export default function BlogItem() {
       state.baseApi.queries[`getEachBlog-${blogId}`]?.data as BlogType
   );
 
-  console.log(blogItem, 'EachItem get');
+  console.log(blogId, 'blogId');
   useEffect(() => {
     axiosInstance
       .get('/news/latest/3/')

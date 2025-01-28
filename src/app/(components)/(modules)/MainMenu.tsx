@@ -5,7 +5,7 @@ import { RootState } from '@/core/redux/store';
 import { PaginatedResponseType } from '@/core/types/responseTypes';
 import axiosInstance from '@/core/utils/axoisInst';
 import blogApi from '@/modules/blog/blogApi';
-import { BlogCategoryType } from '@/modules/blog/blogType';
+import { BlogType } from '@/modules/servicess/servicessType';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -114,13 +114,13 @@ const MainMenu = () => {
     },
   ]);
   useEffect(() => {
-    dispatch(blogApi.endpoints.getAllBlogCategory.initiate(1));
+    dispatch(blogApi.endpoints.getAllBlog.initiate(1));
   }, [dispatch]);
 
   const blogCategories = useAppSelector(
     (state: RootState) =>
-      state.baseApi.queries['getAllBlogCategory(1)']
-        ?.data as PaginatedResponseType<BlogCategoryType>
+      state.baseApi.queries['getAllBlog(1)']
+        ?.data as PaginatedResponseType<BlogType>
   );
   useEffect(() => {
     axiosInstance.get('/chopper/').then((item) => {
@@ -204,10 +204,10 @@ const MainMenu = () => {
                       className="relative hover:bg-custom-primary/30 before:absolute before:top-0 before:left-0 hover:before:bottom-0 hover:before:w-2 before:bg-custom-primary"
                     >
                       <Link
-                        href={`/blog?category=${subItem.id}`}
+                        href={`/blog#${subItem.id}`}
                         className="flex items-center h-full py-2 px-3"
                       >
-                        {subItem.name}
+                        {subItem.title}
                       </Link>
                     </li>
                   ))}
