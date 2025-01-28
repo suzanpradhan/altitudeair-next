@@ -1,8 +1,14 @@
 import { nonempty } from "@/core/utils/formUtils";
 import { z } from "zod";
+import { PackagesDataType } from "../packages/packagesType";
 
-export const bookingDetailSchema = z.object({
-    slug: z.string(),
+export const transactionSchema = z.object({
+    amount: z.string().optional(),
+    payment_url: z.string(),
+    transaction_id: z.string()
+})
+
+export const bookingSchema = z.object({
     departureDate: z.date().optional(),
     noOfTravelers: z.number(),
     totalPrice: z.string().optional(),
@@ -10,19 +16,17 @@ export const bookingDetailSchema = z.object({
     email: z.string().email().pipe(nonempty),
     phone: z.string().pipe(nonempty),
     requirement: z.string().optional(),
-    package: z.number().optional(),
+    package: z.string().or(z.custom<PackagesDataType>()),
 });
 
-export type BookingDetailSchemaType = z.infer<typeof bookingDetailSchema>;
 
-export interface BookingDataType {
-    slug: string;
-    departure_date: string;
-    no_of_travellers: number;
-    total_price: string;
-    full_name: string;
-    email: string;
-    phone: string;
-    requirement: string;
-    package: number;
-}
+
+export const bookingDetailSchema = bookingSchema.extend({
+    transactions: z.array(transactionSchema)
+})
+
+export type BookingFormType = z.infer<typeof bookingSchema>;
+
+export type BookingDetailType = z.infer<typeof bookingDetailSchema>;
+
+

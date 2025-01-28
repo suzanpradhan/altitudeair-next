@@ -1,11 +1,10 @@
 import { useAppDispatch, useAppSelector } from '@/core/redux/hooks';
+import { RootState } from '@/core/redux/store';
 import DateSelector from '@/core/ui/components/DateSelector';
 import PhoneInputField from '@/core/ui/components/PhoneInput';
 import bookingApi from '@/modules/bookings/bookingApi';
-import {
-  BookingDetailSchemaType,
-  bookingDetailSchema,
-} from '@/modules/bookings/bookingType';
+import { BookingFormType, bookingSchema } from '@/modules/bookings/bookingType';
+import { PackagesDataType } from '@/modules/packages/packagesType';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import { toFormikValidate } from 'zod-formik-adapter';
@@ -18,9 +17,16 @@ const BookingForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [isOpen, toggleOpen] = useState<boolean>(false);
-  const [isDepartureDate, setDepartureDate] = useState<Date>(departureDate!);
-  // const router = useRouter();
+  const [kDepartureDate, setDepartureDate] = useState<Date>(
+    departureDate ?? new Date()
+  );
+
   const dispatch = useAppDispatch();
+
+  const packageData = useAppSelector(
+    (state: RootState) =>
+      state.baseApi.queries[`getPackage`]?.data as PackagesDataType
+  );
 
   const handleChange = (value: Date) => {
     if (isOpen) setDepartureDate(value);
@@ -28,20 +34,19 @@ const BookingForm = () => {
 
   const handlePhoneChange = (phone: string) => {
     formik.setFieldValue('phone', phone);
-    console.log(phone);
   };
 
-  const onSubmit = async (values: BookingDetailSchemaType) => {
+  const onSubmit = async (values: BookingFormType) => {
     if (isLoading) {
       return;
     }
     setIsLoading(true);
     try {
-      await Promise.resolve(
+      const response = await Promise.resolve(
         dispatch(
           bookingApi.endpoints.createBooking.initiate({
-            slug: packageSlug,
-            departureDate: isDepartureDate,
+            package: packageSlug ?? packageData?.slug,
+            departureDate: values.departureDate,
             noOfTravelers: values.noOfTravelers,
             totalPrice: values.totalPrice,
             fullName: values.fullName,
@@ -51,25 +56,34 @@ const BookingForm = () => {
           })
         )
       );
+      if (
+        response.data?.transactions &&
+        response.data?.transactions.length > 0
+      ) {
+        window.location.href = response.data.transactions[0].payment_url;
+      }
     } catch (error) {
       console.log(error);
     }
     setIsLoading(false);
   };
 
-  const formik = useFormik<BookingDetailSchemaType>({
+  const formik = useFormik<BookingFormType>({
     enableReinitialize: true,
     initialValues: {
-      slug: packageSlug,
-      departureDate: isDepartureDate,
-      noOfTravelers: parseInt(totalPerson),
-      totalPrice: (packagePrice * parseInt(totalPerson)).toString(),
+      package: packageSlug ?? packageData?.slug,
+      departureDate: kDepartureDate,
+      noOfTravelers: totalPerson ? parseInt(totalPerson) : 1,
+      totalPrice: (
+        (packagePrice ?? packageData?.price ?? 0) *
+        (totalPerson ? parseInt(totalPerson) : 1)
+      ).toString(),
       fullName: '',
       email: '',
       phone: '',
-      requirement: 'This is test',
+      requirement: '',
     },
-    validate: toFormikValidate(bookingDetailSchema),
+    validate: toFormikValidate(bookingSchema),
     onSubmit,
   });
 
@@ -129,11 +143,11 @@ const BookingForm = () => {
               </label>
               <input
                 value={
-                  isDepartureDate
-                    ? `${isDepartureDate.getDate()} ${months[isDepartureDate.getMonth()]} ${isDepartureDate.getFullYear()}`
+                  kDepartureDate
+                    ? `${kDepartureDate.getDate()} ${months[kDepartureDate.getMonth()]} ${kDepartureDate.getFullYear()}`
                     : 'Month Days Years'
                 }
-                className="w-full h-10 px-2 border border-custom-gray-light rounded bg-custom-gray-light/30"
+                className="w-full h-10 px-2 border border-custom-gray-light rounded"
                 readOnly
                 onClick={() => {
                   toggleOpen(!isOpen);
@@ -161,13 +175,16 @@ const BookingForm = () => {
                 type="number"
                 max={6}
                 min={1}
-                className="w-full h-10 px-2 border border-custom-gray-light rounded bg-custom-gray-light/30"
+                className="w-full h-10 px-2 border border-custom-gray-light rounded"
                 {...formik.getFieldProps('noOfTravelers')}
                 onChange={(e) => {
                   formik.setFieldValue('noOfTravelers', e.target.value);
                   formik.setFieldValue(
                     'totalPrice',
-                    parseInt(e.target.value) * packagePrice
+                    (
+                      (packagePrice ?? packageData.price ?? 0) *
+                      parseInt(e.target.value)
+                    ).toString()
                   );
                 }}
                 onBlur={formik.handleBlur}
@@ -284,14 +301,14 @@ const BookingForm = () => {
                         2 Person(s)
                       </p>
                     </div>
-                    <div className="flex items-start justify-between">
+                    {/* <div className="flex items-start justify-between">
                       <p className="shrink-0 text-custom-gray text-xs font-light">
                         Advance Payable:
                       </p>
                       <p className="text-white text-xs font-light text-right">
                         US$2150
                       </p>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -320,7 +337,7 @@ const BookingForm = () => {
                       US${formik.values['totalPrice']}
                     </p>
                   </div>
-                  <div className="flex items-start justify-between">
+                  {/* <div className="flex items-start justify-between">
                     <p className="shrink-0 text-custom-gray text-xs font-light">
                       Payable Now:
                     </p>
@@ -332,7 +349,7 @@ const BookingForm = () => {
                     <p className="text-custom-gray text-xs font-light">
                       The balance of US$2150 is payable upon arrival.
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

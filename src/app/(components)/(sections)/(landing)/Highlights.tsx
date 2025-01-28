@@ -35,13 +35,12 @@ export default function Highlights() {
                 height={100}
               />
             </div>
-            <h4>Experienced Team</h4>
+            <h4>Our Experienced Team</h4>
             <p>
-              Our Board of Directors comprise of the legendaries and veterans in
-              the field of travel and tourism in Nepal along with highly
-              experienced and skilled rescue operations team with extensive
-              experience in flying helicopters in high altitudes and in the most
-              treacherous mountain terrains.
+              The Altitude Air Team is guided by legendary veterans of Nepal’s
+              Tourism industry. Our team comprises highly experienced pilots and
+              crew, specializing in high altitude flights and rescue operations
+              over the treacherous Himalayan terrain.
             </p>
           </div>
           <div
@@ -58,11 +57,9 @@ export default function Highlights() {
             </div>
             <h4>We are here </h4>
             <p>
-              Our support system allows you to reach us round the clock. This
-              gives us the advantage to take action quickly, without wasting
-              precious time for any kind of emergencies such as rescue mission,
-              medical evacuation and relief, or to respond to your needs on
-              time.
+              Our reliable support system ensures we can be reached at all
+              times, providing rapid responses during emergent situations. We
+              value you and respect your time.
             </p>
           </div>
           <div
@@ -77,12 +74,11 @@ export default function Highlights() {
                 height={100}
               />
             </div>
-            <h4>Brand New Helicopters</h4>
+            <h4>Newest Helicopters</h4>
             <p>
-              Our Brand New, first class fleet of Airbuses (AMX/AMS) is capable
-              of combating the tough and treacherous mountainous terrains. Our
-              competence lies in reaching the most remote areas for risky rescue
-              missions and emergency medical services.
+              Altitude Air’s first class fleet of Airbuses combat the Nepali
+              region with ease, venturing through remote landscapes for rescue
+              missions and emergent medical services.
             </p>
           </div>
         </div>

@@ -59,7 +59,7 @@ class PhoneInputField extends Component<
           onChange={this.handlePhoneChange}
           containerStyle={customContainerStyle}
           inputStyle={customInputStyle}
-          inputClass="!px-2 border border-custom-gray-light !rounded placeholder:font-light outline-none focus-visible:ring-2"
+          inputClass="!px-2 border border-custom-gray-light indent-10 !rounded placeholder:font-light outline-none focus-visible:ring-2"
           dropdownClass="static w-full"
           enableSearch={true}
           searchClass=""

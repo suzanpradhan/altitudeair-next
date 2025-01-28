@@ -1,5 +1,26 @@
+import { Metadata } from 'next';
 import PackagesList from './(components)/PackagesList';
 
+export const metadata: Metadata = {
+  title: 'Packages',
+  description:
+    'Helicopter tour over the Himalayas is indeed a lifetime experience. The magnificent views of the Himalayas is the unique specialty of helicopter treks.',
+  openGraph: {
+    title: 'Packages ',
+    description:
+      'Helicopter tour over the Himalayas is indeed a lifetime experience. The magnificent views of the Himalayas is the unique specialty of helicopter treks.',
+    images: [
+      {
+        url: 'https://altitudeairnepal.com/images/banner/banner.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Altitude Air Packages',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+};
 export default function Packages() {
   return (
     <main className="bg-custom-gray-light/50 pb-20">

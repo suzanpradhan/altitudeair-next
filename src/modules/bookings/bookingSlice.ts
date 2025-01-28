@@ -2,11 +2,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    packageSlug: '',
+    packageSlug: undefined,
     packageName: '',
     departureDate: null,
-    totalPerson: '',
-    packagePrice: 0,
+    totalPerson: undefined,
+    packagePrice: undefined,
     packageCover: '',
 };
 

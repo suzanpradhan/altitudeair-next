@@ -6,21 +6,11 @@ import Link from 'next/dist/client/link';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-
-interface BlogItemType {
-  id: string | null;
-  title?: string;
-  description?: string;
-  content?: string;
-  date: string | null;
-  publisher?: string;
-  coverImage?: string;
-  blogCategory: string | null;
-}
+import { BlogItemType } from '../(components)/BlogItem';
 
 export default function BlogItem() {
   const router = useRouter();
-  const slug = useParams() || '';
+  const param = useParams();
   const [url, setUrl] = useState('');
   const [news, setNews] = useState<BlogItemType[]>([]);
   const [blogItem, setBlogItem] = useState<BlogItemType>({
@@ -28,6 +18,7 @@ export default function BlogItem() {
     title: '',
     description: '',
     content: '',
+    direction: '',
     date: null,
     publisher: '',
     coverImage: '',
@@ -35,13 +26,15 @@ export default function BlogItem() {
   });
 
   useEffect(() => {
-    if (slug) {
+    if (param?.id) {
       axiosInstance
-        .get(`/blog/${slug[0]}/`)
+        .get('/blog/' + param.id)
         .then((item) => {
+          console.log('API Response:', item.data);
           setBlogItem(item.data.data);
         })
         .catch((err) => {
+          console.error('Error fetching blog:', err);
           if (err.response.status === 404) {
             router.push('/404');
           }
@@ -54,8 +47,8 @@ export default function BlogItem() {
         setNews(item.data.data);
       })
       .catch((err) => {});
-    setUrl(window.location.origin + '/blog/' + slug);
-  }, [slug]);
+    setUrl(window.location.origin + '/blog/' + param.slug);
+  }, [param.slug, router]);
 
   function sharePopup(url: string) {
     window.open(

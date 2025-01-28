@@ -4,7 +4,7 @@ import { constants } from './constants';
 const axiosInstance = axios.create({
   baseURL: constants.baseUrl,
   headers: {
-    Authorization: 'Api-Key cMhfWvLs.OnxdEp1sNEm4zajmLRm7uttbYJVXj2a1',
+    'X-Api-Key': process.env.NEXT_PUBLIC_API_KEY,
   },
 });
 export default axiosInstance;

@@ -90,7 +90,6 @@ const BookingMainCard = ({
   };
 
   const handleAvailableSeats = (seats: number | null) => {
-    console.log(seats);
     if (seats != null && packageData.max_size) {
       // if (seats < packageData.max_size) {
       // console.log('seats is less than max size');
@@ -152,6 +151,7 @@ const BookingMainCard = ({
             Total Price
           </p>
           <p className="text-sm sm:text-xl text-custom-blue font-bold">
+            $
             {packageData.pricing_type === 'per_person'
               ? `${packageData.price! * parseInt(selectedOption.value)} /p`
               : `${packageData.price} /f`}

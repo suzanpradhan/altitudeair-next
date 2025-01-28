@@ -7,16 +7,26 @@ import { PackagesDataType } from '@/modules/packages/packagesType';
 import { useEffect, useState } from 'react';
 import { FaLocationDot } from 'react-icons/fa6';
 import { IoTimeOutline } from 'react-icons/io5';
+import axiosInst from '../../../../core/utils/axoisInst';
 import BookingMainCard from './(components)/BookingMainCard';
 import PackageAdditionalInfo from './(components)/PackageAdditionalInfo';
 import PackageGallery from './(components)/PackageGallery';
 import PackageHighlights from './(components)/PackageHighlights';
+import PackageLocation from './(components)/PackageLocation';
 import RelatedPackages from './(components)/RelatedPackages';
 
 export default function Packages({ params }: { params: { slug: string } }) {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [hotline, setHotline] = useState('');
+
+  useEffect(() => {
+    axiosInst.get('/footer/').then((result) => {
+      const data = result.data.data;
+      setHotline(data[0].hotline);
+    });
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
@@ -39,7 +49,6 @@ export default function Packages({ params }: { params: { slug: string } }) {
   if (error) {
     return <div>Error: {error}</div>;
   }
-  // console.log(params.slug);
   return !isLoading ? (
     packageData ? (
       <main className="bg-custom-gray-light/50">
@@ -72,11 +81,14 @@ export default function Packages({ params }: { params: { slug: string } }) {
             <div className="col-span-12 md:col-span-8 w-full">
               <PackageAdditionalInfo />
               <PackageGallery packageSlug={packageData.slug} />
-              <PackageHighlights />
+              <PackageHighlights
+                data={packageData.description}
+                hotline={hotline}
+              />
             </div>
             <div className="col-span-12 md:col-span-4 w-full flex flex-col gap-4">
               {/* <CalendarPicker /> */}
-              {/* <PackageLocation /> */}
+              <PackageLocation />
               {/* <BookingCard /> */}
             </div>
           </div>

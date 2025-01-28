@@ -100,12 +100,7 @@ export default function StepForm({ hide }: any) {
       <div
         className="cross_container"
         style={{ justifyContent: 'flex-end', paddingRight: '25px' }}
-      >
-        <div className="drawer_cross_container" onClick={hide}>
-          <div style={{ background: 'black' }}></div>
-          <div style={{ background: 'black' }}></div>
-        </div>
-      </div>
+      ></div>
       <StepsContainer
         pickedStep={pickedStep}
         setPickedStep={setPickedStep}
@@ -315,7 +310,7 @@ function PeopleCount({
   return (
     <div className="people_count_container">
       <h2>Number of people travelling</h2>
-      <div className="option_container_one">
+      <div className="option_container_one mt-4">
         <div
           className={`single ${
             count === 1 ? 'option_container_one_picked' : ''
@@ -539,9 +534,9 @@ function Destination({
     'pk.eyJ1IjoiaWN5aG90c2hvdG8iLCJhIjoiY2tmeHQwc3E5MjRxajJxbzhmbDN1bjJ5aiJ9.mNKmhIjRyKxFkJYrm4dMqg';
   const mapContainer = useRef(null);
   const map = useRef<any>(null);
-  const lng = 84.3;
-  const lat = 28.5;
-  const zoom = 5.5;
+  const lng = 85.3343;
+  const lat = 27.7293;
+  const zoom = 8;
 
   let pickupMarker = useRef<any>(null);
 
@@ -567,7 +562,7 @@ function Destination({
       );
     }
 
-    pickupMarker.current = new mapboxgl.Marker({ color: '#00db00' })
+    pickupMarker.current = new mapboxgl.Marker({ color: '#00db00', scale: 3 })
       .setLngLat(pickDestPos.pickup)
       .addTo(map.current);
 
@@ -600,7 +595,7 @@ function Destination({
       setCurrentlyClicked(-1);
       currentlyRef.current = -1;
     });
-  });
+  }, [pickDestPos, setPickDestPos, setPickupChosenBy]);
 
   function setCurrentLocation() {
     setCurrentlyClicked(1);
@@ -694,7 +689,7 @@ function Destination({
         <p>Select Pickup & Destination</p>
         <div className="dest_map_container">
           <div className="step_map-wrapper">
-            <div ref={mapContainer}></div>
+            <div className="w-96 h-52 overflow-hidden" ref={mapContainer}></div>
           </div>
           <div className="map_controls">
             <p>Choose Pickup Location:</p>
@@ -917,7 +912,6 @@ function PersonalInfo({
       phone: values.tel,
       details: values.details,
     };
-    console.log(finalObj);
     let result;
     try {
       result = await axiosInstance.post('/enquiry/', finalObj, {

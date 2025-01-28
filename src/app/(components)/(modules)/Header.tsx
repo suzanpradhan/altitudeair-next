@@ -95,7 +95,7 @@ export default function Header() {
             </li>
             <li className="header_li">
               <Link href={'/blog'} className="header_link">
-                AREA OF OPERATION
+                Our Services
               </Link>
 
               <div className="sub_menu">
@@ -120,8 +120,8 @@ export default function Header() {
               </Link>
             </li>
 
-            <li className="header_li header_link">
-              <Link href="#" className="header_link">
+            <li className="header_li ">
+              <Link href={'/description'} className="header_link">
                 FLEETS
               </Link>
               <div className="sub_menu">

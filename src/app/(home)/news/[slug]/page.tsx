@@ -1,5 +1,4 @@
 'use client';
-import NotFoundPage from '@/app/(components)/(elements)/NotFoundPage';
 import axiosInst from '@/core/utils/axoisInst';
 import { constants } from '@/core/utils/constants';
 import { dateFromSqlDateTime, parseHtml } from '@/core/utils/helper';
@@ -9,12 +8,11 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function NewsDetail() {
-  const slug = useParams() || '';
+  const { slug } = useParams();
   const router = useRouter();
 
   const [news, setNews] = useState<NewsDataType>();
 
-  //   console.log(slug);
   useEffect(() => {
     if (!slug) {
       return;
@@ -46,36 +44,37 @@ export default function NewsDetail() {
   }, [slug]);
 
   return (
-    <>
-      {news ? (
-        <main className="news-item-main">
-          <div className="featured-img">
+    <div className="bg-[#A7B9C7]">
+      {news && (
+        <div className="md:max-w-3xl px-10 sm:px-20 md:px-0 mx-auto py-32">
+          <h2 className="font-bold text-4xl pb-4">{news.title}</h2>
+          <p className="pb-4">
+            <a href="#" className="pr-2 text-base">
+              {news.publisher}
+            </a>
+            &#x2022;
+            <span className="pl-2">{dateFromSqlDateTime(news.date)}</span>
+          </p>
+
+          <div className="w-full md:h-96 h-80 relative ">
             <Image
               src={constants.baseUrl + news.coverImage}
               alt="News item"
-              height={100}
-              width={100}
+              fill
+              objectFit="cover"
               quality={75}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             <div className="fading-bottom" />
           </div>
 
-          <article>
-            <h2>{news.title}</h2>
-            <div className="content">{parseHtml(news.description ?? '')}</div>
-
-            <span>
-              {'- Published in '}
-              <a href="#">{news.publisher}</a>
-            </span>
-            <br />
-            <span>{dateFromSqlDateTime(news.date)}</span>
+          <article className="pt-8">
+            <div className="content !text-gray-600">
+              {parseHtml(news.description ?? '')}
+            </div>
           </article>
-        </main>
-      ) : (
-        <NotFoundPage /> // Render your 404 page component
+        </div>
       )}
-    </>
+    </div>
   );
 }
