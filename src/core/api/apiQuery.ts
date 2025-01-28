@@ -12,7 +12,9 @@ export const baseApi = createApi({
         'News',
         'Crew',
         'Service',
-        'Review'
+        'Review',
+        'Blog',
+        'BlogCategory'
     ],
     endpoints: () => ({}),
 });
