@@ -22,6 +22,7 @@ export const apiPaths = {
     newsLimitUrl: '/news/latest/',
     crewUrl: '/crew/',
     serviceUrl: '/services/',
+    reviewurl: '/review/',
     allGalleryUrl: '/gallery/featuredlist/',
     allPackagesPublicUrl: '/packages/public/',
     getPackages: '/packages/',

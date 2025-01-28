@@ -50,7 +50,7 @@ const Mission = () => {
       return (
         <div
           key={i}
-          className="absolute rounded-full overflow-hidden"
+          className="absolute rounded-full overflow-hidden "
           style={{
             width: `${imageSizes[i].width}vw`,
             height: `${imageSizes[i].height}vw`,

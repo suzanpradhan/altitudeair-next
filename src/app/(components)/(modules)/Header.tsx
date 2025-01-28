@@ -104,7 +104,7 @@ export default function Header() {
                     blogCategories.map((item) => {
                       return (
                         <li key={item.slug}>
-                          <Link href={`/blog?category=${item.slug}`}>
+                          <Link href={`/blog?/category=${item.slug}`}>
                             {item.name}
                           </Link>
                         </li>
