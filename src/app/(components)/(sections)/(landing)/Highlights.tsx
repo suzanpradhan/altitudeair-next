@@ -16,7 +16,7 @@ export default function Highlights() {
     <section className="highlights" id="highlights">
       <div className="animation-observer-helper" />
       <div className="highlights_container">
-        <div className="border-[1rem] border-[#972622] max-w-60 py-14 px-20 mr-[10vw] flex items-center">
+        <div className="border-[1rem] border-[#202e43] max-w-60 py-14 px-20 mr-[10vw] flex items-center">
           <h2 className="text-5xl font-gilroy text-white m-0">
             WHY ALTITUDE AIR?
           </h2>

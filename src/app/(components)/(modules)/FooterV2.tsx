@@ -108,7 +108,7 @@ export default function FooterV2() {
                 href="https://www.facebook.com/altitude.airlines"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="cursor-pointer text-[#b33935] hover:text-white text-xs sm:text-sm md:text-lg lg:text-xl"
+                className="cursor-pointer text-[#a7b9c7] hover:text-white text-xs sm:text-sm md:text-lg lg:text-xl"
               >
                 <Facebook size="24" />
               </a>
@@ -116,7 +116,7 @@ export default function FooterV2() {
                 href="https://www.instagram.com/altitude.air/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="cursor-pointer text-[#b33935] hover:text-white text-xs sm:text-sm md:text-lg lg:text-xl"
+                className="cursor-pointer text-[#a7b9c7] hover:text-white text-xs sm:text-sm md:text-lg lg:text-xl"
               >
                 <Instagram size="24" />
               </a>
