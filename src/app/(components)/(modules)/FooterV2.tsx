@@ -101,6 +101,27 @@ export default function FooterV2() {
               </li>
             </ul>
           </div>
+          <div className="flex flex-col gap-2">
+            <h5>Follow Us</h5>
+            <ul className="font-gilroy md:text-sm text-xs flex  gap-4">
+              <a
+                href="https://www.facebook.com/altitude.airlines"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-pointer text-[#b33935] hover:text-white text-xs sm:text-sm md:text-lg lg:text-xl"
+              >
+                <Facebook size="24" />
+              </a>
+              <a
+                href="https://www.instagram.com/altitude.air/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-pointer text-[#b33935] hover:text-white text-xs sm:text-sm md:text-lg lg:text-xl"
+              >
+                <Instagram size="24" />
+              </a>
+            </ul>
+          </div>
           <div className="flex flex-col gap-2 max-w-80">
             {/* <h5>SUBSCRIBE TO OUR NEWSLETTER</h5>
             <p className="font-gilroy md:text-sm text-xs flex flex-col gap-4">
@@ -162,25 +183,7 @@ export default function FooterV2() {
             </Formik> */}
           </div>
         </div>
-        <div className="flex justify-end mb-2 mr-20 space-x-5 ">
-          <a
-            href="https://www.facebook.com/altitude.airlines"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cursor-pointer text-[#b33935] hover:text-white text-xs sm:text-sm md:text-lg lg:text-xl"
-          >
-            <Facebook size="32" />
-          </a>
 
-          <a
-            href="https://www.instagram.com/altitude.air/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cursor-pointer text-[#b33935] hover:text-white text-xs sm:text-sm md:text-lg lg:text-xl"
-          >
-            <Instagram size="32" />
-          </a>
-        </div>
         <div className="copyright_container font-gilroy">
           {parseHtml(footerData.copyright)}
           <p>
