@@ -7,9 +7,9 @@ const SocialIcon = () => {
         href="https://web.whatsapp.com/"
         target="_blank"
         rel="noopener noreferrer"
-        className="bg-yellow-400 p-3 rounded-full shadow-lg transition-all hover:bg-slate-200 "
+        className="bg-green-500 p-2 rounded-xl shadow-lg transition-all  "
       >
-        <Whatsapp size="32" color="black" />
+        <Whatsapp size="32" color="white" />
       </Link>
       {/* 
       <Link

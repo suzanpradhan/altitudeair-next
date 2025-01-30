@@ -69,35 +69,59 @@ export default function FooterV2() {
             <h5>ABOUT US</h5>
             <ul className="font-gilroy md:text-sm text-xs flex flex-col gap-4">
               <li>
-                <Link href="/news">Media Coverage</Link>
-              </li>
-              <li>
-                <Link href="/about#crew">Our Fleet</Link>
-              </li>
-              <li>
-                <Link href="/voluntary-hazard-report">
-                  Voluntary Hazard Report
+                <Link href="/about#overview" className="hover:text-white">
+                  Overview
                 </Link>
               </li>
               <li>
-                <Link href="#">Privacy Policy</Link>
+                <Link href="/about#message" className="hover:text-white">
+                  Message From Executive Chairman
+                </Link>
+              </li>
+              <li>
+                <Link href="/about#board_info" className="hover:text-white">
+                  Board Of Directors
+                </Link>
+              </li>
+              <li>
+                <Link href="/about#crew" className="hover:text-white">
+                  Crew
+                </Link>
+              </li>
+              <li>
+                <Link href="/about#mission&vision" className="hover:text-white">
+                  Mission & Vision
+                </Link>
+              </li>
+              <li>
+                <Link href="/about#statistics" className="hover:text-white">
+                  Mission Statistics
+                </Link>
               </li>
             </ul>
           </div>
           <div className="flex flex-col gap-2">
             <h5>NAVIGATE TO</h5>
-            <ul className="font-gilroy md:text-sm text-xs flex flex-col gap-4">
+            <ul className="font-gilroy md:text-sm text-xs  flex flex-col gap-4">
               <li>
-                <Link href="/">Home</Link>
+                <Link href="/" className="hover:text-white">
+                  Home
+                </Link>
               </li>
               <li>
-                <Link href="/gallery">Gallery</Link>
+                <Link href="/gallery" className="hover:text-white">
+                  Gallery
+                </Link>
               </li>
               <li>
-                <Link href="/blog">Blogs</Link>
+                <Link href="/blog" className="hover:text-white">
+                  Our Services
+                </Link>
               </li>
               <li>
-                <Link href="/contact">Contact</Link>
+                <Link href="/contact" className="hover:text-white">
+                  Contact
+                </Link>
               </li>
             </ul>
           </div>
