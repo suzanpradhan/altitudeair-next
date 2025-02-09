@@ -26,7 +26,7 @@ export default function GetInTouch() {
   const hotlineNumbers = hotline.split('\n').join(',');
 
   return (
-    <section className="get_in_touch !py-10">
+    <section className="get_in_touch !py-10 !px-9">
       <div className="touch_container">
         <div className="touch_heading_container">
           <h2>Get in touch with us?</h2>

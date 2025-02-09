@@ -56,7 +56,7 @@ export default function Missions() {
   }
 
   useEffect(() => {
-    if (map.current) return; // initialize map only once
+    if (map.current) return;
     map.current = new mapboxgl.Map({
       container: mapContainer.current!,
       style: 'mapbox://styles/icyhotshoto/cktb59q6y7iz518uqowun3l0k',
@@ -67,8 +67,8 @@ export default function Missions() {
   }, []);
 
   useEffect(() => {
-    axiosInstance.get('/rescueMission/').then((item) => {
-      let finalObj = item.data.data.map((item: any) => {
+    axiosInstance.get('/rescue-mission/').then((item) => {
+      let finalObj = item.data.data?.map((item: any) => {
         return {
           imageUrl: constants.baseUrl + item.coverImage,
           name: item.title,
@@ -103,7 +103,7 @@ export default function Missions() {
         </div>
         <div className="mission-list">
           {!mobileOnly &&
-            missionList.map((item, index) => {
+            missionList?.map((item, index) => {
               return (
                 <MissionItem
                   key={item.imageUrl}

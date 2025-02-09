@@ -71,15 +71,15 @@ export default function About() {
   useEffect(() => {
     // new Rellax('.parallax-element');
 
-    axiosInst
-      .get('/crew/')
-      .then((result) => {
-        const data = result.data.data;
-        setCrews(data);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
+    // axiosInst
+    //   .get('/crew/')
+    //   .then((result) => {
+    //     const data = result.data.data;
+    //     setCrews(data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.response);
+    //   });
 
     axiosInst
       .get('/BOD/')
@@ -239,7 +239,9 @@ export default function About() {
                             {member.fname + ' ' + member.lname}
                           </h2>
                           <p className="type">
-                            <strong>{member.type?.title?.toUpperCase()}</strong>
+                            <strong>
+                              {member.type?.title?.toUpperCase()}Captain
+                            </strong>
                             <br />
                           </p>
                           <h3 className="cap-details">
