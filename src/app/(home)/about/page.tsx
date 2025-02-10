@@ -580,11 +580,11 @@ export default function About() {
           </div>
         </div>
       </section>
-      <section className="infographic-section" id="statistics">
-        <div className="h2_wrapper">
-          <h2>MISSION&nbsp;STATISTICS</h2>
+      <section className="h-auto w-full pb-12" id="statistics">
+        <div className="mt-12 text-center font-bankGothic">
+          <h2 className="h2_wrapper">MISSION&nbsp;STATISTICS</h2>
         </div>
-        <div className="circle-background relative mx-auto">
+        <div className="w-1/2 aspect-w-1 aspect-h-1 flex justify-center items-center  relative">
           <Mission />
         </div>
       </section>
