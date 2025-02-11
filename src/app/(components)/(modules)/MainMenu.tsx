@@ -274,7 +274,7 @@ const MainMenu = () => {
           </li>
         </MenuItems>
 
-        {/* <MenuItems>
+        <MenuItems>
           <li
             className={`relative px-5 group ${navHoverClass} ${currentPath === '/packages' ? navActiveClass : ''}`} // add active class letter
           >
@@ -282,7 +282,7 @@ const MainMenu = () => {
               PACKAGES
             </Link>
           </li>
-        </MenuItems> */}
+        </MenuItems>
 
         <MenuItems>
           <li
