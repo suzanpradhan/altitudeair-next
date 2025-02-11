@@ -45,26 +45,7 @@ const packagesApi = baseApi
                     }
                 },
             }),
-            // getPackagesLimit: builder.query<PackagesDataType[], number>({
-            //     query: () => `${apiPaths.allPackagesUrl}`,
-            //     providesTags: (response: any) =>
-            //         response
-            //             ? [
-            //                 ...response?.data?.map(({ id }: { id: number }) => ({ type: 'Packages', id } as const)) ?? [],
-            //                 { type: 'Packages', id: 'LIST' },
-            //             ]
-            //             : [{ type: 'Packages', id: 'LIST' }],
-            //     serializeQueryArgs: ({ endpointName }) => {
-            //         return endpointName;
-            //     },
-            //     forceRefetch({ currentArg, previousArg }) {
-            //         return currentArg !== previousArg;
-            //     },
-            //     transformResponse: (response: any) => {
-            //         // console.log(response);
-            //         return response as PackagesDataType[];
-            //     },
-            // }),
+
             getPackage: builder.query<PackagesDataType, string>({
                 query: (arg) => `${apiPaths.getPackages}${arg}/`,
                 providesTags: (response: any) =>

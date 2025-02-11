@@ -11,15 +11,6 @@ const SocialIcon = () => {
       >
         <Whatsapp size="32" color="white" />
       </Link>
-      {/* 
-      <Link
-        href="https://m.me/yourmessengerid"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="p-3 bg-yellow-400 rounded-full shadow-lg transition-all hover:bg-slate-200"
-      >
-        <Messenger size="32" color="black" />
-      </Link> */}
     </div>
   );
 };

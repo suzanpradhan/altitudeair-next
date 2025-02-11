@@ -150,63 +150,7 @@ export default function FooterV2() {
             </ul>
           </div>
 
-          <div className="flex flex-col gap-2 max-w-80 w-full sm:w-auto">
-            {/* <h5>SUBSCRIBE TO OUR NEWSLETTER</h5>
-    <p className="font-gilroy text-xs sm:text-sm flex flex-col gap-4">
-      Subscribe for Latest News and Updates from <br />
-      Altitude Air
-    </p>
-    <Formik
-      initialValues={{ email: '' }}
-      validationSchema={Yup.object({
-        email: Yup.string()
-          .email('Not a valid email')
-          .required('Required'),
-      })}
-      onSubmit={async (values, { resetForm }) => {
-        if (submitting) {
-          return;
-        }
-
-        setSubmitting(true);
-        try {
-          let response = await axiosInstance.post(
-            '/newsletter/',
-            values
-          );
-          if (response.status === 200) {
-            resetForm();
-          }
-        } catch (error: any) {
-          if (error.response.status === 409) {
-            showError('Email already exists');
-          } else {
-            showError('Network Error');
-          }
-
-          setSubmitting(false);
-        }
-      }}
-    > */}
-            {/* <Form className="flex items-stretch w-full justify-between">
-      <Field
-        className="bg-transparent border border-white border-r-0 py-2 px-3 w-1/2"
-        name="email"
-        type="email"
-        placeholder="Email Address"
-      />
-      <button
-        type="submit"
-        className="bg-[#fbc200] text-[#202e43] px-3 font-bold basis-1/2"
-        disabled={submitting}
-      >
-        {submitting ? 'Subscribed' : 'Subscribe Now'}
-      </button>
-    </Form>
-    <p className="error_email">
-      <ErrorMessage name="email" />
-    </p> */}
-          </div>
+          <div className="flex flex-col gap-2 max-w-80 w-full sm:w-auto"></div>
         </div>
 
         <div className="copyright_container font-gilroy">

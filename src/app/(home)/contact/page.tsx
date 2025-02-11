@@ -96,7 +96,6 @@ const ContactPage = () => {
     twitter: '',
   });
   const [qr, setQr] = useState('');
-  console.log('QR Code URL:', constants.baseUrl + qr);
 
   useEffect(() => {
     axiosInstance.get('/contact/').then((result) => {
@@ -104,11 +103,11 @@ const ContactPage = () => {
       setContactData(data[0]);
     });
     axiosInstance.get('/socialLink/').then((result) => {
-      const data = result.data.data;
+      const { data } = result.data;
       setSocialLinks(data[0]);
     });
     axiosInstance.get('/general/').then((result) => {
-      const data = result.data.data;
+      const { data } = result.data;
       setQr(data.QRcode);
     });
   }, []);
@@ -151,11 +150,6 @@ const ContactPage = () => {
         <div className="absolute bottom-0 left-0 top-0 right-0 bg-gradient-to-t from-custom-bg to-custom-blue/60"></div>
       </section>
       <main className="bg-custom-bg px-10">
-        {/* <div className="container mx-auto pt-10">
-          <div className="px-5 py-5 bg-custom-blue text-white rounded">
-            Additional Info
-          </div>
-        </div> */}
         <div className="container mx-auto py-10">
           <div className="flex flex-col lg:flex-row items-start justify-stretch gap-16">
             {contactData && (

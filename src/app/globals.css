@@ -884,38 +884,33 @@ header nav ul .header_li::after {
 }
 
 .feature_container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  gap: 20px;
 }
 
 @media only screen and (max-width: 1430px) {
   .feature_container {
-    display: -webkit-box;
-    display: -ms-flexbox;
     padding-top: 20px;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
   }
 }
+
 @media only screen and (max-width: 769px) {
   .feature_container {
-    display: -webkit-box;
-    display: -ms-flexbox;
     gap: 30px;
-    margin-left: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
   }
 }
+
 @media only screen and (max-width: 430px) {
   .feature_container {
-    display: -webkit-box;
     margin-left: 0;
-    display: -ms-flexbox;
+    justify-content: center;
   }
 }
+
 .feature_container .svg_text_container {
   max-width: 225px;
   margin: 0 1rem;

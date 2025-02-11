@@ -56,7 +56,9 @@ export default function Missions() {
   }
 
   useEffect(() => {
-    if (map.current) return;
+    if (map.current) {
+      return;
+    }
     map.current = new mapboxgl.Map({
       container: mapContainer.current!,
       style: 'mapbox://styles/icyhotshoto/cktb59q6y7iz518uqowun3l0k',

@@ -78,19 +78,6 @@ export default function PackageAdditionalInfo() {
             </div>
           </div>
         </div>
-        {/* <div className="col-span-6 md:col-span-4">
-          <div className="flex items-center gap-2">
-            <LiaMountainSolid size={35} className="text-custom-blue" />
-            <div className="flex flex-col items-start justify-center">
-              <p className="text-sm text-custom-blue capitalize font-normal">
-                Max. Altitude
-              </p>
-              <p className="text-base text-custom-blue font-semibold">
-                {packageItem?.latitude}
-              </p>
-            </div>
-          </div>
-        </div> */}
         <div className="col-span-6 md:col-span-4">
           <div className="flex items-center gap-2">
             <HiOutlineUserGroup size={35} className="text-custom-blue" />

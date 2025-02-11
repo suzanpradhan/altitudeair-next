@@ -69,18 +69,6 @@ export default function About() {
   );
 
   useEffect(() => {
-    // new Rellax('.parallax-element');
-
-    // axiosInst
-    //   .get('/crew/')
-    //   .then((result) => {
-    //     const data = result.data.data;
-    //     setCrews(data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.response);
-    //   });
-
     axiosInst
       .get('/BOD/')
       .then((result) => {
