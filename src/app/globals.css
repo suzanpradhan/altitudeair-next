@@ -5643,10 +5643,10 @@ footer .socials > a {
   font: inherit;
   cursor: pointer;
   outline: inherit;
-  padding: 0.5rem 3rem;
+  padding: 0.5rem 1rem;
   color: #202e43;
   background-color: #fbc200;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: bold;
   font-family: Gilroy-ExtraBold, sans-serif;
 }
