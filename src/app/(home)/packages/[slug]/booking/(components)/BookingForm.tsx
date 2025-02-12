@@ -177,26 +177,35 @@ const BookingForm = () => {
               </label>
               <input
                 type="number"
-                max={6}
-                min={1}
+                max={packageData?.max_size ?? 6}
+                min={packageData?.min_size ?? 1}
                 className="w-full h-10 px-2 border border-custom-gray-light rounded"
-                {...formik.getFieldProps('noOfTravelers')}
+                value={
+                  packageData?.pricing_type === 'per_person'
+                    ? formik.values.noOfTravelers || 1
+                    : ''
+                }
+                placeholder={
+                  packageData?.pricing_type !== 'per_person' &&
+                  packageData?.min_size &&
+                  packageData?.max_size
+                    ? `${packageData.min_size} to ${packageData.max_size}`
+                    : ''
+                }
                 onChange={(e) => {
-                  formik.setFieldValue(
-                    'noOfTravelers',
-                    parseInt(e.target.value)
-                  );
+                  const value = parseInt(e.target.value);
+                  formik.setFieldValue('noOfTravelers', value);
+
                   formik.setFieldValue(
                     'totalPrice',
                     (
                       (packagePrice ?? packageData.price ?? 0) *
-                      (packageData.pricing_type === 'per_person'
-                        ? parseInt(e.target.value)
-                        : 1)
+                      (packageData?.pricing_type === 'per_person' ? value : 1)
                     ).toString()
                   );
                 }}
                 onBlur={formik.handleBlur}
+                disabled={packageData?.pricing_type !== 'per_person'}
               />
             </div>
           </div>
@@ -306,9 +315,20 @@ const BookingForm = () => {
                       <p className="shrink-0 text-custom-gray text-xs font-light">
                         No. of Traveler:
                       </p>
-                      <p className="text-white text-xs font-light text-right">
-                        2 Person(s)
-                      </p>
+                      {packageData?.pricing_type === 'per_person' ? (
+                        <p className="text-white text-xs font-light text-right">
+                          {packageData.min_size} to {packageData.max_size}{' '}
+                          Person(s)
+                        </p>
+                      ) : (
+                        packageData?.min_size &&
+                        packageData?.max_size && (
+                          <p className="text-white text-xs font-light text-right">
+                            {packageData.min_size} to {packageData.max_size}{' '}
+                            Person(s)
+                          </p>
+                        )
+                      )}
                     </div>
                     {/* <div className="flex items-start justify-between">
                       <p className="shrink-0 text-custom-gray text-xs font-light">
@@ -331,8 +351,11 @@ const BookingForm = () => {
                     <p className="shrink-0 text-custom-gray text-xs font-light">
                       Package Price:
                       <br />
-                      (US${packagePrice} x {formik.values['noOfTravelers']}{' '}
-                      Person(s))
+                      (US${packagePrice} x{' '}
+                      {packageData?.pricing_type === 'fixed'
+                        ? `${packageData.min_size} to ${packageData.max_size}`
+                        : `${formik.values.noOfTravelers} `}
+                      ) Person(s)
                     </p>
                     <p className="text-white text-xs font-light text-right">
                       US${formik.values['totalPrice']}
