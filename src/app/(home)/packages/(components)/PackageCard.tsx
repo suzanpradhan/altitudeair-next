@@ -41,15 +41,17 @@ export default function PackageCard({ item }: { item: PackagesDataType }) {
             {parseHtml(item.description ?? '')}
           </p>
         </div>
-        <div className="flex items-center justify-start gap-5 mt-2">
-          <div className="text-center text-sm font-medium py-2 px-5 text-custom-primary bg-custom-blue hover:bg-custom-blue/90 hover:shadow-md">
+        <div className="flex items-center gap-5 mt-2 justify-between ">
+          <div className="text-center basis-28 text-sm font-medium  py-2 px-5 text-custom-primary bg-custom-blue hover:bg-custom-blue/90 hover:shadow-md">
             Book Now
           </div>
-          <p className="text-custom-blue-light text-sm">
-            Starting from{' '}
-            <span className="text-custom-blue font-medium">${item.price}</span>
-            /p
-          </p>
+          <div className="text-custom-blue-light text-sm flex flex-col items-end">
+            <p className="text-sm">Starting from </p>
+            <p className="text-custom-blue font-medium text-base">
+              ${item.price}
+              {item.pricing_type === 'fixed' ? '/f' : '/p'}
+            </p>
+          </div>
         </div>
       </div>
     </Link>

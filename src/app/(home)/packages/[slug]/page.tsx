@@ -69,7 +69,10 @@ export default function Packages({ params }: { params: { slug: string } }) {
               </p>
               <p className="text-base text-white font-light">
                 Starting from{' '}
-                <span className="text-[#fbc200]">${packageData.price}</span>/p
+                <span className="text-[#fbc200]">
+                  ${packageData.price}
+                  {packageData.pricing_type === 'fixed' ? ' /f' : ' /p'}
+                </span>
               </p>
             </div>
           </div>
