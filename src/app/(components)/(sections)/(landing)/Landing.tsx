@@ -1,11 +1,9 @@
 'use client';
 
 import { constants } from '@/core/utils/constants';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import axiosInst from '../../../../core/utils/axoisInst';
-
-import { Dialog, DialogContent, DialogTrigger } from '../../(elements)/Dialog';
-import StepFormV2 from '../../(elements)/StepFormV2';
 
 function Landing() {
   const [hotline, setHotline] = useState('');
@@ -43,14 +41,16 @@ function Landing() {
         </p>
         <div className="flex flex-col justify-center w-full">
           <div className=" mt-2">
-            <Dialog>
+            <Link className="action-button" href="/packages">
+              BOOK NOW!
+            </Link>
+            {/* <Dialog>
               <DialogTrigger asChild>
-                <button className="action-button">BOOK NOW!</button>
               </DialogTrigger>
               <DialogContent>
                 <StepFormV2 />
               </DialogContent>
-            </Dialog>
+            </Dialog> */}
           </div>
           <h3 className="text-xl font-black pt-1  text-gray-200">
             Contact us at:
