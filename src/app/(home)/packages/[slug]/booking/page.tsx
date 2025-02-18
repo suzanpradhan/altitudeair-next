@@ -49,10 +49,10 @@ const Booking = () => {
               {packageData?.title}
             </h1>
             <p className="text-base text-white capitalize font-light flex items-center gap-2">
-              <FaLocationDot /> {packageData.address}
+              <FaLocationDot /> {packageData?.address}
             </p>
             <p className="text-base text-white capitalize font-light flex items-center gap-2">
-              <IoTimeOutline /> Duration: {packageData.duration}
+              <IoTimeOutline /> Duration: {packageData?.duration}
             </p>
             <p className="text-base text-white font-light">
               Starting from{' '}

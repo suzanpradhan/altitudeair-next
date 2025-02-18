@@ -315,7 +315,7 @@ const BookingForm = () => {
                         Duration:
                       </p>
                       <p className="text-white text-xs font-light text-right">
-                        1 Day
+                        {packageData?.duration}
                       </p>
                     </div>
                     <div className="flex items-start justify-between">
@@ -323,7 +323,7 @@ const BookingForm = () => {
                         Trip Start:
                       </p>
                       <p className="text-white text-xs font-light text-right">
-                        2024-06-27
+                        {`${formik.values.departureDate?.getFullYear()}-${formik.values.departureDate?.getMonth()}-${formik.values.departureDate?.getDate()}`}
                       </p>
                     </div>
                     <div className="flex items-start justify-between">
