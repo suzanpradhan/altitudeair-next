@@ -70,7 +70,10 @@ export default function Packages({ params }: { params: { slug: string } }) {
               <p className="text-base text-white font-light">
                 Starting from{' '}
                 <span className="text-[#fbc200]">
-                  ${packageData.price}
+                  {packageData.currency === 'USD' ? '$' : 'NPR.'}
+                  {parseFloat(packageData.price ?? '0').toFixed(
+                    packageData.currency === 'USD' ? 2 : 0
+                  )}
                   {packageData.pricing_type === 'fixed' ? ' /f' : ' /p'}
                 </span>
               </p>

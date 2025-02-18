@@ -21,7 +21,6 @@ export default function Blog() {
         ?.data as PaginatedResponseType<BlogType>
   );
 
-  console.log(blogs, 'blogs datat');
   return (
     <main className="blog-main pb-10 ">
       <Title />

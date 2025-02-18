@@ -17,7 +17,6 @@ const Page = () => {
         { id: 2, name: '9N-AMX' },
       ];
       setChoppers(data);
-      console.log('Fetched choppers:', data);
     };
 
     fetchChoppers();

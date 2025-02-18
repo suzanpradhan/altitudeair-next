@@ -91,12 +91,7 @@ const BookingMainCard = ({
 
   const handleAvailableSeats = (seats: number | null) => {
     if (seats != null && packageData.max_size) {
-      // if (seats < packageData.max_size) {
-      // console.log('seats is less than max size');
       setOptions(generateOptions(seats));
-      // } else {
-      // setOptions(initialOptions);
-      // }
     }
   };
 
@@ -150,12 +145,16 @@ const BookingMainCard = ({
           <p className="text-xs sm:text-base text-custom-blue capitalize font-normal">
             Total Price
           </p>
-          <p className="text-sm sm:text-xl text-custom-blue font-bold">
-            $
-            {packageData.pricing_type === 'per_person'
-              ? `${packageData.price! * parseInt(selectedOption.value)} /p`
-              : `${packageData.price} /f`}
-          </p>
+          {packageData.price ? (
+            <p className="text-sm sm:text-xl text-custom-blue font-bold">
+              {packageData.currency === 'USD' ? '$' : 'NPR.'}
+              {packageData.pricing_type === 'per_person'
+                ? `${(parseFloat(packageData.price!) * parseInt(selectedOption.value)).toFixed(packageData.currency === 'USD' ? 2 : 0)} /p`
+                : `${parseFloat(packageData.price).toFixed(packageData.currency === 'USD' ? 2 : 0)} /f`}
+            </p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="col-span-3 py-3 ps-3 cursor-pointer text-right">
           <button

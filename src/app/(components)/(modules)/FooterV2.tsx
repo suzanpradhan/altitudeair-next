@@ -1,56 +1,38 @@
-'use client';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { parseHtml } from '@/core/utils/helper';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 // import {
 //   faFacebookSquare,
 //   faInstagramSquare,
 //   faTwitterSquare,
 //   faYoutubeSquare,
 // } from "@fortawesome/free-brands-svg-icons";
-import { parseHtml } from '@/core/utils/helper';
+import { fetchData } from '@/core/api/api_client';
+import { apiPaths } from '@/core/api/apiConstants';
+import { FooterResultType } from '@/modules/footer/footerType';
 import { Facebook, Instagram } from 'iconsax-react';
 import Image from 'next/image';
-import {
-  default as axiosInst,
-  default as axiosInstance,
-} from '../../../core/utils/axoisInst';
 
-export default function FooterV2() {
-  const [footerData, setFooterData] = useState({
-    copyright: '',
-    hotline: null,
-    address: '',
-    email: '',
-    aboutUs: '',
-  });
-
-  const [socialLinks, setSocialLinks] = useState({
-    id: 1,
-    instagram: '',
-    facebook: 'https://www.facebook.com/altitude.airlines',
-  });
+export default async function FooterV2() {
+  // const dispatch = useAppDispatch();
+  // const [socialLinks, setSocialLinks] = useState({
+  //   id: 1,
+  //   instagram: '',
+  //   facebook: 'https://www.facebook.com/altitude.airlines',
+  // });
 
   // const notificationContext = useNotificationContext();
 
-  const [submitting, setSubmitting] = useState(false);
+  const { data: footerData, error } = await fetchData<FooterResultType>(
+    apiPaths.footerUrl
+  );
 
-  useEffect(() => {
-    axiosInstance.get('/footer/').then((result) => {
-      const data = result.data.data;
-      setFooterData(data[0]);
-    });
-
-    // eslint-disable-next-line no-undef
-    axiosInst.get('/socialLink/').then((result) => {
-      const data = result.data.data;
-      setSocialLinks(data[0]);
-    });
-  }, []);
-
-  function showError(message: any) {
-    // notificationContext.showNotification(message, 2000);
-  }
+  // useEffect(() => {
+  //   axiosInst.get('/socialLink/').then((result) => {
+  //     const data = result.data.data;
+  //     setSocialLinks(data[0]);
+  //   });
+  // }, []);
 
   return (
     <footer>
@@ -63,7 +45,13 @@ export default function FooterV2() {
               width={100}
               height={100}
             />
-            <span className="font-gilroy">{parseHtml(footerData.aboutUs)}</span>
+            {footerData?.data?.[0] ? (
+              <span className="font-gilroy">
+                {parseHtml(footerData?.data?.[0].aboutUs)}
+              </span>
+            ) : (
+              <></>
+            )}
           </div>
 
           <div className="flex flex-col gap-2 mb-8 sm:mb-0 w-full sm:w-auto">
@@ -154,7 +142,9 @@ export default function FooterV2() {
         </div>
 
         <div className="copyright_container font-gilroy">
-          {parseHtml(footerData.copyright)}
+          {footerData?.data?.[0].copyright
+            ? parseHtml(footerData?.data?.[0].copyright)
+            : ''}
           <p>
             Crafted by <a href="https://kurmatechnepal.com">KurmaTech</a>
           </p>
