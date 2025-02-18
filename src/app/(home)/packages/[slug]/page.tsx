@@ -71,7 +71,7 @@ export default function Packages({ params }: { params: { slug: string } }) {
                 Starting from{' '}
                 <span className="text-[#fbc200]">
                   {packageData.currency === 'USD' ? '$' : 'NPR.'}
-                  {parseInt(packageData.price ?? '0').toFixed(
+                  {parseFloat(packageData.price ?? '0').toFixed(
                     packageData.currency === 'USD' ? 2 : 0
                   )}
                   {packageData.pricing_type === 'fixed' ? ' /f' : ' /p'}

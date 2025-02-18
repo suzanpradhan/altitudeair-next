@@ -76,7 +76,7 @@ const BookingForm = () => {
       noOfTravelers: totalPerson ? parseInt(totalPerson) : 1,
       totalPrice: (
         (packagePrice ?? packageData?.price
-          ? parseInt(packageData.price!)
+          ? parseFloat(packageData.price!)
           : 0) *
         (totalPerson && packageData.pricing_type === 'per_person'
           ? parseInt(totalPerson)
@@ -90,8 +90,6 @@ const BookingForm = () => {
     validate: toFormikValidate(bookingSchema),
     onSubmit,
   });
-
-  console.log(formik.errors);
 
   return (
     <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-lg">
@@ -202,7 +200,7 @@ const BookingForm = () => {
                     'totalPrice',
                     (
                       (packagePrice ?? packageData.price
-                        ? parseInt(packageData.price!)
+                        ? parseFloat(packageData.price!)
                         : 0) *
                       (packageData?.pricing_type === 'per_person' ? value : 1)
                     ).toString()
