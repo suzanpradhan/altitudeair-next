@@ -94,7 +94,27 @@ export default function Packages({ params }: { params: { slug: string } }) {
             </div>
             <div className="col-span-12 md:col-span-4 w-full flex flex-col gap-4">
               {/* <CalendarPicker /> */}
-              <PackageLocation />
+              {packageData.latitude && packageData.longitude ? (
+                <PackageLocation
+                  latitude={parseFloat(packageData.latitude)}
+                  longtitude={parseFloat(packageData.longitude)}
+                />
+              ) : (
+                <></>
+              )}
+              {getImage(params.slug) ? (
+                <div className="relative w-full aspect-square">
+                  <Image
+                    src={getImage(params.slug)!}
+                    sizes=""
+                    fill
+                    objectFit="cover"
+                    alt={`${packageData.title} route image`}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
               {/* <BookingCard /> */}
             </div>
           </div>
