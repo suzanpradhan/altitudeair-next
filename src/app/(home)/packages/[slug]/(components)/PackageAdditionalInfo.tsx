@@ -25,7 +25,7 @@ export default function PackageAdditionalInfo() {
 
   return (
     <div className="border-2 border-dashed border-custom-gray-light">
-      <div className="grid grid-cols-12 place-content-center gap-5 bg-custom-gray-light/30 p-5 m-2">
+      <div className="grid grid-cols-12 place-content-center sm:gap-5 bg-custom-gray-light/30 p-5 m-2">
         <div className="col-span-6 md:col-span-4">
           <div className="flex items-center gap-2">
             <IoTimeOutline size={35} className="text-custom-blue" />
