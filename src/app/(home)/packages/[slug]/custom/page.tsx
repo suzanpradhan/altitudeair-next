@@ -86,8 +86,15 @@ const PackageLinkPage = ({ params }: { params: { slug: string } }) => {
               />
             </div>
             <div className="col-span-12 md:col-span-4 w-full">
-              <PackageLocation />
-              {/* <BookingCard /> */}
+              {packageData.latitude && packageData.longitude ? (
+                <PackageLocation
+                  latitude={parseFloat(packageData.latitude)}
+                  longtitude={parseFloat(packageData.longitude)}
+                />
+              ) : (
+                <></>
+              )}
+              <BookingCard />
             </div>
           </div>
         </div>

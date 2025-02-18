@@ -3,7 +3,13 @@ import axiosInst from '@/core/utils/axoisInst';
 import mapboxgl from 'mapbox-gl';
 import { useEffect, useRef } from 'react';
 
-export default function PackageLocation() {
+export default function PackageLocation({
+  latitude,
+  longtitude,
+}: {
+  latitude: number;
+  longtitude: number;
+}) {
   mapboxgl.accessToken =
     'pk.eyJ1IjoiaWN5aG90c2hvdG8iLCJhIjoiY2tmeHQwc3E5MjRxajJxbzhmbDN1bjJ5aiJ9.mNKmhIjRyKxFkJYrm4dMqg';
   const mapContainer = useRef(null);
@@ -36,7 +42,7 @@ export default function PackageLocation() {
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
         style: 'mapbox://styles/icyhotshoto/cktb59q6y7iz518uqowun3l0k',
-        center: [86, 27],
+        center: [latitude, longtitude],
         zoom: 8,
       });
     }

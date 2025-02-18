@@ -24,3 +24,5 @@ export const aboutSubheadings = [
         link: '/about#statistics',
     },
 ]
+
+export const altitudeAirLocation = [86, 27]
