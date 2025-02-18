@@ -1,4 +1,5 @@
 'use client';
+import { aboutSubheadings } from '@/core/constants/appConstants';
 import { useAppDispatch } from '@/core/redux/clientStore';
 import { useAppSelector } from '@/core/redux/hooks';
 import { RootState } from '@/core/redux/store';
@@ -129,6 +130,10 @@ const MainMenu = () => {
     });
   }, []);
 
+  useEffect(() => {
+    console.log(currentPath);
+  }, [currentPath]);
+
   const navActiveClass =
     'before:bg-white before:border-l-4 before:border-custom-blue';
   const navHoverClass =
@@ -145,32 +150,7 @@ const MainMenu = () => {
             </Link>
             <div className="hidden group-hover:block group-hover:shadow absolute top-full -left-[6px] min-w-full w-max bg-custom-blue/90">
               <ul className="flex flex-col justify-end h-full uppercase text-xs font-semibold text-white">
-                {[
-                  {
-                    title: 'Overview',
-                    link: '/about#overview',
-                  },
-                  {
-                    title: 'Message From Executive Chairman',
-                    link: '/about#message',
-                  },
-                  {
-                    title: 'Board Of Directors',
-                    link: '/about#board_info',
-                  },
-                  {
-                    title: 'Crew',
-                    link: '/about#crew',
-                  },
-                  {
-                    title: 'Mission & Vision',
-                    link: '/about#mission&vision',
-                  },
-                  {
-                    title: 'Mission Statistics',
-                    link: '/about#statistics',
-                  },
-                ].map((subItem, subIndex) => (
+                {aboutSubheadings.map((subItem, subIndex) => (
                   <li
                     key={subIndex}
                     className="relative hover:bg-custom-primary/30 before:absolute before:top-0 before:left-0 hover:before:bottom-0 hover:before:w-2 before:bg-custom-primary"
@@ -198,7 +178,7 @@ const MainMenu = () => {
             <div className="hidden group-hover:block group-hover:shadow absolute top-full -left-[6px] min-w-full w-max bg-custom-blue/90">
               <ul className="flex flex-col justify-end h-full uppercase text-xs font-semibold text-white">
                 {blogCategories &&
-                  blogCategories?.results.map((subItem, index) => (
+                  blogCategories?.results?.map((subItem, index) => (
                     <li
                       key={index}
                       className="relative hover:bg-custom-primary/30 before:absolute before:top-0 before:left-0 hover:before:bottom-0 hover:before:w-2 before:bg-custom-primary"
