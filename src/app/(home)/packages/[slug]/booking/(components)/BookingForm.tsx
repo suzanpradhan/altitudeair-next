@@ -75,7 +75,9 @@ const BookingForm = () => {
       departureDate: kDepartureDate,
       noOfTravelers: totalPerson ? parseInt(totalPerson) : 1,
       totalPrice: (
-        (packagePrice ?? packageData?.price ?? 0) *
+        (packagePrice ?? packageData?.price
+          ? parseInt(packageData.price!)
+          : 0) *
         (totalPerson && packageData.pricing_type === 'per_person'
           ? parseInt(totalPerson)
           : 1)
@@ -199,7 +201,9 @@ const BookingForm = () => {
                   formik.setFieldValue(
                     'totalPrice',
                     (
-                      (packagePrice ?? packageData.price ?? 0) *
+                      (packagePrice ?? packageData.price
+                        ? parseInt(packageData.price!)
+                        : 0) *
                       (packageData?.pricing_type === 'per_person' ? value : 1)
                     ).toString()
                   );

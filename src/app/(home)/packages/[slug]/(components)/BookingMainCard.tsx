@@ -120,6 +120,7 @@ const BookingMainCard = ({
     );
     router.push(`/packages/${packageData.slug}/booking`);
   };
+  console.log('object', typeof packageData.price);
 
   return (
     <div className="relative container mx-auto min-h-20 z-20">
@@ -150,12 +151,16 @@ const BookingMainCard = ({
           <p className="text-xs sm:text-base text-custom-blue capitalize font-normal">
             Total Price
           </p>
-          <p className="text-sm sm:text-xl text-custom-blue font-bold">
-            $
-            {packageData.pricing_type === 'per_person'
-              ? `${packageData.price! * parseInt(selectedOption.value)} /p`
-              : `${packageData.price} /f`}
-          </p>
+          {packageData.price ? (
+            <p className="text-sm sm:text-xl text-custom-blue font-bold">
+              {packageData.currency === 'USD' ? '$' : 'NPR.'}
+              {packageData.pricing_type === 'per_person'
+                ? `${(parseInt(packageData.price!) * parseInt(selectedOption.value)).toFixed(packageData.currency === 'USD' ? 2 : 0)} /p`
+                : `${parseInt(packageData.price).toFixed(packageData.currency === 'USD' ? 2 : 0)} /f`}
+            </p>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="col-span-3 py-3 ps-3 cursor-pointer text-right">
           <button

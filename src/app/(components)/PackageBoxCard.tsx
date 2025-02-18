@@ -45,7 +45,12 @@ export default function PackageBoxCard({ item }: { item: PackagesDataType }) {
           </div>
           <p className="text-custom-blue-light text-sm">
             Starting from{' '}
-            <span className="text-custom-blue font-medium">${item.price}</span>
+            <span className="text-custom-blue font-medium">
+              {item.currency === 'USD' ? '$' : 'NPR.'}
+              {item.price
+                ? parseInt(item.price).toFixed(item.currency === 'USD' ? 2 : 0)
+                : '-'}
+            </span>
             /p
           </p>
         </div>
