@@ -113,6 +113,16 @@ export default async function FooterV2() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link href="/news" className="hover:text-white">
+                  News
+                </Link>
+              </li>
+              <li>
+                <Link href="/packages" className="hover:text-white">
+                  Packages
+                </Link>
+              </li>
             </ul>
           </div>
 

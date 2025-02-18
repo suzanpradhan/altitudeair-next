@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 export default function Packages() {
   return (
-    <main className="bg-custom-gray-light/50 pb-20">
+    <div className="bg-custom-gray-light/50 pb-20">
       <div
         className="relative h-[80vh] w-full bg-no-repeat bg-cover flex items-end justify-center"
         style={{ backgroundImage: 'url(/images/banner/banner.webp)' }}
@@ -44,6 +44,6 @@ export default function Packages() {
         </h2>
         <PackagesList />
       </div>
-    </main>
+    </div>
   );
 }

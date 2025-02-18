@@ -159,6 +159,9 @@ export default function SideDrawer({
                   ? 'bg-custom-blue/85 text-white hover:bg-none'
                   : ''
               )}
+              onClick={() => {
+                setDrawer(false);
+              }}
             >
               <Link
                 href={'/voluntary-hazard-report'}
@@ -174,6 +177,9 @@ export default function SideDrawer({
                   ? 'bg-custom-blue/85 text-white hover:bg-none'
                   : ''
               )}
+              onClick={() => {
+                setDrawer(false);
+              }}
             >
               <Link href={'/packages'} className="flex items-center px-4 h-16">
                 PACKAGES
@@ -242,6 +248,9 @@ export default function SideDrawer({
                   ? 'bg-custom-blue/85 text-white hover:bg-none'
                   : ''
               )}
+              onClick={() => {
+                setDrawer(false);
+              }}
             >
               <Link href={'/gallery'} className="flex items-center px-4 h-16">
                 GALLERY
@@ -254,6 +263,9 @@ export default function SideDrawer({
                   ? 'bg-custom-blue/85 text-white hover:bg-none'
                   : ''
               )}
+              onClick={() => {
+                setDrawer(false);
+              }}
             >
               <Link href={'/news'} className="flex items-center px-4 h-16">
                 NEWS
