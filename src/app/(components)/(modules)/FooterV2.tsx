@@ -34,8 +34,6 @@ export default async function FooterV2() {
   //   });
   // }, []);
 
-  console.log(footerData);
-
   return (
     <footer>
       <div className="bg-[#202e43]/90 text-[#a7b9c7]">

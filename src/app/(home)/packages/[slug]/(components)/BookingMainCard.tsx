@@ -91,12 +91,7 @@ const BookingMainCard = ({
 
   const handleAvailableSeats = (seats: number | null) => {
     if (seats != null && packageData.max_size) {
-      // if (seats < packageData.max_size) {
-      // console.log('seats is less than max size');
       setOptions(generateOptions(seats));
-      // } else {
-      // setOptions(initialOptions);
-      // }
     }
   };
 
@@ -120,7 +115,6 @@ const BookingMainCard = ({
     );
     router.push(`/packages/${packageData.slug}/booking`);
   };
-  console.log('object', typeof packageData.price);
 
   return (
     <div className="relative container mx-auto min-h-20 z-20">
@@ -155,8 +149,8 @@ const BookingMainCard = ({
             <p className="text-sm sm:text-xl text-custom-blue font-bold">
               {packageData.currency === 'USD' ? '$' : 'NPR.'}
               {packageData.pricing_type === 'per_person'
-                ? `${(parseInt(packageData.price!) * parseInt(selectedOption.value)).toFixed(packageData.currency === 'USD' ? 2 : 0)} /p`
-                : `${parseInt(packageData.price).toFixed(packageData.currency === 'USD' ? 2 : 0)} /f`}
+                ? `${(parseFloat(packageData.price!) * parseInt(selectedOption.value)).toFixed(packageData.currency === 'USD' ? 2 : 0)} /p`
+                : `${parseFloat(packageData.price).toFixed(packageData.currency === 'USD' ? 2 : 0)} /f`}
             </p>
           ) : (
             <></>

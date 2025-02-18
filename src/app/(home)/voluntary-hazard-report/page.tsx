@@ -22,21 +22,6 @@ const VoluntaryHazardReport = () => {
       date: `${values.date?.getFullYear()}-${values.date?.getMonth()}-${values.date?.getDate()}`,
     };
     let res;
-
-    // if (!executeRecaptcha) {
-    //   console.log('Execute recaptcha not yet available');
-    // }
-
-    // if (!executeRecaptcha) {
-    //   return;
-    // }
-    // const token = await executeRecaptcha('hello');
-
-    // if (!token) {
-    //   toast.error('Error submitting form!');
-    //   return;
-    // }
-
     try {
       res = await axiosInstance.post('/contactUs', obj);
       toast.success(

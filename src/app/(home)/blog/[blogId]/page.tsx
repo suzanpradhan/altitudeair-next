@@ -43,7 +43,6 @@ export default function BlogItem() {
       state.baseApi.queries[`getEachBlog-${blogId}`]?.data as BlogType
   );
 
-  // console.log(blogId, 'blogId');
   useEffect(() => {
     axiosInstance
       .get('/news/latest/3/')

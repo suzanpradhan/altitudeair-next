@@ -130,10 +130,6 @@ const MainMenu = () => {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(currentPath);
-  }, [currentPath]);
-
   const navActiveClass =
     'before:bg-white before:border-l-4 before:border-custom-blue';
   const navHoverClass =

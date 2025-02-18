@@ -20,7 +20,6 @@ const SibeBarSubheadings = ({
   currentPath: string;
   subHeadingPath: string;
 }) => {
-  console.log(subHeadings);
   return (
     <ul className="ml-4 border-l-2 border-custom-blue/25 flex flex-col ">
       {isActive ? (
