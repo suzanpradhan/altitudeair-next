@@ -20,6 +20,20 @@ export default function Packages({ params }: { params: { slug: string } }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hotline, setHotline] = useState('');
+  const [departureDate, setDepartureDate] = useState<Date>(new Date());
+  const [selectedOption, setSelectedOption] = useState({
+    value: '1',
+    label: '1 traveler',
+  });
+
+  const getImage = (packageSlug: string) => {
+    switch (packageSlug) {
+      case 'khumbu':
+        return '/images/packages/khumbu.jpg';
+      default:
+        return undefined;
+    }
+  };
 
   useEffect(() => {
     axiosInst.get('/footer/').then((result) => {
@@ -81,7 +95,13 @@ export default function Packages({ params }: { params: { slug: string } }) {
           </div>
           <div className="absolute bottom-0 left-0 top-0 right-0 bg-gradient-to-t from-custom-blue to-transparent"></div>
         </div>
-        <BookingMainCard packageData={packageData} />
+        <BookingMainCard
+          packageData={packageData}
+          departureDate={departureDate}
+          selectedOption={selectedOption}
+          setDepartureDate={setDepartureDate}
+          setSelectedOption={setSelectedOption}
+        />
         <div className="container mx-auto">
           <div className="grid grid-cols-12 place-content-start gap-x-10 gap-y-10 px-6 md:px-0">
             <div className="col-span-12 md:col-span-8 w-full">
@@ -120,7 +140,22 @@ export default function Packages({ params }: { params: { slug: string } }) {
           </div>
         </div>
         <RelatedPackages />
-      </main>
+        <Link
+          href={(() => {
+            const params = new URLSearchParams({
+              depart: departureDate.toUTCString(),
+              travellers:
+                packageData.pricing_type === 'fixed'
+                  ? ''
+                  : selectedOption.value,
+            });
+            return `/packages/${packageData.slug}/booking?${params.toString()} `;
+          })()}
+          className="fixed sm:hidden mb-5 mr-20 rounded-xl border border-white  text-white shadow-xl inline-flex z-50 text-xl items-center bg-custom-blue  bottom-0 right-0 hover:shadow-md px-3 py-2 font-light"
+        >
+          Book Now
+        </Link>
+      </div>
     ) : null
   ) : (
     <>Loading...</>

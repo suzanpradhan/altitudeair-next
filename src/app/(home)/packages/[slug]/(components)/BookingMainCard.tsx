@@ -10,7 +10,7 @@ import { AvailableSeatsDataType } from '@/modules/availableSeats/avaiableSeatsTy
 import { PackagesDataType } from '@/modules/packages/packagesType';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 // export const options = [
 //   { value: '1', label: '1 Traveler' },
@@ -43,15 +43,27 @@ export const months: Record<number, string> = {
 
 const BookingMainCard = ({
   packageData,
+  departureDate,
+  setDepartureDate,
+  selectedOption,
+  setSelectedOption,
 }: {
   packageData: PackagesDataType;
+  departureDate: Date;
+  setDepartureDate: Dispatch<SetStateAction<Date>>;
+  selectedOption: {
+    value: string;
+    label: string;
+  };
+  setSelectedOption: Dispatch<
+    SetStateAction<{
+      value: string;
+      label: string;
+    }>
+  >;
 }) => {
   const router = useRouter();
-  const [departureDate, setDepartureDate] = useState<Date>(new Date());
-  const [selectedOption, setSelectedOption] = useState({
-    value: '1',
-    label: '1 traveler',
-  });
+
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
 
