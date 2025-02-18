@@ -9,7 +9,7 @@ export default function PackageCard({ item }: { item: PackagesDataType }) {
   const coverImage = item.cover_image ? item.cover_image : defaultImage;
   return (
     <Link
-      href={`packages/${item.slug}`}
+      href={`/packages/${item.slug}`}
       className="relative col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 before:absolute before:-top-2 before:-bottom-2 before:-left-2 before:-right-2 before:border-dashed before:border-custom-blue-light/20 before:-z-10 before:hover:border-2 before:hover:bg-custom-bg/60 transition-all duration-200 group"
     >
       <div className="flex flex-col justify-between h-full">
