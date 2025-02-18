@@ -4,6 +4,8 @@ import { useAppDispatch, useAppSelector } from '@/core/redux/hooks';
 import { RootState } from '@/core/redux/store';
 import packagesApi from '@/modules/packages/packagesApi';
 import { PackagesDataType } from '@/modules/packages/packagesType';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FaLocationDot } from 'react-icons/fa6';
 import { IoTimeOutline } from 'react-icons/io5';
@@ -65,7 +67,7 @@ export default function Packages({ params }: { params: { slug: string } }) {
   }
   return !isLoading ? (
     packageData ? (
-      <main className="bg-custom-gray-light/50">
+      <div className="bg-custom-gray-light/50 ">
         <div
           className="relative h-[50vh] sm:h-[70vh] w-full bg-no-repeat bg-cover bg-center"
           style={{ backgroundImage: `url(${packageData.cover_image})` }}
@@ -103,7 +105,7 @@ export default function Packages({ params }: { params: { slug: string } }) {
           setSelectedOption={setSelectedOption}
         />
         <div className="container mx-auto">
-          <div className="grid grid-cols-12 place-content-start gap-x-10 gap-y-10 px-6 md:px-0">
+          <div className="grid grid-cols-12 place-content-start sm:gap-x-10 sm:gap-y-10 px-0">
             <div className="col-span-12 md:col-span-8 w-full">
               <PackageAdditionalInfo />
               <PackageGallery packageSlug={packageData.slug} />
