@@ -74,7 +74,7 @@ export default function Packages({ params }: { params: { slug: string } }) {
                   {parseFloat(packageData.price ?? '0').toFixed(
                     packageData.currency === 'USD' ? 2 : 0
                   )}
-                  {packageData.pricing_type === 'fixed' ? ' /f' : ' /p'}
+                  {packageData.pricing_type === 'fixed' ? '' : ' /p'}
                 </span>
               </p>
             </div>

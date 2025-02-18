@@ -86,7 +86,7 @@ export default function PackageAdditionalInfo() {
                 Group Size
               </p>
               <p className="text-base text-custom-blue font-semibold">
-                {packageItem?.max_size}
+                {packageItem?.min_size} to {packageItem?.max_size}
               </p>
             </div>
           </div>
