@@ -8,7 +8,6 @@ import { BlogCategoryType } from '@/modules/blog/blogType';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import SideDrawer from '../(elements)/SideDrawer';
 
 interface ChoppersType {
   id: number;
@@ -165,7 +164,7 @@ export default function Header() {
         </div>
       </nav>
       {/* {drawer ? <SideDrawer show={drawer} close={hideDrawerHandler} /> : null} */}
-      {drawer ? <SideDrawer show={drawer} /> : null}
+      {/* {drawer ? <SideDrawer show={drawer} /> : null} */}
     </header>
   );
 }
