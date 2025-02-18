@@ -53,7 +53,7 @@ export default function PackageBoxCard({ item }: { item: PackagesDataType }) {
                   )
                 : '-'}
             </span>
-            /p
+            {item.pricing_type === 'fixed' ? '/f' : '/p'}
           </p>
         </div>
       </div>
