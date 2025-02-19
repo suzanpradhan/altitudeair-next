@@ -23,7 +23,7 @@ export default function PackageBoxCard({ item }: { item: PackagesDataType }) {
               className="group-hover:scale-105 transition-all duration-300 ease-in-out object-cover"
             />
           </div>
-          <h3 className="text-lg font-medium text-custom-blue leading-6 line-clamp-2">
+          <h3 className="text-lg font-medium text-custom-blue leading-6 line-clamp-1">
             {item.title}
           </h3>
           <div className="flex items-center gap-2">
@@ -39,12 +39,12 @@ export default function PackageBoxCard({ item }: { item: PackagesDataType }) {
             {parseHtml(item.description ?? '')}
           </div>
         </div>
-        <div className="flex items-center justify-start gap-5 mt-2">
+        <div className="flex items-center justify-between gap-5 mt-2">
           <div className="text-center text-sm font-medium py-2 px-5 text-custom-primary bg-custom-blue hover:bg-custom-blue/90 hover:shadow-md">
             Book Now
           </div>
-          <p className="text-custom-blue-light text-sm">
-            Starting from{' '}
+          <p className="text-custom-blue-light text-sm flex flex-col items-end ">
+            <span>Starting from </span>
             <span className="text-custom-blue font-medium">
               {item.currency === 'USD' ? '$' : 'NPR.'}
               {item.price
@@ -52,8 +52,8 @@ export default function PackageBoxCard({ item }: { item: PackagesDataType }) {
                     item.currency === 'USD' ? 2 : 0
                   )
                 : '-'}
+              {item.pricing_type === 'fixed' ? '/f' : '/p'}
             </span>
-            {item.pricing_type === 'fixed' ? '/f' : '/p'}
           </p>
         </div>
       </div>
