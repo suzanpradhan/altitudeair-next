@@ -1,4 +1,5 @@
 'use client';
+import PackageBoxCard from '@/app/(components)/PackageBoxCard';
 import { useAppDispatch, useAppSelector } from '@/core/redux/hooks';
 import { RootState } from '@/core/redux/store';
 import { PaginatedResponseType } from '@/core/types/responseTypes';
@@ -7,7 +8,6 @@ import { PackagesDataType } from '@/modules/packages/packagesType';
 import { useEffect, useRef, useState } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
-import PackageCard from '../../(components)/PackageCard';
 
 // const packageList: PackageType[] = [
 //   {
@@ -152,7 +152,7 @@ const RelatedPackages = () => {
               paginatedPackagesResponse.results.length > 0 ? (
                 paginatedPackagesResponse.results.map((item, index) => (
                   <SwiperSlide key={index}>
-                    <PackageCard item={item} />
+                    <PackageBoxCard item={item} />
                   </SwiperSlide>
                 ))
               ) : (
