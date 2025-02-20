@@ -55,7 +55,7 @@ export default function PackageHighlights({
 
       <div>
         <h3 className="text-2xl font-bold text-custom-blue">Description</h3>
-        <div className="text-base text-custom-blue flex flex-col gap-4 mt-4">
+        <div className="text-base parse-html text-custom-blue flex flex-col gap-4 mt-4">
           {parseHtml(data ?? '')}
         </div>
       </div>

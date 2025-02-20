@@ -1,4 +1,5 @@
 'use client';
+import { altitudeAirLocation } from '@/core/constants/appConstants';
 import { default as axiosInstance } from '@/core/utils/axoisInst';
 import { constants } from '@/core/utils/constants';
 import { parseHtml } from '@/core/utils/helper';
@@ -252,7 +253,10 @@ const ContactPage = () => {
               </p>
             </div>
 
-            <PackageLocation />
+            <PackageLocation
+              latitude={altitudeAirLocation[0]}
+              longtitude={altitudeAirLocation[1]}
+            />
           </div>
         </div>
       </main>

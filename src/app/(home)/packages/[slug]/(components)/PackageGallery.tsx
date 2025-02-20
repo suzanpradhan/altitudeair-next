@@ -16,9 +16,6 @@ const PackageGallery = ({ packageSlug }: { packageSlug: string }) => {
   );
   const [isEnd, toggleIsEnd] = useState<boolean | undefined>(undefined);
 
-  console.log('isBeginning:', isBeginning);
-  console.log('isEnd:', isEnd);
-
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);

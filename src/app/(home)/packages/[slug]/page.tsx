@@ -4,6 +4,8 @@ import { useAppDispatch, useAppSelector } from '@/core/redux/hooks';
 import { RootState } from '@/core/redux/store';
 import packagesApi from '@/modules/packages/packagesApi';
 import { PackagesDataType } from '@/modules/packages/packagesType';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FaLocationDot } from 'react-icons/fa6';
 import { IoTimeOutline } from 'react-icons/io5';
@@ -20,6 +22,20 @@ export default function Packages({ params }: { params: { slug: string } }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hotline, setHotline] = useState('');
+  const [departureDate, setDepartureDate] = useState<Date>(new Date());
+  const [selectedOption, setSelectedOption] = useState({
+    value: '1',
+    label: '1 traveler',
+  });
+
+  const getImage = (packageSlug: string) => {
+    switch (packageSlug) {
+      case 'khumbu':
+        return '/images/packages/khumbu.jpg';
+      default:
+        return undefined;
+    }
+  };
 
   useEffect(() => {
     axiosInst.get('/footer/').then((result) => {
@@ -51,7 +67,7 @@ export default function Packages({ params }: { params: { slug: string } }) {
   }
   return !isLoading ? (
     packageData ? (
-      <main className="bg-custom-gray-light/50">
+      <div className="bg-custom-gray-light/50 ">
         <div
           className="relative h-[50vh] sm:h-[70vh] w-full bg-no-repeat bg-cover bg-center"
           style={{ backgroundImage: `url(${packageData.cover_image})` }}
@@ -69,15 +85,27 @@ export default function Packages({ params }: { params: { slug: string } }) {
               </p>
               <p className="text-base text-white font-light">
                 Starting from{' '}
-                <span className="text-[#fbc200]">${packageData.price}</span>/p
+                <span className="text-[#fbc200]">
+                  {packageData.currency === 'USD' ? '$' : 'NPR.'}
+                  {parseFloat(packageData.price ?? '0').toFixed(
+                    packageData.currency === 'USD' ? 2 : 0
+                  )}
+                  {packageData.pricing_type === 'fixed' ? '' : ' /p'}
+                </span>
               </p>
             </div>
           </div>
           <div className="absolute bottom-0 left-0 top-0 right-0 bg-gradient-to-t from-custom-blue to-transparent"></div>
         </div>
-        <BookingMainCard packageData={packageData} />
+        <BookingMainCard
+          packageData={packageData}
+          departureDate={departureDate}
+          selectedOption={selectedOption}
+          setDepartureDate={setDepartureDate}
+          setSelectedOption={setSelectedOption}
+        />
         <div className="container mx-auto">
-          <div className="grid grid-cols-12 place-content-start gap-x-10 gap-y-10 px-6 md:px-0">
+          <div className="grid grid-cols-12 place-content-start sm:gap-x-10 sm:gap-y-10 px-0">
             <div className="col-span-12 md:col-span-8 w-full">
               <PackageAdditionalInfo />
               <PackageGallery packageSlug={packageData.slug} />
@@ -88,13 +116,48 @@ export default function Packages({ params }: { params: { slug: string } }) {
             </div>
             <div className="col-span-12 md:col-span-4 w-full flex flex-col gap-4">
               {/* <CalendarPicker /> */}
-              <PackageLocation />
+              {packageData.latitude && packageData.longitude ? (
+                <PackageLocation
+                  latitude={parseFloat(packageData.latitude)}
+                  longtitude={parseFloat(packageData.longitude)}
+                />
+              ) : (
+                <></>
+              )}
+              {getImage(params.slug) ? (
+                <div className="relative w-full aspect-square">
+                  <Image
+                    src={getImage(params.slug)!}
+                    sizes=""
+                    fill
+                    objectFit="cover"
+                    alt={`${packageData.title} route image`}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
               {/* <BookingCard /> */}
             </div>
           </div>
         </div>
         <RelatedPackages />
-      </main>
+        <Link
+          href={(() => {
+            const params = new URLSearchParams({
+              depart: departureDate.toUTCString(),
+              travellers:
+                packageData.pricing_type === 'fixed'
+                  ? ''
+                  : selectedOption.value,
+            });
+            return `/packages/${packageData.slug}/booking?${params.toString()} `;
+          })()}
+          className="fixed sm:hidden mb-5 mr-20 rounded-xl border border-white  text-white shadow-xl inline-flex z-50 text-xl items-center bg-custom-blue  bottom-0 right-0 hover:shadow-md px-3 py-2 font-light"
+        >
+          Book Now
+        </Link>
+      </div>
     ) : null
   ) : (
     <>Loading...</>

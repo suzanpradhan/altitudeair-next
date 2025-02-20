@@ -23,7 +23,6 @@ const packagesApi = baseApi
                     return currentArg !== previousArg;
                 },
                 transformResponse: (response: any) => {
-                    // console.log(response);
                     return response as PaginatedResponseType<PackagesDataType>;
                 },
             }),
@@ -62,7 +61,6 @@ const packagesApi = baseApi
                     return currentArg !== previousArg;
                 },
                 transformResponse: (response: any) => {
-                    // console.log(response);
                     return response as PackagesDataType;
                 },
             }),
@@ -82,7 +80,6 @@ const packagesApi = baseApi
                     return currentArg !== previousArg;
                 },
                 transformResponse: (response: any) => {
-                    // console.log(response);
                     return response as PackagesDataType;
                 },
             }),
@@ -102,7 +99,6 @@ const packagesApi = baseApi
                     return currentArg !== previousArg;
                 },
                 transformResponse: (response: any) => {
-                    console.log(response);
                     return response as PackageGalleryDataType[];
                 },
             }),

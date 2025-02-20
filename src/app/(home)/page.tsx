@@ -5,6 +5,7 @@ import GetInTouch from '../(components)/(sections)/(landing)/GetInTouch';
 import Highlights from '../(components)/(sections)/(landing)/Highlights';
 import Landing from '../(components)/(sections)/(landing)/Landing';
 import Missions from '../(components)/(sections)/(landing)/Missions';
+import Package from '../(components)/(sections)/(landing)/Package';
 import Reviews from '../(components)/(sections)/(landing)/Reviews';
 
 export default function Home() {
@@ -16,7 +17,7 @@ export default function Home() {
       </Enquiry>
       <Landing />
       <Highlights />
-      {/* <Package /> */}
+      <Package />
       {/* <Services /> */}
       <About />
       <Missions />

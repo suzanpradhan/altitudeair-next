@@ -31,5 +31,7 @@ export const apiPaths = {
     bookingUrl: '/bookings/',
     enquiryUrl: '/enquiry/',
     employeesUrl: '/',
-    contactUsUrl: '/contactUs'
+    contactUsUrl: '/contactUs',
+    footerUrl: '/footer'
+
 };
