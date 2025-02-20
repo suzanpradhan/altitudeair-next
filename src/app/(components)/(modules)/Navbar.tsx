@@ -11,21 +11,28 @@ const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY && currentScrollY > 100) {
-      setIsNavbarVisible(false);
-      if (currentScrollY > 100) {
+    requestAnimationFrame(() => {
+      const currentScrollY =
+        window.scrollY || document.documentElement.scrollTop;
+
+      if (currentScrollY < 50) {
+        setIsNavbarVisible(true);
+        setIsStickyLogoVisible(false);
+      } else if (currentScrollY > lastScrollY) {
+        setIsNavbarVisible(false);
         setIsStickyLogoVisible(true);
+      } else {
+        setIsNavbarVisible(true);
+        setIsStickyLogoVisible(false);
       }
-    } else if (currentScrollY <= lastScrollY) {
-      setIsNavbarVisible(true);
-      setIsStickyLogoVisible(false);
-    }
-    setLastScrollY(currentScrollY);
+
+      setLastScrollY(currentScrollY);
+    });
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -34,8 +41,8 @@ const Navbar = () => {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 w-full z-50 bg-white/60 backdrop-blur-md transition-all duration-500 ease-in-out ${
-          isNavbarVisible ? 'top-0' : '-top-16'
+        className={`fixed top-0 left-0 w-full h-16 z-50 bg-white/70 backdrop-blur-md transition-transform duration-300 ease-in-out ${
+          isNavbarVisible ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
         <div className="lg:container mx-auto">
@@ -59,11 +66,11 @@ const Navbar = () => {
         </div>
       </div>
 
-      {isStickyLogoVisible && (
-        <div className="fixed top-0 sm:left-2 w-full left-0 z-40 transition-all duration-500 ease-in-out">
+      {isStickyLogoVisible && !isNavbarVisible && (
+        <div className="fixed w-full top-0 left-0 z-40 transition-transform duration-300 ease-in-out">
           <div className="lg:container mx-auto">
-            <div className="bg-white w-24 flex justify-center">
-              <Link href="/" className="flex items-center relative h-16 w-20">
+            <div className="bg-white w-24 flex justify-center shadow-lg  p-2">
+              <Link href="/" className="flex items-center relative h-12 w-20">
                 <Image
                   alt="altitude-air-logo"
                   src="/images/inverse-logo.webp"
