@@ -156,7 +156,7 @@ const BookingMainCard = ({
               {packageData.currency === 'USD' ? '$' : 'NPR.'}
               {packageData.pricing_type === 'per_person'
                 ? `${(parseFloat(packageData.price!) * parseInt(selectedOption.value)).toFixed(packageData.currency === 'USD' ? 2 : 0)} /p`
-                : `${parseFloat(packageData.price).toFixed(packageData.currency === 'USD' ? 2 : 0)} /f`}
+                : `${parseFloat(packageData.price).toFixed(packageData.currency === 'USD' ? 2 : 0)} `}
             </p>
           ) : (
             <></>

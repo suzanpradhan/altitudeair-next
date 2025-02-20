@@ -52,7 +52,7 @@ export default function PackageBoxCard({ item }: { item: PackagesDataType }) {
                     item.currency === 'USD' ? 2 : 0
                   )
                 : '-'}
-              {item.pricing_type === 'fixed' ? '/f' : '/p'}
+              {item.pricing_type === 'fixed' ? '' : '/p'}
             </span>
           </p>
         </div>

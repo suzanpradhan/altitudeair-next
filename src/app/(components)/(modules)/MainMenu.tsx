@@ -163,6 +163,15 @@ const MainMenu = () => {
             </div>
           </li>
         </MenuItems>
+        <MenuItems>
+          <li
+            className={`relative px-5 group ${navHoverClass} ${currentPath === '/packages' ? navActiveClass : ''}`} // add active class letter
+          >
+            <Link href={'/packages'} className="flex items-center h-full">
+              PACKAGES
+            </Link>
+          </li>
+        </MenuItems>
 
         <MenuItems>
           <li
@@ -180,7 +189,7 @@ const MainMenu = () => {
                       className="relative hover:bg-custom-primary/30 before:absolute before:top-0 before:left-0 hover:before:bottom-0 hover:before:w-2 before:bg-custom-primary"
                     >
                       <Link
-                        href={`/blog#${subItem.id}`}
+                        href={`/blog/${subItem.id}`}
                         className="flex items-center h-full py-2 px-3"
                       >
                         {subItem.title}
@@ -219,7 +228,7 @@ const MainMenu = () => {
             </div>
           </li>
         </MenuItems>
-        <MenuItems>
+        {/* <MenuItems>
           <li
             className={`relative px-5 group ${navHoverClass} ${currentPath === '/news' ? navActiveClass : ''}`} // add active class letter
           >
@@ -227,8 +236,8 @@ const MainMenu = () => {
               ARTICLE
             </Link>
           </li>
-        </MenuItems>
-        <MenuItems>
+        </MenuItems> */}
+        {/* <MenuItems>
           <li
             className={`relative px-5 group ${navHoverClass} ${currentPath === '/gallery' ? navActiveClass : ''}`} // add active class letter
           >
@@ -236,7 +245,7 @@ const MainMenu = () => {
               GALLERY
             </Link>
           </li>
-        </MenuItems>
+        </MenuItems> */}
         <MenuItems>
           <li
             className={`relative px-5 group ${navHoverClass} ${currentPath === '/voluntary-hazard-report' ? navActiveClass : ''}`} // add active class letter
@@ -246,16 +255,6 @@ const MainMenu = () => {
               className="flex items-center h-full"
             >
               VOLUNTARY HAZARD
-            </Link>
-          </li>
-        </MenuItems>
-
-        <MenuItems>
-          <li
-            className={`relative px-5 group ${navHoverClass} ${currentPath === '/packages' ? navActiveClass : ''}`} // add active class letter
-          >
-            <Link href={'/packages'} className="flex items-center h-full">
-              PACKAGES
             </Link>
           </li>
         </MenuItems>
