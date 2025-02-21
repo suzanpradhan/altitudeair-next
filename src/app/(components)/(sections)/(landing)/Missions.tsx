@@ -1,7 +1,10 @@
 'use client';
 import useMediaQuery from '@/core/hooks/useMediaQuery';
-import axiosInstance from '@/core/utils/axoisInst';
-import { constants } from '@/core/utils/constants';
+import { useAppDispatch, useAppSelector } from '@/core/redux/clientStore';
+import { RootState } from '@/core/redux/store';
+import { PaginatedResponseType } from '@/core/types/responseTypes';
+import rescueMissionApi from '@/modules/rescue_mission/rescue_missionApi';
+import { RescueMissionType } from '@/modules/rescue_mission/rescue_missionType';
 import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
 import { useEffect, useRef, useState } from 'react';
 import MissionItem from '../../(elements)/MissionItem';
@@ -16,6 +19,7 @@ interface Mission {
 
 export default function Missions() {
   const mobileOnly = useMediaQuery('(max-width:768px)');
+  const dispatch = useAppDispatch();
   const [readClicked, setreadClicked] = useState<{
     clicked: boolean;
     clickedBy: number;
@@ -56,6 +60,16 @@ export default function Missions() {
   }
 
   useEffect(() => {
+    dispatch(rescueMissionApi.endpoints.getAllRescueMission.initiate(1));
+  }, [dispatch]);
+
+  const rescueData = useAppSelector(
+    (state: RootState) =>
+      state.baseApi.queries['getAllRescueMission(1)']
+        ?.data as PaginatedResponseType<RescueMissionType>
+  );
+
+  useEffect(() => {
     if (map.current) {
       return;
     }
@@ -68,19 +82,20 @@ export default function Missions() {
     map.current.scrollZoom.disable();
   }, []);
 
-  useEffect(() => {
-    axiosInstance.get('/rescue-mission/').then((item) => {
-      let finalObj = item.data.data?.map((item: any) => {
-        return {
-          imageUrl: constants.baseUrl + item.coverImage,
-          name: item.title,
-          info: item.description,
-          coords: [item.longitude, item.latitude],
-        };
-      });
-      setMissionList(finalObj);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axiosInstance.get('/rescue-mission/').then((item) => {
+  //     // console.log(item.data, 'data');
+  //     let finalObj = item.data.data?.map((item: any) => {
+  //       return {
+  //         imageUrl: constants.baseUrl + item.coverImage,
+  //         name: item.title,
+  //         info: item.description,
+  //         coords: [item.longitude, item.latitude],
+  //       };
+  //     });
+  //     setMissionList(finalObj);
+  //   });
+  // }, []);
 
   const selectedItemHandler = (position: number) => {
     if (missionList.length === 0 || position > missionList.length - 1) {
@@ -105,21 +120,20 @@ export default function Missions() {
         </div>
         <div className="mission-list">
           {!mobileOnly &&
-            missionList?.map((item, index) => {
+            rescueData?.results?.map((item, index) => {
               return (
                 <MissionItem
-                  key={item.imageUrl}
+                  key={index}
                   index={index}
-                  name={item.name}
-                  info={item.info}
-                  imageUrl={item.imageUrl}
+                  name={item.title}
+                  info={item.description}
+                  imageUrl={item.coverImage}
                   flyTo={flyTo}
                   readClicked={readClicked}
                   setReadClicked={setreadClicked}
                 />
               );
             })}
-
           {mobileOnly && (
             <MissionItem
               index={0}
