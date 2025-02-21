@@ -29,6 +29,7 @@ export const apiPaths = {
     allPackagesPublicUrl: '/packages/public/',
     getPackages: '/packages/',
     bookingUrl: '/bookings/',
+    rescuemissionUrl: '/rescue-mission/',
     enquiryUrl: '/enquiry/',
     employeesUrl: '/',
     contactUsUrl: '/contactUs',

@@ -1,5 +1,5 @@
 'use client';
-import { dateFromSqlDateTime, parseHtml } from '@/core/utils/helper';
+import { parseHtml } from '@/core/utils/helper';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -44,9 +44,6 @@ export default function BlogItem({
         <Link href={`/blog/${id}`} passHref>
           <h2>{title}</h2>
         </Link>
-        <p className="publish-date">
-          Published on {date ? dateFromSqlDateTime(date) : ''}
-        </p>
         <p>{parseHtml(description ?? '')}</p>
         <Link href={`/blog/${id}`}>
           <div className="mt-3">

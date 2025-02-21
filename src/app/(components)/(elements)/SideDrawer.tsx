@@ -126,6 +126,21 @@ export default function SideDrawer({
             <li
               className={classNames(
                 `relative z-10 hover:bg-gray-500 hover:text-white`,
+                currentPath === '/packages'
+                  ? 'bg-custom-blue/85 text-white hover:bg-none'
+                  : ''
+              )}
+              onClick={() => {
+                setDrawer(false);
+              }}
+            >
+              <Link href={'/packages'} className="flex items-center px-4 h-16">
+                PACKAGES
+              </Link>
+            </li>
+            <li
+              className={classNames(
+                `relative z-10 hover:bg-gray-500 hover:text-white`,
                 currentPath.startsWith('/blog')
                   ? 'bg-custom-blue/85 text-white hover:bg-none'
                   : ''
@@ -170,21 +185,7 @@ export default function SideDrawer({
                 VOLUNTARY HAZARD
               </Link>
             </li>
-            <li
-              className={classNames(
-                `relative z-10 hover:bg-gray-500 hover:text-white`,
-                currentPath === '/packages'
-                  ? 'bg-custom-blue/85 text-white hover:bg-none'
-                  : ''
-              )}
-              onClick={() => {
-                setDrawer(false);
-              }}
-            >
-              <Link href={'/packages'} className="flex items-center px-4 h-16">
-                PACKAGES
-              </Link>
-            </li>
+
             <li
               className={classNames(
                 `relative z-10 hover:bg-gray-500 hover:text-white`,
@@ -241,7 +242,7 @@ export default function SideDrawer({
             ) : (
               <></>
             )} */}
-            <li
+            {/* <li
               className={classNames(
                 `relative z-10 hover:bg-gray-500 hover:text-white`,
                 currentPath === '/gallery'
@@ -255,8 +256,8 @@ export default function SideDrawer({
               <Link href={'/gallery'} className="flex items-center px-4 h-16">
                 GALLERY
               </Link>
-            </li>
-            <li
+            </li> */}
+            {/* <li
               className={classNames(
                 `relative z-10 hover:bg-gray-500 hover:text-white`,
                 currentPath === '/news'
@@ -270,7 +271,7 @@ export default function SideDrawer({
               <Link href={'/news'} className="flex items-center px-4 h-16">
                 NEWS
               </Link>
-            </li>
+            </li> */}
             <li
               className={classNames(
                 `relative z-10 hover:bg-gray-500 hover:text-white`,

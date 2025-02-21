@@ -49,7 +49,7 @@ export default function PackageCard({ item }: { item: PackagesDataType }) {
             <p className="text-sm">Starting from </p>
             <p className="text-custom-blue font-medium text-base">
               ${item.price}
-              {item.pricing_type === 'fixed' ? '/f' : '/p'}
+              {item.pricing_type === 'fixed' ? '' : '/p'}
             </p>
           </div>
         </div>

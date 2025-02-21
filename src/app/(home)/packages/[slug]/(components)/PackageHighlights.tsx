@@ -8,7 +8,7 @@ export default function PackageHighlights({
   hotline: string;
 }) {
   return (
-    <div className="flex flex-col gap-10 mt-10">
+    <div className="flex flex-col gap-10 sm:px-0 px-3 mt-10">
       {/* <div>
         <h3 className="text-2xl font-bold text-custom-blue">Highlights</h3>
         <div className="border-2 border-dashed border-custom-gray-light mt-4">
