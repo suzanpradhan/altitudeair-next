@@ -862,7 +862,7 @@ header nav ul .header_li::after {
   /* border: 2px dashed #8395ac; */
   border-left: none;
   border-right: none;
-  margin: 1rem 0;
+  margin: 3rem 0;
   padding: 5rem 0.1mission-listrem;
   display: -webkit-box;
   display: -ms-flexbox;
