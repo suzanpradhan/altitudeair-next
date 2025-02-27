@@ -1,9 +1,6 @@
 'use client';
 import useMediaQuery from '@/core/hooks/useMediaQuery';
-import { useAppDispatch, useAppSelector } from '@/core/redux/clientStore';
-import { RootState } from '@/core/redux/store';
 import { PaginatedResponseType } from '@/core/types/responseTypes';
-import rescueMissionApi from '@/modules/rescue_mission/rescue_missionApi';
 import { RescueMissionType } from '@/modules/rescue_mission/rescue_missionType';
 import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
 import { useEffect, useRef, useState } from 'react';
@@ -17,9 +14,12 @@ interface Mission {
   coords: [number, number];
 }
 
-export default function Missions() {
+export default function Missions({
+  missions: rescueData,
+}: {
+  missions?: PaginatedResponseType<RescueMissionType>;
+}) {
   const mobileOnly = useMediaQuery('(max-width:768px)');
-  const dispatch = useAppDispatch();
   const [readClicked, setreadClicked] = useState<{
     clicked: boolean;
     clickedBy: number;
@@ -27,12 +27,21 @@ export default function Missions() {
     clicked: false,
     clickedBy: -1,
   });
-  const [missionList, setMissionList] = useState<Mission[]>([]);
+  const missionList: Mission[] =
+    rescueData?.results.map((item) => {
+      return {
+        coords: [item.longitude, item.latitude],
+        imageUrl: item.coverImage,
+        info: item.description,
+        name: item.title,
+      };
+    }) ?? [];
+
   const [selected, setSelected] = useState<Mission>({
-    imageUrl: '',
-    name: '',
-    info: '',
-    coords: [83.9778, 28.19886],
+    imageUrl: missionList[0].imageUrl ?? '',
+    name: missionList[0].name ?? '',
+    info: missionList[0].info ?? '',
+    coords: missionList[0].coords ?? '',
   });
   const [fadeClass, setFadeClass] = useState<boolean>(true);
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -41,8 +50,7 @@ export default function Missions() {
   const [lat, setLat] = useState<number>(28.5);
   const [zoom, setZoom] = useState<number>(5.5);
 
-  mapboxgl.accessToken =
-    'pk.eyJ1IjoiaWN5aG90c2hvdG8iLCJhIjoiY2tmeHQwc3E5MjRxajJxbzhmbDN1bjJ5aiJ9.mNKmhIjRyKxFkJYrm4dMqg';
+  mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_KEY ?? '';
 
   function flyTo(coords: [number, number]) {
     if (!map.current) {
@@ -60,16 +68,6 @@ export default function Missions() {
   }
 
   useEffect(() => {
-    dispatch(rescueMissionApi.endpoints.getAllRescueMission.initiate(1));
-  }, [dispatch]);
-
-  const rescueData = useAppSelector(
-    (state: RootState) =>
-      state.baseApi.queries['getAllRescueMission(1)']
-        ?.data as PaginatedResponseType<RescueMissionType>
-  );
-
-  useEffect(() => {
     if (map.current) {
       return;
     }
@@ -80,7 +78,7 @@ export default function Missions() {
       zoom: zoom,
     });
     map.current.scrollZoom.disable();
-  }, []);
+  }, [lng, lat, zoom]);
 
   // useEffect(() => {
   //   axiosInstance.get('/rescue-mission/').then((item) => {
