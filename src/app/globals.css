@@ -538,8 +538,6 @@ header nav ul .header_li::after {
 
 .landing {
   position: relative;
-  padding-left: clamp(10px, 10vw, 330px/2);
-  padding-right: clamp(10px, 10vw, 330px/2);
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
