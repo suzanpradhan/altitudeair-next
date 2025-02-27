@@ -1,5 +1,6 @@
 import { parseHtml } from '@/core/utils/helper';
 import { PackagesDataType } from '@/modules/packages/packagesType';
+import { formatDuration } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaLocationDot } from 'react-icons/fa6';
@@ -10,7 +11,7 @@ export default function PackageBoxCard({ item }: { item: PackagesDataType }) {
   return (
     <Link
       href={`packages/${item.slug}`}
-      className="relative col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 transition-all duration-200 group block h-full px-1 py-1"
+      className="relative col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 transition-all duration-200 group block h-full px-1 py-1 pb-12"
     >
       <div className="flex flex-col justify-between h-full">
         <div className="flex flex-col gap-2 mb-2">
@@ -32,7 +33,14 @@ export default function PackageBoxCard({ item }: { item: PackagesDataType }) {
             </p>
             <p className="text-xs text-custom-blue-light">&#9679;</p>
             <p className="text-xs text-custom-blue-light capitalize font-light flex items-center gap-2">
-              <span className="font-medium">Duration</span> {item.duration}
+              <span className="font-medium">Duration</span>{' '}
+              {item.duration
+                ? formatDuration({
+                    hours: parseInt(item.duration.split(':')[0]),
+                    minutes: parseInt(item.duration.split(':')[1]),
+                    seconds: parseInt(item.duration.split(':')[2]),
+                  })
+                : '-'}
             </p>
           </div>
           <div className="text-sm text-custom-blue/60 font-normal line-clamp-4 h-20">
