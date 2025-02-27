@@ -1,21 +1,16 @@
 'use client';
-import axiosInst from '@/core/utils/axoisInst';
-import { useEffect, useState } from 'react';
+import { ArrayResponseType } from '@/core/types/responseTypes';
+import { Footer } from '@/modules/footer/footerType';
+import { useState } from 'react';
 
-export default function GetInTouch() {
+export default function GetInTouch({
+  footerdata,
+}: {
+  footerdata?: ArrayResponseType<Footer> | undefined;
+}) {
   const [showModal, setShowModal] = useState(false);
-  const [hotline, setHotline] = useState('');
-  const [firstHotline, setFirstHotline] = useState('');
-
-  useEffect(() => {
-    axiosInst.get('/footer/').then((result) => {
-      const data = result.data.data;
-      const hotlineData = data[0].hotline || '';
-      setHotline(hotlineData);
-      const firstNumber = hotlineData.split('\n')[0].trim();
-      setFirstHotline(firstNumber);
-    });
-  }, []);
+  const hotline = footerdata?.data[0].hotline;
+  const firstHotline = hotline?.split('\n')[0].trim();
 
   const openModal = () => {
     if (
@@ -33,7 +28,7 @@ export default function GetInTouch() {
     setShowModal(false);
   };
 
-  const hotlineNumbers = hotline.split('\n').join(', ');
+  const hotlineNumbers = hotline?.split('\n').join(', ');
 
   return (
     <section className="get_in_touch !py-10 !px-9">

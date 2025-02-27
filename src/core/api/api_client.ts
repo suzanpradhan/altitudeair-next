@@ -11,8 +11,8 @@ type FetchOptions = {
 };
 
 type FetchResponse<T> = {
-    data: T | null;
-    error: string | null;
+    data: T | undefined;
+    error: string | undefined;
     status: number;
 };
 
@@ -49,7 +49,7 @@ export async function fetchData<T>(
         const response = await fetch(fullUrl.toString(), fetchOptions);
         const contentType = response.headers.get("Content-Type");
 
-        let data: T | null = null;
+        let data: T | undefined = undefined;
         if (contentType?.includes("application/json")) {
             data = (await response.json()) as T;
         } else if (contentType?.includes("text/plain")) {
@@ -60,16 +60,16 @@ export async function fetchData<T>(
 
         if (!response.ok) {
             return {
-                data: null,
+                data: undefined,
                 error: `Error: ${response.status} ${response.statusText}`,
                 status: response.status,
             };
         }
 
-        return { data, error: null, status: response.status };
+        return { data, error: undefined, status: response.status };
     } catch (error) {
         return {
-            data: null,
+            data: undefined,
             error: (error as Error).message || "Unknown error",
             status: 500,
         };

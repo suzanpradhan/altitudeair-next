@@ -33,6 +33,6 @@ export const apiPaths = {
     enquiryUrl: '/enquiry/',
     employeesUrl: '/',
     contactUsUrl: '/contactUs',
-    footerUrl: '/footer'
-
+    generalUrl: '/general/',
+    footerUrl: '/footer/'
 };
