@@ -35,11 +35,16 @@ export default function PackageBoxCard({ item }: { item: PackagesDataType }) {
             <p className="text-xs text-custom-blue-light capitalize font-light flex items-center gap-2">
               <span className="font-medium">Duration</span>{' '}
               {item.duration
-                ? formatDuration({
-                    hours: parseInt(item.duration.split(':')[0]),
-                    minutes: parseInt(item.duration.split(':')[1]),
-                    seconds: parseInt(item.duration.split(':')[2]),
-                  })
+                ? (() => {
+                    const parts = item.duration.split(':');
+                    if (parts.length !== 3) return '-';
+                    const [hours, minutes, seconds] = parts;
+                    return formatDuration({
+                      hours: parseInt(hours),
+                      minutes: parseInt(minutes),
+                      seconds: parseInt(seconds),
+                    });
+                  })()
                 : '-'}
             </p>
           </div>
