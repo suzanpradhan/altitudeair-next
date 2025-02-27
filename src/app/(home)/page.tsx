@@ -21,25 +21,26 @@ import Package from '../(components)/(sections)/(landing)/Package';
 import Reviews from '../(components)/(sections)/(landing)/Reviews';
 
 export default async function Home() {
-  const { data: paginatedPackagesResponse } = await fetchData<
-    PaginatedResponseType<PackagesDataType>
-  >(apiPaths.getPackages);
+  const { data: paginatedPackagesResponse, error: packageError } =
+    await fetchData<PaginatedResponseType<PackagesDataType>>(
+      apiPaths.getPackages
+    );
 
-  const { data: rescueMissions } = await fetchData<
+  const { data: rescueMissions, error: rescueMissionsError } = await fetchData<
     PaginatedResponseType<RescueMissionType>
   >(apiPaths.rescuemissionUrl);
 
-  const { data: reviews } = await fetchData<PaginatedResponseType<ReviewType>>(
-    apiPaths.reviewurl
-  );
+  const { data: reviews, error: reviewsError } = await fetchData<
+    PaginatedResponseType<ReviewType>
+  >(apiPaths.reviewurl);
 
-  const { data: footerdata } = await fetchData<ArrayResponseType<Footer>>(
-    apiPaths.footerUrl
-  );
+  const { data: footerdata, error: footerdataError } = await fetchData<
+    ArrayResponseType<Footer>
+  >(apiPaths.footerUrl);
 
-  const { data: generalData } = await fetchData<ObjectResponseType<General>>(
-    apiPaths.generalUrl
-  );
+  const { data: generalData, error: generalDataError } = await fetchData<
+    ObjectResponseType<General>
+  >(apiPaths.generalUrl);
 
   return (
     <>
@@ -47,16 +48,28 @@ export default async function Home() {
       <Enquiry>
         <EnquiryDetails />
       </Enquiry>
-      <Landing footerdata={footerdata} generalData={generalData} />
+      {!generalData && generalData ? (
+        <Landing footerdata={footerdata} generalData={generalData} />
+      ) : (
+        <></>
+      )}
       <Highlights />
-      <Package paginatedPackagesResponse={paginatedPackagesResponse} />
+      {!packageError && paginatedPackagesResponse ? (
+        <Package paginatedPackagesResponse={paginatedPackagesResponse} />
+      ) : (
+        <></>
+      )}
       {/* <Services /> */}
       <About />
-      <Missions missions={rescueMissions} />
+      {!rescueMissionsError && rescueMissions ? (
+        <Missions missions={rescueMissions} />
+      ) : (
+        <></>
+      )}
       {/* <News /> */}
       {/* <Gallery /> */}
       {/* <GalleryV2 /> */}
-      <Reviews reviews={reviews} />
+      {!reviewsError && reviews ? <Reviews reviews={reviews} /> : <></>}
       <GetInTouch footerdata={footerdata} />
     </>
   );
