@@ -1,27 +1,28 @@
-import { useAppDispatch, useAppSelector } from '@/core/redux/clientStore';
-import { RootState } from '@/core/redux/store';
-import packagesApi from '@/modules/packages/packagesApi';
+'use client';
+
 import { PackagesDataType } from '@/modules/packages/packagesType';
-import { useParams, useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { GiPathDistance } from 'react-icons/gi';
 import { HiOutlineUserGroup } from 'react-icons/hi2';
 import { IoLocationOutline, IoTimeOutline } from 'react-icons/io5';
 
-export default function PackageAdditionalInfo() {
-  const router = useRouter();
-  const param = useParams();
-  const slug = param.slug as string;
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(packagesApi.endpoints.getEachPackage.initiate(slug));
-  }, [dispatch, slug]);
+export default function PackageAdditionalInfo({
+  packageItem,
+}: {
+  packageItem: PackagesDataType;
+}) {
+  // const router = useRouter();
+  // const param = useParams();
+  // const slug = param.slug as string;
+  // const dispatch = useAppDispatch();
+  // useEffect(() => {
+  //   dispatch(packagesApi.endpoints.getEachPackage.initiate(slug));
+  // }, [dispatch, slug]);
 
-  const packageItem = useAppSelector(
-    (state: RootState) =>
-      state.baseApi.queries[`getEachPackage("${slug}")`]
-        ?.data as PackagesDataType
-  );
+  // const packageItem = useAppSelector(
+  //   (state: RootState) =>
+  //     state.baseApi.queries[`getEachPackage("${slug}")`]
+  //       ?.data as PackagesDataType
+  // );
 
   return (
     <div className="border-2 border-dashed border-custom-gray-light">
