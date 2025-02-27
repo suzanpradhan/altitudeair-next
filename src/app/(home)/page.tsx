@@ -48,7 +48,7 @@ export default async function Home() {
       <Enquiry>
         <EnquiryDetails />
       </Enquiry>
-      {!generalData && generalData ? (
+      {!generalDataError && generalData ? (
         <Landing footerdata={footerdata} generalData={generalData} />
       ) : (
         <></>
