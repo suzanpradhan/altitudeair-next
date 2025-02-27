@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 // import Rellax from 'rellax';
-import Mission from '@/app/(components)/(modules)/Mission';
+import { Chart } from '@/app/(components)/(modules)/PieChart';
 import { useAppDispatch, useAppSelector } from '@/core/redux/hooks';
 import { RootState } from '@/core/redux/store';
 import axiosInst from '@/core/utils/axoisInst';
@@ -570,10 +570,10 @@ export default function About() {
       </section>
       <section className="h-auto w-full pb-12" id="statistics">
         <div className="mt-12 text-center font-bankGothic">
-          <h2 className="h2_wrapper">MISSION&nbsp;STATISTICS</h2>
+          <h2 className="h2_wrapper">WHAT WE ARE&nbsp;SPECIALIZE AT</h2>
         </div>
-        <div className="w-1/2 aspect-w-1 aspect-h-1 flex justify-center items-center  relative">
-          <Mission />
+        <div className="">
+          <Chart />
         </div>
       </section>
     </main>
