@@ -49,7 +49,15 @@ const VoluntaryHazardReport = () => {
   return (
     <main className="hazard-main">
       <section>
-        <div className="featured-img">
+        <div className=" relative featured-img !bg-[url(/images/banner/Kalapathhar.jpg)] ">
+          <div className="absolute top-0 left-0 z-0 bg-black/50 w-full h-full"></div>
+          <div
+            className="relative flex w-full h-full items-center justify-center z-10 text-white text-3xl md:text-5xl lg:text-5xl xl:text-5xl"
+            style={{ fontFamily: 'BankGothic-Regular' }}
+          >
+            Voluntary Hazard
+          </div>
+
           <div className="fading-bottom" />
           <ScrollIndicator id="hazard_intro" />
         </div>
