@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import About from './page';
+import ContactPage from './page';
 export const metadata: Metadata = {
   title: 'Contact',
   description: 'Contact page',
@@ -17,6 +17,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AboutPage() {
-  return <About />;
+export default function Contact() {
+  return <ContactPage />;
 }
