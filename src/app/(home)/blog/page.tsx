@@ -2,8 +2,29 @@ import { fetchData } from '@/core/api/api_client';
 import { apiPaths } from '@/core/api/apiConstants';
 import { PaginatedResponseType } from '@/core/types/responseTypes';
 import { BlogType } from '@/modules/servicess/servicessType';
+import { Metadata } from 'next';
 import BlogItem from './(components)/BlogItem';
 import Title from './(components)/Title';
+
+export const metadata: Metadata = {
+  title: 'Our Services',
+  description: 'Our Services page',
+  openGraph: {
+    title: 'Our Services ',
+    description: 'Our Services page',
+    url: 'https://altitudeairnepal.com',
+    images: [
+      {
+        url: 'https://altitudeairnepal.com/images/banner/banner-4.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Our Services ',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+};
 
 export default async function Blog() {
   const { data: blogData, error: blogDataError } = await fetchData<

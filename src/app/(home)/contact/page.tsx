@@ -1,8 +1,14 @@
-'use client';
+import ImageWithFallback from '@/app/(components)/(elements)/ImageWithFallback';
+import { fetchData } from '@/core/api/api_client';
+import { apiPaths } from '@/core/api/apiConstants';
 import { altitudeAirLocation } from '@/core/constants/appConstants';
-import { default as axiosInstance } from '@/core/utils/axoisInst';
-import { constants } from '@/core/utils/constants';
+import { PaginatedResponseType } from '@/core/types/responseTypes';
 import { parseHtml } from '@/core/utils/helper';
+import {
+  ContactType,
+  GeneralType,
+  SocialLinkType,
+} from '@/modules/contact/contactType';
 import {
   Airplane,
   Bookmark,
@@ -10,8 +16,6 @@ import {
   Location,
   MessageQuestion,
 } from 'iconsax-react';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
 import {
   FaFacebookSquare,
   FaInstagramSquare,
@@ -21,19 +25,18 @@ import {
 import PackageLocation from '../packages/[slug]/(components)/PackageLocation';
 import ContactForm from './(components)/ContactForm';
 
-interface contactDataType {
-  address: string;
-  airportNumber: string;
-  headNumber: string;
-  inquiry1: string;
-  inquiry2: string;
-  inquiry3: string;
-  inquiry4: string;
-  bookingEmail: string;
-  bookingInquiry: string;
-}
+export default async function ContactPage() {
+  const { data: contactData } = await fetchData<
+    PaginatedResponseType<ContactType>
+  >(apiPaths.getContactUrl);
 
-const ContactPage = () => {
+  const { data: socialLinksData } = await fetchData<
+    PaginatedResponseType<SocialLinkType>
+  >(apiPaths.getSociallinkUrl);
+  const { data: generalData } = await fetchData<
+    PaginatedResponseType<GeneralType>
+  >(apiPaths.getGeneralUrl);
+
   //   mapboxgl.accessToken =
   //     'pk.eyJ1IjoiaWN5aG90c2hvdG8iLCJhIjoiY2tmeHQwc3E5MjRxajJxbzhmbDN1bjJ5aiJ9.mNKmhIjRyKxFkJYrm4dMqg';
   //   const mapContainer = useRef(null);
@@ -78,40 +81,6 @@ const ContactPage = () => {
     { title: 'Booking Email', key: 'bookingEmail', icon: Bookmark },
     { title: 'Booking Inquiry', key: 'bookingInquiry', icon: MessageQuestion },
   ];
-  const [contactData, setContactData] = useState<any>({
-    address: '',
-    airportNumber: '',
-    headNumber: '',
-    inquiry1: '',
-    inquiry2: '',
-    inquiry3: '',
-    inquiry4: '',
-    bookingEmail: '',
-    bookingInquiry: '',
-  });
-  const [socialLinks, setSocialLinks] = useState({
-    id: 1,
-    instagram: '',
-    facebook: 'https://www.facebook.com/altitude.airlines/',
-    youtube: '',
-    twitter: '',
-  });
-  const [qr, setQr] = useState('');
-
-  useEffect(() => {
-    axiosInstance.get('/contact/').then((result) => {
-      const data = result.data.data;
-      setContactData(data[0]);
-    });
-    axiosInstance.get('/socialLink/').then((result) => {
-      const { data } = result.data;
-      setSocialLinks(data[0]);
-    });
-    axiosInstance.get('/general/').then((result) => {
-      const { data } = result.data;
-      setQr(data.QRcode);
-    });
-  }, []);
 
   const mainClass = {
     backgroundImage: 'url(/images/contact/helicopter.webp)',
@@ -153,17 +122,22 @@ const ContactPage = () => {
       <main className="bg-custom-bg px-10">
         <div className="container mx-auto py-10">
           <div className="flex flex-col lg:flex-row items-start justify-stretch gap-16">
-            {contactData && (
-              <aside className="shrink-0 w-full lg:max-w-md flex flex-col gap-2">
-                <div className="container mx-auto">
-                  <div className="px-5 py-5 bg-[#314666] text-white rounded">
-                    Additional Info
-                  </div>
+            <aside className="shrink-0 w-full lg:max-w-md flex flex-col gap-2">
+              <div className="container mx-auto">
+                <div className="px-5 py-5 bg-[#314666] text-white rounded">
+                  Additional Info
                 </div>
-                {contactDetails.map(({ title, key, icon: Icon }) => (
+              </div>
+              {contactDetails.map(({ title, key, icon: Icon }) => {
+                const value =
+                  contactData?.results?.[0]?.[key as keyof ContactType] || '';
+                const parsedValue = value ? parseHtml(value as string) : '';
+                return (
                   <div
                     key={key}
-                    className={`bg-white/75 rounded h-16 overflow-hidden ${contactData[key] === '' ? 'hidden' : 'block'}`}
+                    className={`bg-white/75 rounded h-16 overflow-hidden ${
+                      value === '' ? 'hidden' : 'block'
+                    }`}
                   >
                     <div className="flex justify-start gap-5 items-stretch h-full">
                       <div className="relative shrink-0 overflow-hidden h-full w-20 flex items-center justify-center before:absolute before:top-0 before:-left-2 before:bottom-0 before:right-2 before:bg-white before:-z-10 before:skew-x-6 before:border-r-4 before:border-custom-blue/90 z-0">
@@ -178,63 +152,62 @@ const ContactPage = () => {
                           {title}
                         </h5>
                         <p className="font-medium text-custom-text text-sm">
-                          {/* {contactData[key]} */}
-                          {contactData[key]
-                            ? parseHtml(contactData[key])
-                            : '...'}
+                          {parsedValue}
                         </p>
                       </div>
                     </div>
                   </div>
-                ))}
-                <div className=" qr_wrapper space-x-8 lg:space-x-5 md:space-x-36  flex items-start justify-start">
-                  <div className="socials flex flex-col ">
+                );
+              })}
+
+              <div className=" qr_wrapper space-x-8 lg:space-x-5 md:space-x-36  flex items-start justify-start">
+                {socialLinksData?.results?.map((link, index) => (
+                  <div key={index} className="socials flex flex-col ">
                     <h2 className="text-lg mb-2 flex items-start justify-start font-bold text-custom-blue">
                       Follow Us
                     </h2>
                     <div className="flex">
-                      <a href={socialLinks.facebook}>
+                      <a href={link.facebook}>
                         <FaFacebookSquare size={36} />
                       </a>
-                      <a href={socialLinks.twitter}>
+                      <a href={link.twitter}>
                         <FaTwitterSquare size={36} />
                       </a>
-                      <a href={socialLinks.youtube}>
+                      <a href={link.youtube}>
                         <FaYoutubeSquare size={36} />
                       </a>
-                      <a href={socialLinks.instagram}>
+                      <a href={link.instagram}>
                         <FaInstagramSquare size={36} />
                       </a>
                     </div>
                   </div>
-                  <div className="md:h-72 lg:h-72 sm:h-40 h-36 w-[1px]  border-1 bg-custom-blue"></div>
-                  <div>
-                    <h1 className="text-lg mb-2 flex items-center justify-center font-bold text-custom-blue">
-                      Scan to Pay
-                    </h1>
-                    <div className="qr">
-                      <Image
-                        src={constants.baseUrl + qr}
+                ))}
+                <div className="md:h-72 lg:h-72 sm:h-40 h-36 w-[1px]  border-1 bg-custom-blue"></div>
+                <div>
+                  <h1 className="text-lg mb-2 flex items-center justify-center font-bold text-custom-blue">
+                    Scan to Pay
+                  </h1>
+                  {generalData?.results.map((item, index) => (
+                    <div key={index} className="qr">
+                      <ImageWithFallback
+                        src={item.QRcode}
                         alt="QR Code"
-                        onError={(e) => {
-                          e.currentTarget.src =
-                            '/images/errors/placeholder.webp';
-                        }}
                         className="rounded-md"
                         height={255}
                         width={255}
                       />
                     </div>
-                  </div>
+                  ))}
                 </div>
-              </aside>
-            )}
+              </div>
+            </aside>
             <div className="container mx-auto">
               <div className="grow bg-[#314666] py-10 px-6 rounded relative">
                 <div className="absolute -left-4 top-1/2 h-[90%] border-l-[16px] border-[#314666] border-dashed transform -translate-y-1/2"></div>
 
                 <h2 className="text-2xl font-bold text-white">Send Message</h2>
                 <div className="mt-2">
+                  {' '}
                   <ContactForm />
                 </div>
               </div>
@@ -248,8 +221,8 @@ const ContactPage = () => {
                 Find us on map
               </h2>
               <p className="text-lg text-custom-blue">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Expedita laborum consequuntur nam iste, porro quae?
+                Experience premium air travel! Locate us on the map and take off
+                with our exclusive helicopter charter services.
               </p>
             </div>
 
@@ -262,9 +235,7 @@ const ContactPage = () => {
       </main>
     </div>
   );
-};
-
-export default ContactPage;
+}
 
 // Address: P.O Box 4515, Sinamangal, Kathmandu, Nepal
 
