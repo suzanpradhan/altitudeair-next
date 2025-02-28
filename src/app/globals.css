@@ -2529,6 +2529,11 @@ header nav ul .header_li::after {
   font-size: 3rem;
   font-family: 'Gilroy-ExtraBold';
 }
+.title .heading-container h2,
+.approval .heading-container h2 {
+  font-size: 1.2rem;
+  font-family: 'Gilroy-Light';
+}
 
 .title .heading-container .p-wrapper,
 .approval .heading-container .p-wrapper {

@@ -22,6 +22,8 @@ export const apiPaths = {
     newsLimitUrl: '/news/latest/',
     crewallUrl: '/crew/all/',
     serviceUrl: '/services/',
+    getBodUrl: '/general/bod/',
+    getBodMessageUrl: '/general/bod-message/',
     blogUrl: '/blog/',
     blogCatrgoryUrl: '/blog-category/',
     reviewurl: '/review/',
