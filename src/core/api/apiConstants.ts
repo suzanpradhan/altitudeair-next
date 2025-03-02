@@ -39,5 +39,6 @@ export const apiPaths = {
     getContactUrl: '/contact/query/siteContact/',
     getSociallinkUrl: '/socialLink/v2',
     getGeneralUrl: '/general/general-mutation',
+    getVolutneryHazardUrl: '/general/hazard',
     footerUrl: '/footer/'
 };
