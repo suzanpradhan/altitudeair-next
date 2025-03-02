@@ -6,7 +6,7 @@ import { constants } from '@/core/utils/constants';
 import Forms from './(components)/Form';
 
 export default async function VoluntaryHazardReport() {
-  const { data: vountaryData } = await fetchData<ObjectResponseType<string>>(
+  const { data: voluntaryData } = await fetchData<ObjectResponseType<string>>(
     apiPaths.getVolutneryHazardUrl
   );
 
@@ -53,7 +53,7 @@ export default async function VoluntaryHazardReport() {
           <hr />
           <p>Please send your message below or download the form here.</p>
           <a
-            href={constants.baseUrl + vountaryData?.data}
+            href={constants.baseUrl + voluntaryData?.data}
             target="_blank"
             rel="noreferrer"
           >

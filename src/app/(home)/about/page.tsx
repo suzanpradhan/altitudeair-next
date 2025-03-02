@@ -53,9 +53,9 @@ export default async function About() {
         <div className="intro_text_wrapper">
           <h2 className="text-2xl font-bold mb-4">INTRODUCTION</h2>
           {!bodMessageDataError &&
-            bodMessageData?.results?.map((item, index) => (
+            bodMessageData?.results?.map((item) => (
               <div
-                key={index}
+                key={item.id}
                 className="text-custom-text text-base flex flex-col gap-4"
               >
                 {parseHtml(item.introduction as string)}
