@@ -22,6 +22,8 @@ export const apiPaths = {
     newsLimitUrl: '/news/latest/',
     crewallUrl: '/crew/all/',
     serviceUrl: '/services/',
+    getBodUrl: '/general/bod/',
+    getBodMessageUrl: '/general/bod-message/',
     blogUrl: '/blog/',
     blogCatrgoryUrl: '/blog-category/',
     reviewurl: '/review/',
@@ -34,5 +36,9 @@ export const apiPaths = {
     employeesUrl: '/',
     contactUsUrl: '/contactUs',
     generalUrl: '/general/',
+    getContactUrl: '/contact/query/siteContact/',
+    getSociallinkUrl: '/socialLink/v2',
+    getGeneralUrl: '/general/general-mutation',
+    getVolutneryHazardUrl: '/general/hazard',
     footerUrl: '/footer/'
 };

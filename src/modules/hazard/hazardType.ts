@@ -10,3 +10,8 @@ export const hazardFormSchema = z.object({
 });
 
 export type HazardFormType = z.infer<typeof hazardFormSchema>;
+
+export interface VountaryType {
+    status: string;
+    data: string;
+}

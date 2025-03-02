@@ -1,3 +1,4 @@
+
 export interface PaginationType {
     total_page: number;
     count: number;
