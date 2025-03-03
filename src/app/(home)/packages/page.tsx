@@ -1,30 +1,17 @@
 import Package from '@/app/(components)/(sections)/(landing)/Package';
 import { fetchData } from '@/core/api/api_client';
 import { apiPaths } from '@/core/api/apiConstants';
+import { customMetaDataGenerator } from '@/core/helpers/customMetaDataGenerator';
 import { PaginatedResponseType } from '@/core/types/responseTypes';
 import { PackagesDataType } from '@/modules/packages/packagesType';
 import { Metadata } from 'next';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = customMetaDataGenerator({
   title: 'Packages',
   description:
     'Helicopter tour over the Himalayas is indeed a lifetime experience. The magnificent views of the Himalayas is the unique specialty of helicopter treks.',
-  openGraph: {
-    title: 'Packages ',
-    description:
-      'Helicopter tour over the Himalayas is indeed a lifetime experience. The magnificent views of the Himalayas is the unique specialty of helicopter treks.',
-    images: [
-      {
-        url: 'https://altitudeairnepal.com/images/banner/banner.webp',
-        width: 1200,
-        height: 630,
-        alt: 'Altitude Air Packages',
-      },
-    ],
-    locale: 'en_US',
-    type: 'website',
-  },
-};
+  ogImage: 'https://altitudeairnepal.com/images/banner/banner.webp',
+});
 export default async function Packages() {
   const { data: paginatedPackagesResponse } = await fetchData<
     PaginatedResponseType<PackagesDataType>

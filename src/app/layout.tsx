@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import Head from 'next/head';
@@ -8,9 +7,11 @@ import FooterV2 from './(components)/(modules)/FooterV2';
 
 import './globals.css';
 // Import Swiper styles
+import { customMetaDataGenerator } from '@/core/helpers/customMetaDataGenerator';
 import Provider from '@/core/redux/provider';
 import Notification from '@/core/ui/components/notification';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { Metadata } from 'next';
 import 'react-toastify/dist/ReactToastify.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -24,38 +25,9 @@ const gilroy = localFont({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: 'Altitude Air Nepal',
-    template: '%s | Altitude Air Nepal',
-  },
-
-  description:
-    'Altitude Air offers top-rated helicopter services and scenic package tours to beautiful destinations.',
-  keywords:
-    'helicopter flights, helicopter tours, helicopter rescue, Altitude Air, Nepal',
-  icons: {
-    icon: './favicon.ico',
-  },
-  openGraph: {
-    title: 'Altitude Air Nepal',
-    description:
-      'Altitude Air offers top-rated helicopter services and scenic package tours to beautiful destinations.',
-    locale: 'en_US',
-    type: 'website',
-    siteName: 'Altitude Air',
-    url: 'https://altitudeairnepal.com',
-    images: [
-      {
-        url: 'https://altitudeairnepal.com/images/banner/banner-4.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Scenic view from Altitude Air helicopter tour',
-      },
-    ],
-  },
-};
-
+export const metadata: Metadata = customMetaDataGenerator({
+  title: 'Home',
+});
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -70,6 +42,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </Head>
+
       <body className={`${inter.className} ${gilroy.variable}`}>
         <Notification />
         <Provider>

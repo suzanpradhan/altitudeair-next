@@ -1,26 +1,21 @@
-'use client';
+import { customMetaDataGenerator } from '@/core/helpers/customMetaDataGenerator';
+import { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link'; // Import Link
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 interface ChoppersType {
   id: number;
   name: string;
 }
-
+export const metadata: Metadata = customMetaDataGenerator({
+  title: 'Fleets',
+  ogImage: 'https://altitudeairnepal.com/images/banner/banner.webp',
+});
 const Page = () => {
-  const [choppers, setChoppers] = useState<ChoppersType[]>([]);
-  useEffect(() => {
-    const fetchChoppers = async () => {
-      const data: ChoppersType[] = [
-        { id: 1, name: '9N-AMS' },
-        { id: 2, name: '9N-AMX' },
-      ];
-      setChoppers(data);
-    };
-
-    fetchChoppers();
-  }, []);
+  const choppers: ChoppersType[] = [
+    { id: 1, name: '9N-AMS' },
+    { id: 2, name: '9N-AMX' },
+  ];
 
   return (
     <main className="description-main">
