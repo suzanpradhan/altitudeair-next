@@ -1,6 +1,7 @@
 import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import Head from 'next/head';
+import Script from 'next/script'; // Import Next.js Script
 import 'react-calendar/dist/Calendar.css';
 import 'react-date-picker/dist/DatePicker.css';
 import FooterV2 from './(components)/(modules)/FooterV2';
@@ -28,12 +29,12 @@ const gilroy = localFont({
 export const metadata: Metadata = customMetaDataGenerator({
   title: 'Home',
 });
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  ``;
   return (
     <html lang="en">
       <Head>
@@ -43,11 +44,28 @@ export default function RootLayout({
         />
       </Head>
 
+      {/* Google Analytics */}
+      <Script
+        strategy="afterInteractive"
+        src="https://www.googletagmanager.com/gtag/js?id=G-KFMVCNDJ55"
+      />
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-KFMVCNDJ55');
+          `,
+        }}
+      />
+
       <body className={`${inter.className} ${gilroy.variable}`}>
         <Notification />
         <Provider>
           <main>
-            {/* <Header /> */}
             <Navbar />
             {children}
             <FooterV2 />
