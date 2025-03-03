@@ -1,8 +1,10 @@
 import { apiPaths } from '@/core/api/apiConstants';
 import { fetchData } from '@/core/api/api_client';
+import { customMetaDataGenerator } from '@/core/helpers/customMetaDataGenerator';
 import { ArrayResponseType } from '@/core/types/responseTypes';
 import { Footer } from '@/modules/general/footerTypes';
 import { PackagesDataType } from '@/modules/packages/packagesType';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import { FaLocationDot } from 'react-icons/fa6';
 import { IoTimeOutline } from 'react-icons/io5';
@@ -12,6 +14,22 @@ import PackageGallery from './(components)/PackageGallery';
 import PackageHighlights from './(components)/PackageHighlights';
 import PackageLocation from './(components)/PackageLocation';
 import RelatedPackages from './(components)/RelatedPackages';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const slug = params.slug;
+
+  const dynamicTitle = `Packages - ${slug}`;
+  const dynamicOgImage = `https://altitudeairnepal.com/images/fleets/${slug}.jpg`;
+
+  return customMetaDataGenerator({
+    title: dynamicTitle,
+    ogImage: dynamicOgImage,
+  });
+}
 
 export default async function Packages({
   params,

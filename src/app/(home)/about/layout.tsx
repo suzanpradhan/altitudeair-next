@@ -1,23 +1,24 @@
+import { fetchData } from '@/core/api/api_client';
+import { apiPaths } from '@/core/api/apiConstants';
+import { customMetaDataGenerator } from '@/core/helpers/customMetaDataGenerator';
+import { PaginatedResponseType } from '@/core/types/responseTypes';
+import { BODMessageType } from '@/modules/bod/bodType';
 import { Metadata } from 'next';
 import About from './page';
-export const metadata: Metadata = {
-  title: 'About',
-  description: 'About page',
-  openGraph: {
+
+export const generateMetadata = async () => {
+  const { data: bodMessageData } = await fetchData<
+    PaginatedResponseType<BODMessageType>
+  >(apiPaths.getBodMessageUrl);
+
+  const metadata: Metadata = customMetaDataGenerator({
     title: 'About Us',
-    description:
-      'At Altitude Air, we go Above and Beyond to ensure operational excellence and the highest safety standards. While navigating Nepal’s Himalayan range, our services are crucial for your best experience, guaranteeing safe and seamless travel.',
-    images: [
-      {
-        url: 'https://altitudeairnepal.com/images/banner/banner-2.webp',
-        width: 1200,
-        height: 630,
-        alt: 'Altitude Air Contact',
-      },
-    ],
-    locale: 'en_US',
-    type: 'website',
-  },
+    ogImage: 'https://altitudeairnepal.com/images/banner/banner-2.webp',
+    description: bodMessageData?.results
+      ?.map((item) => item.introduction)
+      .join(' '),
+  });
+  return metadata;
 };
 
 export default function AboutPage() {
