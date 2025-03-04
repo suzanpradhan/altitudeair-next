@@ -1,3 +1,5 @@
+import { customMetaDataGenerator } from '@/core/helpers/customMetaDataGenerator';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -5,7 +7,10 @@ interface ChoppersType {
   id: number;
   name: string;
 }
-
+export const metadata: Metadata = customMetaDataGenerator({
+  title: 'Fleets',
+  ogImage: 'https://altitudeairnepal.com/images/banner/banner.webp',
+});
 const Page = () => {
   const choppers: ChoppersType[] = [
     { id: 1, name: '9N-AMS' },

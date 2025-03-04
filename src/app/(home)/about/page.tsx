@@ -99,9 +99,9 @@ export default async function About() {
 
           <div className="card_container">
             {!bodDataError &&
-              bodData?.results?.map((item, index) => {
+              bodData?.results?.map((item) => {
                 return (
-                  <div className="crew_card" key={index}>
+                  <div className="crew_card" key={item?.id}>
                     <div className="image_overlay_wrapper relative">
                       <ImageWithFallback
                         width={100}
