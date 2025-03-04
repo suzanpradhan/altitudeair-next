@@ -1,3 +1,4 @@
+'use client';
 import { useAppDispatch } from '@/core/redux/hooks';
 import contactApi from '@/modules/contact/contactApi';
 import {

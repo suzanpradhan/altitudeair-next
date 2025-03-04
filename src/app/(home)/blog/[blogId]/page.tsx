@@ -20,7 +20,7 @@ export default function BlogItem() {
   const [url, setUrl] = useState('');
   const [news, setNews] = useState<BlogItemType[]>([]);
 
-  console.log(param, 'param');
+  // console.log(param, 'param');
 
   // const [blogItem, setBlogItem] = useState<BlogItemType>({
   //   id: null,

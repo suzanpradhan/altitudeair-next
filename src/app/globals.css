@@ -2529,6 +2529,11 @@ header nav ul .header_li::after {
   font-size: 3rem;
   font-family: 'Gilroy-ExtraBold';
 }
+.title .heading-container h2,
+.approval .heading-container h2 {
+  font-size: 1.2rem;
+  font-family: 'Gilroy-Light';
+}
 
 .title .heading-container .p-wrapper,
 .approval .heading-container .p-wrapper {
@@ -3306,9 +3311,8 @@ header nav ul .header_li::after {
 
 .hazard-main .featured-img {
   position: relative;
-  height: 80vh;
+  height: 90vh;
   width: 100%;
-  background-image: url('/images/hazard/featured.webp');
   background-repeat: no-repeat;
   background-size: cover;
   display: -webkit-box;
@@ -5644,7 +5648,7 @@ footer .socials > a {
 .left-indicator {
   width: 30px;
   height: 4px;
-  background-color: white;
+  background-color: #fbc200;
   border-radius: 5px;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
@@ -5660,7 +5664,7 @@ footer .socials > a {
 .right-indicator {
   width: 30px;
   height: 4px;
-  background-color: white;
+  background-color: #fbc200;
   border-radius: 5px;
   -webkit-transform: translateX(-11px) rotate(-45deg);
   -ms-transform: translateX(-11px) rotate(-45deg);

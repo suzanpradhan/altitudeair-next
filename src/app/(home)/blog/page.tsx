@@ -1,43 +1,54 @@
-'use client';
-import { useAppDispatch, useAppSelector } from '@/core/redux/clientStore';
-import { RootState } from '@/core/redux/store';
+import { fetchData } from '@/core/api/api_client';
+import { apiPaths } from '@/core/api/apiConstants';
 import { PaginatedResponseType } from '@/core/types/responseTypes';
-import blogApi from '@/modules/blog/blogApi';
 import { BlogType } from '@/modules/servicess/servicessType';
-import { useEffect } from 'react';
+import { Metadata } from 'next';
 import BlogItem from './(components)/BlogItem';
 import Title from './(components)/Title';
 
-export default function Blog() {
-  const dispatch = useAppDispatch();
+export const metadata: Metadata = {
+  title: 'Our Services',
+  description: 'Our Services page',
+  openGraph: {
+    title: 'Our Services ',
+    description: 'Our Services page',
+    url: 'https://altitudeairnepal.com',
+    images: [
+      {
+        url: 'https://altitudeairnepal.com/images/banner/banner-4.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Our Services ',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+};
 
-  useEffect(() => {
-    dispatch(blogApi.endpoints.getAllBlog.initiate(1));
-  }, [dispatch]);
-
-  const blogs = useAppSelector(
-    (state: RootState) =>
-      state.baseApi.queries['getAllBlog(1)']
-        ?.data as PaginatedResponseType<BlogType>
-  );
+export default async function Blog() {
+  const { data: blogData, error: blogDataError } = await fetchData<
+    PaginatedResponseType<BlogType>
+  >(apiPaths.blogUrl);
 
   return (
     <main className="blog-main pb-10 ">
       <Title />
       {/* {loading && <div className="loader" />} */}
       <div className="blog-item-list " id="blog">
-        {blogs?.results?.map((item, index) => (
-          <BlogItem
-            blogCategory={item.blogCategory.toString()}
-            key={index}
-            id={item.id.toString()}
-            direction={index % 2 === 0 ? 'right' : 'left'}
-            title={item.title}
-            description={item.description}
-            date={item.date}
-            coverImage={item.coverImage}
-          />
-        ))}
+        {!blogDataError &&
+          blogData?.results?.map((item, index) => (
+            <BlogItem
+              blogCategory={item.blogCategory.toString()}
+              key={index}
+              id={item.id.toString()}
+              direction={index % 2 === 0 ? 'right' : 'left'}
+              title={item.title}
+              description={item.description}
+              date={item.date}
+              coverImage={item.coverImage}
+            />
+          ))}
       </div>
     </main>
   );

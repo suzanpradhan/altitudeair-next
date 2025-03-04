@@ -33,6 +33,8 @@ export default async function Packages({
     switch (packageSlug) {
       case 'khumbu':
         return '/images/packages/khumbu.jpg';
+      case 'langtang-kyanjin-village-helicopter-tour':
+        return '/images/packages/KyanjinGompa.jpg';
       default:
         return undefined;
     }
