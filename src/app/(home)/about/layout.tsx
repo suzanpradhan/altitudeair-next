@@ -11,12 +11,18 @@ export const generateMetadata = async () => {
     PaginatedResponseType<BODMessageType>
   >(apiPaths.getBodMessageUrl);
 
+  function stripHtml(html: string) {
+    return html.replace(/<[^>]*>/g, '');
+  }
+
+  const introduction = bodMessageData?.results
+    ?.map((item) => stripHtml(item?.introduction?.toString() ?? ''))
+    .join('');
+
   const metadata: Metadata = customMetaDataGenerator({
     title: 'About Us',
     ogImage: 'https://altitudeairnepal.com/images/banner/banner-2.webp',
-    description: bodMessageData?.results
-      ?.map((item) => item.introduction)
-      .join(' '),
+    description: introduction,
   });
   return metadata;
 };

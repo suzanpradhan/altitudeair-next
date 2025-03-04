@@ -64,7 +64,7 @@ export default function PackageHighlights({
         <h3 className="text-2xl font-bold text-custom-blue">
           Quick Contact for Booking
         </h3>
-        <p className="text-base text-custom-blue flex flex-col gap-5">
+        <p className="text-sm px-2.1 text-custom-blue/80 flex flex-col gap-5 sm:text-base">
           Call us {hotline} (24 Hrs Available on WhatsApp )
         </p>
       </div>
