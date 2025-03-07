@@ -16,8 +16,6 @@ export default async function NewsList() {
     ObjectResponseType<NewsDataType[]>
   >(apiPaths.getNewsUrl);
 
-  console.log(newsData);
-
   return (
     <main className="news-main">
       <div className="relative featured-img">
