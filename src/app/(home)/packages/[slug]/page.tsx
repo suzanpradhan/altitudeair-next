@@ -103,15 +103,6 @@ export default async function Packages({
             />
           </div>
           <div className="col-span-12 md:col-span-4 w-full flex flex-col gap-4">
-            {/* <CalendarPicker /> */}
-            {packageData.latitude && packageData.longitude ? (
-              <PackageLocation
-                latitude={parseFloat(packageData.latitude)}
-                longtitude={parseFloat(packageData.longitude)}
-              />
-            ) : (
-              <></>
-            )}
             {getImage(params.slug) ? (
               <div className="relative w-full aspect-square">
                 <Image
@@ -125,6 +116,16 @@ export default async function Packages({
             ) : (
               <></>
             )}
+            {/* <CalendarPicker /> */}
+            {packageData.latitude && packageData.longitude ? (
+              <PackageLocation
+                latitude={parseFloat(packageData.latitude)}
+                longtitude={parseFloat(packageData.longitude)}
+              />
+            ) : (
+              <></>
+            )}
+
             {/* <BookingCard /> */}
           </div>
         </div>

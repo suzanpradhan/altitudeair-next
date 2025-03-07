@@ -41,7 +41,7 @@ export function customMetaDataGenerator({
 }: PageSEOProps): Metadata {
 
     const siteTitle = 'Altitude Air Nepal';
-    const fullTitle = `${title} | ${siteTitle}`;
+    const fullTitle = `${title} - ${siteTitle}`;
 
     return {
         title: fullTitle,
@@ -55,17 +55,28 @@ export function customMetaDataGenerator({
             images: [
                 {
                     url: ogImage,
+                    width: 1200,
+                    height: 630,
+                    alt: `${title} - Altitude Air Nepal`,
+                    type: 'image/jpeg',
                 },
             ],
+            locale: 'en_US',
         },
         twitter: {
             card: twitterCard,
             title: fullTitle,
             description,
             images: [ogImage],
+            creator: '@yourhandle',
         },
         alternates: {
             canonical: canonicalUrl,
+        },
+        metadataBase: new URL(canonicalUrl),
+        robots: {
+            index: true,
+            follow: true,
         },
     };
 }

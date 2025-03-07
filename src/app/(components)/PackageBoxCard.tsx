@@ -6,11 +6,12 @@ import Link from 'next/link';
 import { FaLocationDot } from 'react-icons/fa6';
 
 export default function PackageBoxCard({ item }: { item: PackagesDataType }) {
-  const defaultImage = '/images/no-image.png'; // Replace with your default image path
+  const defaultImage = '/images/no-image.png';
   const coverImage = item.cover_image ? item.cover_image : defaultImage;
+
   return (
     <Link
-      href={`packages/${item.slug}`}
+      href={`/packages/${item.slug}`}
       className="relative col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 transition-all duration-200 group block h-full px-1 py-1 pb-12"
     >
       <div className="flex flex-col justify-between h-full">
