@@ -44,7 +44,6 @@ export default function RootLayout({
         />
       </Head>
 
-      {/* Google Analytics */}
       <Script
         strategy="afterInteractive"
         src="https://www.googletagmanager.com/gtag/js?id=G-KFMVCNDJ55"
