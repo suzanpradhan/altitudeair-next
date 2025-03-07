@@ -32,7 +32,11 @@ export default async function NewsList() {
                   <NewsItem key={item.id} data={item} />
                 ))
               ) : (
-                <div className="news-empty">No news items available.</div>
+                <div className="col-span-12 text-center">
+                  <h3 className="border-2 border-dashed mx-auto max-w-xs text-custom-gray-light text-sm font-semibold bg-custom-gray py-2">
+                    No Major News to Report at This Time
+                  </h3>
+                </div>
               ))}
           </div>
         </div>
