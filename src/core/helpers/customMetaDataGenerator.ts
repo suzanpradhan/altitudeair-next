@@ -55,7 +55,7 @@ export function customMetaDataGenerator({
             images: [
                 {
                     url: ogImage,
-                    width: 1200,
+                    width: 600,
                     height: 630,
                     alt: `${title} - Altitude Air Nepal`,
                     type: 'image/jpeg',
@@ -66,8 +66,8 @@ export function customMetaDataGenerator({
         twitter: {
             card: twitterCard,
             title: fullTitle,
-            description,
             images: [ogImage],
+            description,
             creator: '@yourhandle',
         },
         alternates: {
