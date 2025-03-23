@@ -8,7 +8,11 @@ import { useState } from 'react';
 import NoImage from '../../../../public/images/noImage.png';
 
 export default function NewsItem({ data }: { data: NewsDataType }) {
-  const [src, setSrc] = useState(`${constants.baseUrl}${data.coverImage}`);
+  const [src, setSrc] = useState(
+    !data.coverImage?.startsWith('https://')
+      ? `${constants.baseUrl}${data.coverImage}`
+      : data.coverImage
+  );
   return (
     <Link
       href={'news/' + data.id}

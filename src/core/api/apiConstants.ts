@@ -40,6 +40,6 @@ export const apiPaths = {
     getSociallinkUrl: '/socialLink/v2',
     getGeneralUrl: '/general/general-mutation',
     getVolutneryHazardUrl: '/general/hazard',
-    getNewsUrl: '/news',
+    getNewsUrl: '/news/',
     footerUrl: '/footer/'
 };
