@@ -15,7 +15,7 @@ export default async function NewsList() {
   const { data: newsData, error: newsMessageDataError } = await fetchData<
     ObjectResponseType<NewsDataType[]>
   >(apiPaths.getNewsUrl);
-
+  console.log(newsData);
   return (
     <main className="news-main">
       <div className="relative featured-img">
