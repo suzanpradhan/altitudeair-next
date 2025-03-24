@@ -43,7 +43,6 @@ export function ContactForm() {
         })}
         onSubmit={async (values, { resetForm }) => {
           if (!isVerified) {
-            console.log('Please complete the ReCAPTCHA challenge');
             return;
           }
 

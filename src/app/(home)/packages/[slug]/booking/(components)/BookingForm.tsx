@@ -102,8 +102,6 @@ const BookingForm = () => {
     onSubmit,
   });
 
-  console.log('is valid', formik.isValid);
-
   return (
     <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-lg">
       <div className="grid grid-cols-3">
