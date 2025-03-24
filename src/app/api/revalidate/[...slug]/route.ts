@@ -9,7 +9,6 @@ export async function GET(
     const slug = (params.slug as string[]).join('/');
     const path = '/' + slug;
 
-    console.log(path)
 
     // const corsHeaders = {
     //     'Access-Control-Allow-Origin': '*', // Allow all origins, you can restrict this to specific origins
