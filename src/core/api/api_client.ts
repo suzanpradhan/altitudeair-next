@@ -40,7 +40,7 @@ export async function fetchData<T>(
             method: options?.method || "GET",
             headers,
             body: options?.body ? JSON.stringify(options.body) : undefined,
-            cache: options?.cacheOptions?.cache || "default", // Default caching behavior
+            cache: options?.cacheOptions?.cache || "force-cache", // Default caching behavior
             next: options?.cacheOptions?.revalidate
                 ? { revalidate: options.cacheOptions.revalidate }
                 : undefined,
