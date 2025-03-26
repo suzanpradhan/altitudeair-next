@@ -34,7 +34,7 @@
     "i": "^0.3.7",
     "iconsax-react": "^0.0.8",
     "mapbox-gl": "^3.3.0",
-    "next": "14.2.3",
+    "next": "14.2.25",
     "next-auth": "^4.24.7",
     "react": "^18",
     "react-date-picker": "^11.0.0",
