@@ -9,7 +9,6 @@ export async function GET(
     const slug = (params.slug as string[]).join('/');
     const path = '/' + slug;
 
-    console.log(">>>>>>>>>", apiKey, slug, path);
 
     if (apiKey !== process.env.NEXT_PUBLIC_API_KEY) {
         return NextResponse.json(
