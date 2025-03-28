@@ -5,25 +5,15 @@ export async function GET(
     req: NextRequest,
     { params }: { params: { slug: string[] } }
 ) {
-    const apiKey = req.headers.get('X-Api-Key')
+    const apiKey = req.headers.get('X-Api-Key');
     const slug = (params.slug as string[]).join('/');
     const path = '/' + slug;
-
-
-    // const corsHeaders = {
-    //     'Access-Control-Allow-Origin': '*', // Allow all origins, you can restrict this to specific origins
-    //     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    //     'Access-Control-Allow-Headers': 'X-Api-Key, Content-Type',
-    // };
 
 
     if (apiKey !== process.env.NEXT_PUBLIC_API_KEY) {
         return NextResponse.json(
             { message: 'Invalid token' },
-            {
-                status: 200,
-                // headers: corsHeaders,
-            }
+            { status: 200 }
         );
     }
 
