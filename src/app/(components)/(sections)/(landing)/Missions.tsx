@@ -80,21 +80,6 @@ export default function Missions({
     map.current.scrollZoom.disable();
   }, [lng, lat, zoom]);
 
-  // useEffect(() => {
-  //   axiosInstance.get('/rescue-mission/').then((item) => {
-  //     // console.log(item.data, 'data');
-  //     let finalObj = item.data.data?.map((item: any) => {
-  //       return {
-  //         imageUrl: constants.baseUrl + item.coverImage,
-  //         name: item.title,
-  //         info: item.description,
-  //         coords: [item.longitude, item.latitude],
-  //       };
-  //     });
-  //     setMissionList(finalObj);
-  //   });
-  // }, []);
-
   const selectedItemHandler = (position: number) => {
     if (missionList.length === 0 || position > missionList.length - 1) {
       return;
