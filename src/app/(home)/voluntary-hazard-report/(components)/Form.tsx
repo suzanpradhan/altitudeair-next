@@ -1,143 +1,180 @@
 'use client';
-import axiosInstance from '@/core/utils/axoisInst';
+import { useAppDispatch } from '@/core/redux/hooks';
+import hazardApi from '@/modules/hazard/hazardApi';
 import { hazardFormSchema, HazardFormType } from '@/modules/hazard/hazardType';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { toFormikValidate } from 'zod-formik-adapter';
+import { ZodError } from 'zod';
 
 const Forms = () => {
-  async function formSubmitHandler(values: HazardFormType, resetForm: any) {
-    let obj = {
-      ...values,
-      isContact: false,
-      date: `${values.date?.getFullYear()}-${values.date?.getMonth()}-${values.date?.getDate()}`,
-    };
-    let res;
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const validateForm = (values: HazardFormType) => {
     try {
-      res = await axiosInstance.post('/contactUs', obj);
-      toast.success(
-        'Your request has been submitted. Check your email or phone for verification.'
-      );
+      hazardFormSchema.parse(values);
     } catch (error) {
-      toast.error('Error submitting form!');
-      return;
+      if (error instanceof ZodError) {
+        console.log(error.errors);
+        return error.formErrors.fieldErrors;
+      }
     }
-    resetForm();
-  }
+  };
+
+  const onSubmit = (values: HazardFormType) => {
+    setIsLoading(true);
+    try {
+      const responseData = dispatch(
+        hazardApi.endpoints.postHazard.initiate(values)
+      );
+      if (Object.prototype.hasOwnProperty.call(responseData, 'data')) {
+        toast.success(
+          'Your request has been submitted. Check your email or phone for verification.'
+        );
+        router.push('/');
+      } else if (Object.prototype.hasOwnProperty.call(responseData, 'error')) {
+        toast.error('Error submitting form!');
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Error submitting form!');
+    }
+    setIsLoading(false);
+  };
+
+  const formik = useFormik<HazardFormType>({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      tel: '',
+      date: new Date(),
+      details: '',
+    },
+    validate: validateForm,
+    validateOnChange: true,
+    onSubmit,
+  });
+
+  // async function formSubmitHandler(values: HazardFormType, resetForm: any) {
+  //   const date = `${values.date?.getFullYear()}-${((values.date?.getMonth() ?? 0) + 1).toString().padStart(2, '0')}-${values.date?.getDate().toString().padStart(2, '0')}`;
+
+  //   let obj = {
+  //     ...values,
+  //     isContact: false,
+  //     date: date,
+  //   };
+  //   let res;
+  //   try {
+  //     res = await axiosInstance.post('/contactUs', obj);
+  //     toast.success(
+  //       'Your request has been submitted. Check your email or phone for verification.'
+  //     );
+  //   } catch (error) {
+  //     toast.error('Error submitting form!');
+  //     return;
+  //   }
+  //   resetForm();
+  // }
+
   return (
     <div>
-      {' '}
-      <Formik
-        initialValues={{
-          firstName: '',
-          lastName: '',
-          email: '',
-          tel: '',
-          date: new Date(),
-          details: '',
-          isContact: false,
-        }}
-        validate={toFormikValidate(hazardFormSchema)}
-        onSubmit={async (values, { resetForm }) => {
-          formSubmitHandler(values, resetForm);
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          formik.handleSubmit(e);
         }}
       >
-        {({ setFieldValue, values }) => (
-          <Form>
-            <div className="form-field">
-              <label htmlFor="given-name">First Name</label>
-              <Field
-                id="firstName"
-                placeholder="First Name"
-                type="text"
-                name="firstName"
-              />
-            </div>
-            <div className="error-message">
-              <ErrorMessage name="firstName" />
-            </div>
-            <div className="form-field">
-              <label htmlFor="lastName">Last Name</label>
-              <Field
-                id="lastName"
-                placeholder="Last Name"
-                type="text"
-                name="lastName"
-              />
-            </div>
-            <div className="error-message">
-              <ErrorMessage name="lastName" />
-            </div>
-            <div className="form-field">
-              <label htmlFor="email">Email</label>
-              <Field id="email" placeholder="Email" type="text" name="email" />
-            </div>
-            <div className="error-message">
-              <ErrorMessage name="email" />
-            </div>
-
-            <div className="form-field">
-              <label htmlFor="tel">Contact Number</label>
-              <Field
-                id="tel"
-                placeholder="Contact Number"
-                type="text"
-                name="tel"
-              />
-            </div>
-            <div className="error-message">
-              <ErrorMessage name="tel" />
-            </div>
-
-            <div className="form-field">
-              <label htmlFor="date" className="required">
-                Date of Occurrence /<br /> Hazard
-              </label>
-              {/* <Field id="date" type="date" name="date" /> */}
-              {/* <input type="date" id="date" name="date" /> */}
-              {/* <FormikDatePicker name="date" /> */}
-              {/* <Field name="date" component={FormikDatePicker} />
-               */}
-              <Field name="date">
-                {({ field }: { field: any }) => (
-                  <input
-                    type="date"
-                    {...field}
-                    value={
-                      values.date instanceof Date
-                        ? values.date.toISOString().substring(0, 10)
-                        : values.date
-                    }
-                    onChange={(event) => {
-                      setFieldValue(field.name, new Date(event.target.value));
-                    }}
-                  />
-                )}
-              </Field>
-            </div>
-            <div className="error-message">
-              <ErrorMessage name="date" />
-            </div>
-
-            <div className="form-field">
-              <label htmlFor="details" className="required">
-                Details of Occurrence /<br /> Hazard
-              </label>
-              <Field as="textarea" id="details" name="details" rows="5" />
-            </div>
-            <div className="error-message">
-              <ErrorMessage name="details" />
-            </div>
-
-            <div className="form-field">
-              <div />
-              <button className="button-outline-light" type="submit">
-                Submit
-              </button>
-            </div>
-          </Form>
+        <div className="form-field">
+          <label htmlFor="given-name">First Name</label>
+          <input
+            id="firstName"
+            placeholder="First Name"
+            type="text"
+            {...formik.getFieldProps('firstName')}
+          />
+        </div>
+        {!!formik.errors.firstName && (
+          <div className="text-red-500 text-sm">{formik.errors.firstName}</div>
         )}
-      </Formik>
+        <div className="form-field">
+          <label htmlFor="lastName">Last Name</label>
+          <input
+            id="lastName"
+            placeholder="Last Name"
+            type="text"
+            {...formik.getFieldProps('lastName')}
+          />
+        </div>
+        {!!formik.errors.lastName && (
+          <div className="text-red-500 text-sm">{formik.errors.lastName}</div>
+        )}
+        <div className="form-field">
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            placeholder="Email"
+            type="text"
+            {...formik.getFieldProps('email')}
+          />
+        </div>
+        {!!formik.errors.email && (
+          <div className="text-red-500 text-sm">{formik.errors.email}</div>
+        )}
+
+        <div className="form-field">
+          <label htmlFor="tel">Contact Number</label>
+          <input
+            id="tel"
+            placeholder="Contact Number"
+            type="text"
+            {...formik.getFieldProps('tel')}
+          />
+        </div>
+        {!!formik.errors.tel && (
+          <div className="text-red-500 text-sm">{formik.errors.tel}</div>
+        )}
+        <div className="form-field">
+          <label htmlFor="date" className="required">
+            Date of Occurrence /<br /> Hazard
+          </label>
+          <input
+            type="date"
+            value={
+              formik.values.date
+                ? formik.values.date.toISOString().split('T')[0]
+                : ''
+            }
+            onChange={(e) => {
+              const newDate = new Date(e.target.value);
+              formik.setFieldValue('date', newDate);
+            }}
+          />
+        </div>
+        {!!formik.errors.date && (
+          <div className="text-red-500 text-sm">Date required</div>
+        )}
+
+        <div className="form-field">
+          <label htmlFor="details" className="required">
+            Details of Occurrence /<br /> Hazard
+          </label>
+          <textarea id="details" {...formik.getFieldProps('details')} />
+        </div>
+        <div className="error-message">
+          {/* <ErrorMessage name="details" /> */}
+        </div>
+
+        <div className="form-field">
+          <div />
+          <button className="button-outline-light" type="submit">
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
