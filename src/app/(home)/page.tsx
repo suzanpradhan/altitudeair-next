@@ -7,6 +7,7 @@ import {
 } from '@/core/types/responseTypes';
 import { Footer } from '@/modules/footer/footerType';
 import { General } from '@/modules/general/footerTypes';
+import { packagesTag } from '@/modules/packages/packagesApi';
 import { PackagesDataType } from '@/modules/packages/packagesType';
 import { RescueMissionType } from '@/modules/rescue_mission/rescue_missionType';
 import { ReviewType } from '@/modules/review/reviewType';
@@ -23,7 +24,8 @@ import Reviews from '../(components)/(sections)/(landing)/Reviews';
 export default async function Home() {
   const { data: paginatedPackagesResponse, error: packageError } =
     await fetchData<PaginatedResponseType<PackagesDataType>>(
-      apiPaths.getPackages
+      apiPaths.getPackages,
+      { tags: [packagesTag] }
     );
 
   const { data: rescueMissions, error: rescueMissionsError } = await fetchData<

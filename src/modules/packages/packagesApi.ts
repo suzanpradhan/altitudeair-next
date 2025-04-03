@@ -3,8 +3,10 @@ import { baseApi } from '@/core/api/apiQuery';
 import { PaginatedResponseType } from '@/core/types/responseTypes';
 import { PackageGalleryDataType, PackagesDataType } from './packagesType';
 
+export const packagesTag = 'Packages';
+
 const packagesApi = baseApi
-    .enhanceEndpoints({ addTagTypes: ['Packages'] })
+    .enhanceEndpoints({ addTagTypes: [packagesTag] })
     .injectEndpoints({
         endpoints: (builder) => ({
             getAllPackages: builder.query<PaginatedResponseType<PackagesDataType>, void>({

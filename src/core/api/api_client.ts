@@ -6,6 +6,7 @@ type RequestCache = "default" | "force-cache" | "no-cache" | "no-store" | "only-
 type FetchOptions = {
     method?: "GET" | "POST" | "PUT" | "DELETE";
     body?: any;
+    tags?: Array<string>;
     searchParams?: Record<string, string | number | boolean | undefined>;
     cacheOptions?: { cache?: RequestCache; revalidate?: number };
 };
@@ -42,11 +43,13 @@ export async function fetchData<T>(
             body: options?.body ? JSON.stringify(options.body) : undefined,
             cache: options?.cacheOptions?.cache || "force-cache", // Default caching behavior
             next: options?.cacheOptions?.revalidate
-                ? { revalidate: options.cacheOptions.revalidate }
+                ? { revalidate: options.cacheOptions.revalidate, tags: options.tags }
                 : undefined,
         };
 
         const response = await fetch(fullUrl.toString(), fetchOptions);
+        // const response = await fetch(fullUrl.toString(), {});
+
         const contentType = response.headers.get("Content-Type");
 
         let data: T | undefined = undefined;

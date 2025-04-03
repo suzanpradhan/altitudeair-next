@@ -1,28 +1,33 @@
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { slug: string[] } }
 ) {
     const apiKey = req.headers.get('X-Api-Key');
-    const slug = (params.slug as string[]).join('/');
-    const path = '/' + slug;
-
+    // const slug = (params.slug as string[]).join('/');
+    const tag = req.nextUrl.searchParams.get('tag')
 
 
     if (apiKey !== process.env.NEXT_PUBLIC_API_KEY) {
         return NextResponse.json(
             { message: 'Invalid token' },
-            { status: 200 }
+            { status: 401 }
+        );
+    }
+
+    if (!tag) {
+        return NextResponse.json(
+            { message: 'No tags found' },
+            { status: 404 }
         );
     }
 
     try {
-        revalidatePath(path);
+        revalidateTag(tag);
         return NextResponse.json({
             revalidated: true,
-            page: path,
+            tag: tag,
         });
     } catch (err) {
         return NextResponse.json('Error revalidating', {
