@@ -3,6 +3,8 @@ import { baseApi } from "@/core/api/apiQuery";
 import { PaginatedResponseType } from "@/core/types/responseTypes";
 import { ReviewType } from "./reviewType";
 
+export const reviewTag = 'Review';
+
 const reviewApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getAllReview: builder.query<
@@ -15,11 +17,11 @@ const reviewApi = baseApi.injectEndpoints({
                 response?.results
                     ? [
                         ...response.results.map(
-                            ({ id }) => ({ type: 'Review', id }) as const
+                            ({ id }) => ({ type: reviewTag, id }) as const
                         ),
-                        { type: 'Review', id: 'LIST' },
+                        { type: reviewTag, id: 'LIST' },
                     ]
-                    : [{ type: 'Review', id: 'LIST' }],
+                    : [{ type: reviewTag, id: 'LIST' }],
             serializeQueryArgs: ({ endpointName, queryArgs }) =>
                 `${endpointName}(${queryArgs})`,
 

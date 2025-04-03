@@ -3,6 +3,8 @@ import { baseApi } from '@/core/api/apiQuery';
 import { PaginatedResponseType } from '@/core/types/responseTypes';
 import { RescueMissionType } from './rescue_missionType';
 
+export const rescueMissionTag = 'RescueMission';
+
 const rescueMissionApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // get all
@@ -16,11 +18,11 @@ const rescueMissionApi = baseApi.injectEndpoints({
         response?.results
           ? [
             ...response.results.map(
-              ({ id }) => ({ type: 'RescueMission', id }) as const
+              ({ id }) => ({ type: rescueMissionTag, id }) as const
             ),
-            { type: 'RescueMission', id: 'LIST' },
+            { type: rescueMissionTag, id: 'LIST' },
           ]
-          : [{ type: 'RescueMission', id: 'LIST' }],
+          : [{ type: rescueMissionTag, id: 'LIST' }],
       serializeQueryArgs: ({ endpointName, queryArgs }) =>
         `${endpointName}(${queryArgs})`,
 
