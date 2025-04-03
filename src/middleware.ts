@@ -4,7 +4,6 @@ export async function middleware(req: any) {
 
     const { pathname, method } = req.nextUrl;
 
-    console.log("here")
 
 
     if (pathname.startsWith('/api/')) {
