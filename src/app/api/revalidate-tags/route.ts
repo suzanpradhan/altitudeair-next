@@ -5,7 +5,6 @@ export async function GET(
     req: NextRequest,
 ) {
     const apiKey = req.headers.get('X-Api-Key');
-    // const slug = (params.slug as string[]).join('/');
     const tag = req.nextUrl.searchParams.get('tag')
 
 

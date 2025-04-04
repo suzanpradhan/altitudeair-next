@@ -48,7 +48,6 @@ export async function fetchData<T>(
         };
 
         const response = await fetch(fullUrl.toString(), fetchOptions);
-        // const response = await fetch(fullUrl.toString(), {});
 
         const contentType = response.headers.get("Content-Type");
 

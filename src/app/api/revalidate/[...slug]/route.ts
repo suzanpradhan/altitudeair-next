@@ -8,16 +8,12 @@ export async function GET(
     const apiKey = req.headers.get('X-Api-Key');
     const slug = (params.slug as string[]).join('/');
     const path = '/' + slug;
-
-
-
     if (apiKey !== process.env.NEXT_PUBLIC_API_KEY) {
         return NextResponse.json(
             { message: 'Invalid token' },
             { status: 200 }
         );
     }
-
     try {
         revalidatePath(path);
         return NextResponse.json({
