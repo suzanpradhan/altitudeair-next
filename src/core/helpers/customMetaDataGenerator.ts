@@ -4,13 +4,9 @@ interface PageSEOProps {
   title: string;
   description?: string;
   canonicalUrl?: string;
-  ogType?:
-    | 'website'
-    | 'article'
-    | 'music.album'
-    | 'music.playlist'
-    | 'video.other';
-  ogImage?: string;
+  ogType?: 'website' | 'article' | 'video.other';
+  ogImage1?: string;
+  ogImage2?: string;
   twitterCard?: 'summary_large_image' | 'summary' | 'player' | 'app';
   keywords?: string[];
 }
@@ -18,7 +14,7 @@ interface PageSEOProps {
 export function customMetaDataGenerator({
   title,
   description = 'Altitude Air offers top-rated helicopter services and scenic package tours to beautiful destinations.',
-  canonicalUrl = 'https://altitudeairnepal.com',
+  canonicalUrl = 'https://9fcd-2407-1400-aa36-7c28-1022-ae5c-a105-b50f.ngrok-free.app',
   ogType = 'website',
   keywords = [
     'altitude air',
@@ -114,7 +110,8 @@ export function customMetaDataGenerator({
     'best Himalayan flights',
     'scenic helicopter Nepal',
   ],
-  ogImage = 'https://altitudeairnepal.com/images/banner/banner-4.jpg',
+  ogImage1 = 'https://9fcd-2407-1400-aa36-7c28-1022-ae5c-a105-b50f.ngrok-free.app/images/resized-images/Home.jpg',
+  ogImage2 = 'https://9fcd-2407-1400-aa36-7c28-1022-ae5c-a105-b50f.ngrok-free.app/images/resized-images/Home.jpg',
   twitterCard = 'summary_large_image',
 }: PageSEOProps): Metadata {
   const siteTitle = 'Altitude Air Nepal';
@@ -131,11 +128,16 @@ export function customMetaDataGenerator({
       url: canonicalUrl,
       images: [
         {
-          url: ogImage,
-          width: 600,
+          url: ogImage1,
+          width: 1200,
           height: 630,
           alt: `${title} - Altitude Air Nepal`,
-          type: 'image/jpeg',
+        },
+        {
+          url: ogImage2,
+          width: 400,
+          height: 400,
+          alt: `${title} - Altitude Air Nepal`,
         },
       ],
       locale: 'en_US',
@@ -143,7 +145,7 @@ export function customMetaDataGenerator({
     twitter: {
       card: twitterCard,
       title: fullTitle,
-      images: [ogImage],
+      images: [ogImage2],
       description,
       creator: '@yourhandle',
     },
