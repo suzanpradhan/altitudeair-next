@@ -12,16 +12,15 @@ const rescueMissionApi = baseApi.injectEndpoints({
       PaginatedResponseType<RescueMissionType>,
       number
     >({
-      query: (pageNumber) =>
-        `${apiPaths.rescuemissionUrl}?page=${pageNumber}`,
+      query: (pageNumber) => `${apiPaths.rescuemissionUrl}?page=${pageNumber}`,
       providesTags: (response) =>
         response?.results
           ? [
-            ...response.results.map(
-              ({ id }) => ({ type: rescueMissionTag, id }) as const
-            ),
-            { type: rescueMissionTag, id: 'LIST' },
-          ]
+              ...response.results.map(
+                ({ id }) => ({ type: rescueMissionTag, id }) as const
+              ),
+              { type: rescueMissionTag, id: 'LIST' },
+            ]
           : [{ type: rescueMissionTag, id: 'LIST' }],
       serializeQueryArgs: ({ endpointName, queryArgs }) =>
         `${endpointName}(${queryArgs})`,
@@ -37,7 +36,6 @@ const rescueMissionApi = baseApi.injectEndpoints({
         return currentArg !== previousArg;
       },
     }),
-
   }),
   overrideExisting: true,
 });
