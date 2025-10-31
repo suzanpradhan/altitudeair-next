@@ -51,7 +51,7 @@ const HIGHLIGHTS = [
   },
   {
     title: 'TOTAL FLYING TIME',
-    description: '14,000 HRS',
+    description: '11,000 HRS',
     icon: <DateTimeMirrored height="48" width="48" fill="#fbc200" />,
   },
   {
@@ -78,11 +78,10 @@ const HeliEverestHighlights = () => {
         ></div>
         <div className="flex flex-col gap-12 container mx-auto items-center h-full justify-center">
           <p className="text-lg font-bold">
-            With an outstanding safety and reliability record, Heli
-            Everest&apos;s leading helicopter company in Nepal- dedicated to
-            provide exceptional service and adhering to the highest industry
-            standards, ensuring our clients&apos; utmost satisfaction and
-            security.
+            With an outstanding safety and reliability record, Altitude
+            Air&apos;s leading helicopter company in Nepal- dedicated to provide
+            exceptional service and adhering to the highest industry standards,
+            ensuring our clients&apos; utmost satisfaction and security.
           </p>
           <div className="flex flex-wrap gap-12 items-center justify-center">
             {HIGHLIGHTS.map((item, index) => (
