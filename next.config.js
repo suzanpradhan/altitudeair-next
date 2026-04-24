@@ -42,6 +42,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'altitudeair.iionstech.com.np',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
