@@ -38,6 +38,8 @@ export default function Description() {
     });
   }, [slug]);
 
+  
+
   return (
     <main className="description-main">
       <section className="intro relative">
@@ -45,13 +47,13 @@ export default function Description() {
         <div className="absolute top-12 left-1/2 transform -translate-x-1/2 z-10 text-center px-4">
           <h1 className="">
             {chopperInfo.name} <br />
-            DESCRIPTION
+            DESCRIPTION {" "}
           </h1>
         </div>
 
         <div className="bg-img mountain-img relative h-64 sm:h-80 md:h-96 lg:h-[32rem] ">
           <Image
-            src="/images/banner/IMG_2036.JPG"
+            src={process.env.NEXT_PUBLIC_SERVER_URL + "/" + chopperInfo.image}
             alt="mountain background"
             fill
             className="object-cover"
