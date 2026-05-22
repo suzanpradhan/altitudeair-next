@@ -27,16 +27,26 @@ const Forms = () => {
   const onSubmit = async (values: HazardFormType) => {
     if (isLoading) return;
     setIsLoading(true);
-    try {
-      const responseData = await dispatch(
-        hazardApi.endpoints.postHazard.initiate(values)
-      );
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-      toast.error('Error submitting form!');
-      setIsLoading(false);
+
+    const response = await dispatch(
+      hazardApi.endpoints.postHazard.initiate(values)
+    );
+
+    setIsLoading(false);
+
+    if (response.error) {
+      const errorMessage =
+        (response.error as any)?.data?.message ||
+        (response.error as any)?.error ||
+        'Error submitting form!';
+      toast.error(errorMessage);
+      return;
     }
+
+    const successMessage =
+      (response.data as any)?.message || 'Message submitted successfully!';
+    toast.success(successMessage);
+    formik.resetForm();
   };
 
   const formik = useFormik<HazardFormType>({
@@ -87,7 +97,9 @@ const Forms = () => {
           <div className="text-red-500 text-sm">{formik.errors.lastName}</div>
         )}
         <div className="form-field">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email" className="required">
+            Email <span className="text-red-500">*</span>
+          </label>
           <input
             id="email"
             placeholder="Email"
@@ -138,13 +150,19 @@ const Forms = () => {
           </label>
           <textarea id="details" {...formik.getFieldProps('details')} />
         </div>
-        <div className="error-message">
-          {/* <ErrorMessage name="details" /> */}
-        </div>
+        {!!formik.errors.details && (
+          <div className="text-red-500 text-sm">{formik.errors.details}</div>
+        )}
 
         <div className="form-field">
           <div />
-          <button className="button-outline-light" type="submit">
+          <button
+            className={`button-outline-light bg-red-500 text-white rounded transition duration-200 ease-in-out h-10 px-4 ${
+              isLoading ? 'cursor-not-allowed opacity-60' : 'hover:bg-custom-blue hover:text-white'
+            }`}
+            type="submit"
+            disabled={isLoading}
+          >
             {isLoading ? 'Submitting...' : 'Submit'}
           </button>
         </div>

@@ -3,6 +3,7 @@ import { fetchData } from '@/core/api/api_client';
 import { apiPaths } from '@/core/api/apiConstants';
 import { ObjectResponseType } from '@/core/types/responseTypes';
 import { constants } from '@/core/utils/constants';
+import Image from 'next/image';
 import Forms from './(components)/Form';
 
 export default async function VoluntaryHazardReport() {
@@ -60,6 +61,67 @@ export default async function VoluntaryHazardReport() {
             >
               <button className="button-outline-light">DOWNLOAD NOW</button>
             </a>
+          </div>
+        </section>
+
+        <section className="section_hazard_assets py-10">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="text-3xl font-semibold mb-6">Useful Documents</h2>
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="rounded-3xl border border-gray-200 bg-white overflow-hidden shadow-sm">
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-3">Policy PDF</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Preview the policy image and open it full size if needed.
+                  </p>
+                </div>
+                <div className="relative h-80 w-full bg-gray-50">
+                  <Image
+                    src="/images/policy_pdf.jpeg"
+                    alt="Policy PDF preview"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6 border-t border-gray-100">
+                  <a
+                    href="/images/policy_pdf.jpeg"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center rounded-full border border-blue-600 px-4 py-2 text-blue-600 hover:bg-blue-50"
+                  >
+                    View full image
+                  </a>
+                </div>
+              </div>
+
+              <div className="rounded-3xl border border-gray-200 bg-white overflow-hidden shadow-sm">
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-3">QR Code</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Scan the QR code or open it full size to access the link.
+                  </p>
+                </div>
+                <div className="relative h-80 w-full bg-gray-50">
+                  <Image
+                    src="/images/qr.jpeg"
+                    alt="QR code image"
+                    fill
+                    className="object-contain p-6"
+                  />
+                </div>
+                <div className="p-6 border-t border-gray-100">
+                  <a
+                    href="/images/qr.jpeg"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center rounded-full border border-blue-600 px-4 py-2 text-blue-600 hover:bg-blue-50"
+                  >
+                    Open QR image
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
