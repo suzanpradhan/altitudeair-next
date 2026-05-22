@@ -3493,8 +3493,8 @@ header nav ul .header_li::after {
   right: 20%;
   height: 2rem;
   width: 2rem;
-  border-top: #fbc200 solid 8px;
-  border-right: #fbc200 solid 8px;
+  border-top: #4179bb solid 8px;
+  border-right: #d62839 solid 8px;
 }
 
 @media only screen and (max-width: 480px) {
@@ -3509,8 +3509,8 @@ header nav ul .header_li::after {
   left: 20%;
   height: 2rem;
   width: 2rem;
-  border-bottom: #fbc200 solid 8px;
-  border-left: #fbc200 solid 8px;
+  border-bottom: #d62839 solid 8px;
+  border-left: #4179bb solid 8px;
 }
 
 @media only screen and (max-width: 480px) {
