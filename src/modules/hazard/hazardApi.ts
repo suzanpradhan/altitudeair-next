@@ -9,7 +9,9 @@ const hazardApi = baseApi.injectEndpoints({
       query: (payload) => {
         const data = {
           ...payload,
-          date: payload.date.toISOString().split('T')[0],
+          ...(payload.date
+            ? { date: payload.date.toISOString().split('T')[0] }
+            : { date: null }),
         };
         return {
           url: `${apiPaths.contactUsUrl}`,

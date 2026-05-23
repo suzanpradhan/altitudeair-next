@@ -51,12 +51,12 @@ const Forms = () => {
 
   const formik = useFormik<HazardFormType>({
     initialValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      tel: '',
-      date: new Date(),
-      details: '',
+      firstName: null,
+      lastName: null,
+      email: null,
+      tel: null,
+      date: null,
+      details: null,
       isContact: false,
     },
     validate: validateForm,
@@ -97,14 +97,14 @@ const Forms = () => {
           <div className="text-red-500 text-sm">{formik.errors.lastName}</div>
         )}
         <div className="form-field">
-          <label htmlFor="email" className="required">
-            Email <span className="text-red-500">*</span>
-          </label>
+          <label htmlFor="email">Email</label>
           <input
             id="email"
             placeholder="Email"
             type="text"
-            {...formik.getFieldProps('email')}
+            value={formik.values.email ?? ''}
+            onChange={(e) => formik.setFieldValue('email', e.target.value || null)}
+            onBlur={formik.handleBlur}
           />
         </div>
         {!!formik.errors.email && (
@@ -117,38 +117,37 @@ const Forms = () => {
             id="tel"
             placeholder="Contact Number"
             type="text"
-            {...formik.getFieldProps('tel')}
+            value={formik.values.tel ?? ''}
+            onChange={(e) => formik.setFieldValue('tel', e.target.value || null)}
+            onBlur={formik.handleBlur}
           />
         </div>
         {!!formik.errors.tel && (
           <div className="text-red-500 text-sm">{formik.errors.tel}</div>
         )}
         <div className="form-field">
-          <label htmlFor="date" className="required">
-            Date of Occurrence /<br /> Hazard
-          </label>
+          <label htmlFor="date">Date of Occurrence /<br /> Hazard</label>
           <input
             type="date"
-            value={
-              formik.values.date
-                ? formik.values.date.toISOString().split('T')[0]
-                : ''
-            }
+            value={formik.values.date ? formik.values.date.toISOString().split('T')[0] : ''}
             onChange={(e) => {
-              const newDate = new Date(e.target.value);
-              formik.setFieldValue('date', newDate);
+              const value = e.target.value;
+              formik.setFieldValue('date', value ? new Date(value) : null);
             }}
           />
         </div>
         {!!formik.errors.date && (
-          <div className="text-red-500 text-sm">Date required</div>
+          <div className="text-red-500 text-sm">{formik.errors.date}</div>
         )}
 
         <div className="form-field">
-          <label htmlFor="details" className="required">
-            Details of Occurrence /<br /> Hazard
-          </label>
-          <textarea id="details" {...formik.getFieldProps('details')} />
+          <label htmlFor="details">Details of Occurrence /<br /> Hazard</label>
+          <textarea
+            id="details"
+            value={formik.values.details ?? ''}
+            onChange={(e) => formik.setFieldValue('details', e.target.value || null)}
+            onBlur={formik.handleBlur}
+          />
         </div>
         {!!formik.errors.details && (
           <div className="text-red-500 text-sm">{formik.errors.details}</div>
