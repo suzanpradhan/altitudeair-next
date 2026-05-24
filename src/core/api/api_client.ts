@@ -63,8 +63,9 @@ export async function fetchData<T>(
     } else if (contentType?.includes('application/octet-stream')) {
       data = (await response.blob()) as T;
     }
-    console.log(">>>", response.json());
-    
+
+    console.log('>>>', data);
+
     if (!response.ok) {
       return {
         data: undefined,

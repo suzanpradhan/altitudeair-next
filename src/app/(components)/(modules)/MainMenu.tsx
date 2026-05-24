@@ -100,20 +100,20 @@ const MainMenu = () => {
 
   const [choppers, setChoppers] = useState<ChoppersType[] | undefined>();
 
-  const [navItems, setNavItems] = useState([
-    {
-      title: 'GALLERY',
-      link: '/gallery',
-    },
-    {
-      title: 'Article',
-      link: '/news',
-    },
-    {
-      title: 'CONTACT',
-      link: '/contact',
-    },
-  ]);
+  // const [navItems, setNavItems] = useState([
+  //   {
+  //     title: 'GALLERY',
+  //     link: '/gallery',
+  //   },
+  //   {
+  //     title: 'Article',
+  //     link: '/news',
+  //   },
+  //   {
+  //     title: 'CONTACT',
+  //     link: '/contact',
+  //   },
+  // ]);
   useEffect(() => {
     dispatch(blogApi.endpoints.getAllBlog.initiate(1));
   }, [dispatch]);
@@ -203,9 +203,9 @@ const MainMenu = () => {
 
         <MenuItems>
           <li
-            className={`relative px-5 group ${navHoverClass} ${currentPath.startsWith('/description') ? navActiveClass : ''}`} // add active class letter
+            className={`relative px-5 group ${navHoverClass} ${currentPath.startsWith('/feets') ? navActiveClass : ''}`} // add active class letter
           >
-            <Link href={'/description'} className="flex items-center h-full">
+            <Link href={'/feets'} className="flex items-center h-full">
               FLEETS
             </Link>
             <div className="hidden group-hover:block group-hover:shadow absolute top-full -left-[6px] min-w-full w-max bg-custom-blue/90">
@@ -217,7 +217,7 @@ const MainMenu = () => {
                       className="relative hover:bg-custom-primary/30 before:absolute before:top-0 before:left-0 hover:before:bottom-0 hover:before:w-2 before:bg-custom-primary"
                     >
                       <Link
-                        href={`/description/${subItem.id}`}
+                        href={`/feets/${subItem.id}`}
                         className="flex items-center h-full py-2 px-3"
                       >
                         {subItem.name}
