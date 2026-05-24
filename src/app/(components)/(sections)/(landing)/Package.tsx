@@ -16,21 +16,21 @@ const Package = ({
   const breakpoints = {
     // when window width is >= 320px
     320: {
-      slidesPerView: 1,
+      slidesPerView: 1.1,
       spaceBetween: 15,
     },
     // when window width is >= 480px
     480: {
-      slidesPerView: 1,
+      slidesPerView: 1.3,
       spaceBetween: 20,
     },
-    728: {
-      slidesPerView: 3,
+    690: {
+      slidesPerView: 2.25,
       spaceBetween: 20,
     },
     // when window width is >= 640px
     1024: {
-      slidesPerView: 3,
+      slidesPerView: 3.3,
       spaceBetween: 25,
     },
   };
@@ -65,6 +65,12 @@ const Package = ({
               )}
             </Swiper>
           </div>
+          <style jsx global>{`
+            .swiper-wrapper {
+              padding-bottom: 3rem;
+              padding-top: 0.5rem;
+            }
+          `}</style>
         </div>
       </div>
     </>

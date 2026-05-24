@@ -20,6 +20,12 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'altitudeair.iionstech.com.np',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'altitudeair.suzanpradhan.com.np', //local
         port: '',
         pathname: '/**',

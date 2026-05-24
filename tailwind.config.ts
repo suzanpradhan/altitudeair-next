@@ -20,6 +20,7 @@ const config: Config = {
       },
       colors: {
         'custom-blue': '#202e43',
+        'custom-red': '#d62839',
         'custom-blue-light': '#545564',
         'custom-text': '#67687b',
         'custom-bg': '#a7b9c7',

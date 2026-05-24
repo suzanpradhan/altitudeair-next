@@ -27,26 +27,36 @@ const Forms = () => {
   const onSubmit = async (values: HazardFormType) => {
     if (isLoading) return;
     setIsLoading(true);
-    try {
-      const responseData = await dispatch(
-        hazardApi.endpoints.postHazard.initiate(values)
-      );
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-      toast.error('Error submitting form!');
-      setIsLoading(false);
+
+    const response = await dispatch(
+      hazardApi.endpoints.postHazard.initiate(values)
+    );
+
+    setIsLoading(false);
+
+    if (response.error) {
+      const errorMessage =
+        (response.error as any)?.data?.message ||
+        (response.error as any)?.error ||
+        'Error submitting form!';
+      toast.error(errorMessage);
+      return;
     }
+
+    const successMessage =
+      (response.data as any)?.message || 'Message submitted successfully!';
+    toast.success(successMessage);
+    formik.resetForm();
   };
 
   const formik = useFormik<HazardFormType>({
     initialValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      tel: '',
-      date: new Date(),
-      details: '',
+      firstName: null,
+      lastName: null,
+      email: null,
+      tel: null,
+      date: null,
+      details: null,
       isContact: false,
     },
     validate: validateForm,
@@ -92,7 +102,9 @@ const Forms = () => {
             id="email"
             placeholder="Email"
             type="text"
-            {...formik.getFieldProps('email')}
+            value={formik.values.email ?? ''}
+            onChange={(e) => formik.setFieldValue('email', e.target.value || null)}
+            onBlur={formik.handleBlur}
           />
         </div>
         {!!formik.errors.email && (
@@ -105,46 +117,51 @@ const Forms = () => {
             id="tel"
             placeholder="Contact Number"
             type="text"
-            {...formik.getFieldProps('tel')}
+            value={formik.values.tel ?? ''}
+            onChange={(e) => formik.setFieldValue('tel', e.target.value || null)}
+            onBlur={formik.handleBlur}
           />
         </div>
         {!!formik.errors.tel && (
           <div className="text-red-500 text-sm">{formik.errors.tel}</div>
         )}
         <div className="form-field">
-          <label htmlFor="date" className="required">
-            Date of Occurrence /<br /> Hazard
-          </label>
+          <label htmlFor="date">Date of Occurrence /<br /> Hazard</label>
           <input
             type="date"
-            value={
-              formik.values.date
-                ? formik.values.date.toISOString().split('T')[0]
-                : ''
-            }
+            value={formik.values.date ? formik.values.date.toISOString().split('T')[0] : ''}
             onChange={(e) => {
-              const newDate = new Date(e.target.value);
-              formik.setFieldValue('date', newDate);
+              const value = e.target.value;
+              formik.setFieldValue('date', value ? new Date(value) : null);
             }}
           />
         </div>
         {!!formik.errors.date && (
-          <div className="text-red-500 text-sm">Date required</div>
+          <div className="text-red-500 text-sm">{formik.errors.date}</div>
         )}
 
         <div className="form-field">
-          <label htmlFor="details" className="required">
-            Details of Occurrence /<br /> Hazard
-          </label>
-          <textarea id="details" {...formik.getFieldProps('details')} />
+          <label htmlFor="details">Details of Occurrence /<br /> Hazard</label>
+          <textarea
+            id="details"
+            value={formik.values.details ?? ''}
+            onChange={(e) => formik.setFieldValue('details', e.target.value || null)}
+            onBlur={formik.handleBlur}
+          />
         </div>
-        <div className="error-message">
-          {/* <ErrorMessage name="details" /> */}
-        </div>
+        {!!formik.errors.details && (
+          <div className="text-red-500 text-sm">{formik.errors.details}</div>
+        )}
 
         <div className="form-field">
           <div />
-          <button className="button-outline-light" type="submit">
+          <button
+            className={`button-outline-light bg-red-500 text-white rounded transition duration-200 ease-in-out h-10 px-4 ${
+              isLoading ? 'cursor-not-allowed opacity-60' : 'hover:bg-custom-blue hover:text-white'
+            }`}
+            type="submit"
+            disabled={isLoading}
+          >
             {isLoading ? 'Submitting...' : 'Submit'}
           </button>
         </div>

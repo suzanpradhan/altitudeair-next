@@ -1,15 +1,7 @@
 import useMediaQuery from '@/core/hooks/useMediaQuery';
-import useScroll from '@/core/hooks/useScroll';
 import { Coordinates } from '@/modules/rescue_mission/rescue_missionType';
 import Image from 'next/image';
-import React, {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-
+import React, { Dispatch, SetStateAction } from 'react';
 
 interface MissionItemProps {
   index: number;
@@ -17,7 +9,8 @@ interface MissionItemProps {
   name: string;
   info: string;
   coords: Coordinates;
-  flyTo?: (coords: Coordinates) => void;
+  selected: boolean;
+  onSelect: () => void;
   readClicked: { clicked: boolean; clickedBy: number };
   setReadClicked: Dispatch<
     SetStateAction<{
@@ -33,160 +26,78 @@ const MissionItem: React.FC<MissionItemProps> = ({
   imageUrl,
   name,
   info,
-  coords,
-  flyTo,
+  selected,
+  onSelect,
   readClicked,
   setReadClicked,
   fadeClass,
 }) => {
-  const currElem = useRef<HTMLDivElement>(null);
-  const { pos } = useScroll(currElem);
-  const currState = useRef<boolean>(false);
-  const mobileOnly = useMediaQuery('(max-width:768px)');
-  const [onFocus, setOnFocus] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (!mobileOnly) {
-      checkOnFocus();
-    }
-  }, [pos]);
-
-  useEffect(() => {
-    if (mobileOnly) {
-      return;
-    }
-
-    let timeout: number | null = null;
-
-    const intervalId = setInterval(() => {
-      if (timeout !== null) {
-        return;
-      }
-
-      timeout = window.setTimeout(() => {
-        if (currState.current === false) {
-          return;
-        }
-        const boundingClientRect = currElem.current?.getBoundingClientRect();
-
-        if (!boundingClientRect) {
-          return;
-        }
-
-        const top = boundingClientRect.top + window.scrollY;
-        window.scrollTo({ top: top - 225 });
-        timeout = null;
-      }, 50);
-    }, 10);
-
-    const scrollFunction = () => {
-      if (timeout !== null) {
-        window.clearTimeout(timeout);
-        timeout = null;
-      }
-    };
-
-    document.addEventListener('scroll', scrollFunction);
-
-    return () => {
-      clearInterval(intervalId);
-      document.removeEventListener('scroll', scrollFunction);
-    };
-  }, []);
+  const mobileOnly = useMediaQuery('(max-width:900px)');
+  const isExpanded = readClicked.clicked && readClicked.clickedBy === index;
 
   const clickedHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    onSelect();
     setReadClicked((prevState) => ({
       clicked: !prevState.clicked,
       clickedBy: prevState.clicked ? -1 : index,
     }));
   };
 
-  const checkOnFocus = () => {
-    if (pos) {
-      if (pos <= 230 && pos >= 110) {
-        if (!readClicked.clicked) {
-          if(flyTo != null){
-            flyTo!(coords);
-          }
-          setOnFocus(true);
-          currState.current = true;
-        }
-      } else if (readClicked.clicked && readClicked.clickedBy === index) {
-        setOnFocus(true);
-        currState.current = true;
-      } else {
-        setOnFocus(false);
-        currState.current = false;
-      }
-    }
-  };
+  if (readClicked.clicked && readClicked.clickedBy !== index) {
+    return null;
+  }
 
   return (
     <div
-      className={`mission-item h-32 ${onFocus ? 'focused' : ''} 
-        ${readClicked.clicked && readClicked.clickedBy === index && !mobileOnly ? 'read-more-active' : ''}
-        ${readClicked.clicked && readClicked.clickedBy === index && mobileOnly ? 'read-more-active-mobile' : ''}
+      className={`mission-item min-h-32 ${selected ? 'focused' : ''} 
+        ${isExpanded && !mobileOnly ? 'read-more-active' : ''}
+        ${isExpanded && mobileOnly ? 'read-more-active-mobile' : ''}
         ${mobileOnly ? (fadeClass ? 'fade-in-one' : 'fade-in-two') : ''}
+        ${isExpanded ? 'expanded-mission-card' : ''}
         `}
-      ref={currElem}
-      style={{
-        display:
-          readClicked.clicked && readClicked.clickedBy !== index
-            ? 'none'
-            : 'inherit',
-      }}
-      onClick={() => {
-        let top =
-          currElem.current?.getBoundingClientRect().top! + window.scrollY;
-        window.scrollTo({ top: top - 225 });
-      }}
+      onClick={onSelect}
+      style={{ position: 'relative', zIndex: isExpanded ? 2 : 1 }}
     >
-      <div className="list-decorator">
-        <Image
-          src="./images/icons/ring.svg"
-          alt="List Decorator"
-          style={{
-            visibility:
-              readClicked.clicked && readClicked.clickedBy === index
-                ? 'hidden'
-                : 'visible',
-          }}
-          width={100}
-          height={100}
-        />
-      </div>
-
-      <div className={`flex w-full`}>
-        <div className="relative max-md:h-44 max-sm:hidden w-full h-full">
-          <Image
-            src={imageUrl}
-            alt="Mission ${index}"
-            fill
-            objectFit="cover"
-            sizes="(max-width: 768px) 100vw, 700px"
-            className="object-contain"
-          />
-        </div>
-        {/* <Image
-          src={imageUrl}
-          alt={`Mission ${index}`}
-          className="rescue_image"
-          width={100}
-          height={100}
-        /> */}
-        <div className="info">
-          <h3>{name}</h3>
-          <p>{info}</p>
-          <div className="button-container">
-            <button className="button-fill" onClick={clickedHandler}>
-              {!readClicked.clicked && readClicked.clickedBy !== index
-                ? 'SHOW MORE'
-                : 'SHOW LESS'}
+      {isExpanded ? (
+        <div className="expanded-mission-content">
+          <div className="expanded-image-wrapper">
+            <Image
+              src={imageUrl}
+              alt={`Mission ${index}`}
+              fill
+              className="expanded-image"
+            />
+          </div>
+          <div className="expanded-info">
+            <h3>{name}</h3>
+            <p>{info}</p>
+            <button className="expanded-toggle-btn" onClick={clickedHandler}>
+              SHOW LESS
             </button>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex w-full">
+          <div className="expanded-image-wrapper" style={{ width: 120, minWidth: 120, height: 120, margin: '0 1.5rem 0 0' }}>
+            <Image
+              src={imageUrl}
+              alt={`Mission ${index}`}
+              fill
+              className="expanded-image"
+            />
+          </div>
+          <div className="info" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <h3>{name}</h3>
+            <p>{info}</p>
+            <div className="button-container">
+              <button className="expanded-toggle-btn" onClick={clickedHandler}>
+                SHOW MORE
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
