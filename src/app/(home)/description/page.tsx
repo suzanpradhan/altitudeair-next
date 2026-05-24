@@ -37,7 +37,7 @@ const Page = async () => {
           >
             <div className="absolute inset-0 bg-black opacity-80 z-10 group-hover:opacity-0 transition-opacity duration-300"></div>
             <Image
-              src="/images/description/Altitude1.jpg"
+              src="/images/banner/IMG_2036.JPG"
               alt="another background"
               fill
               className="object-cover"
