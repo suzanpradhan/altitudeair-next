@@ -9,16 +9,3 @@ export interface NewsDataType {
   isFeatured?: boolean;
   coverImage?: string;
 }
-
-export interface PaginationInfoType {
-  next: string | null;
-  previous: string | null;
-  count: number;
-  total_page: number;
-  current_page: number;
-}
-
-export interface PaginatedNewsResponseType {
-  pagination: PaginationInfoType;
-  results: NewsDataType[];
-}
