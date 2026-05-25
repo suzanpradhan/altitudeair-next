@@ -2,7 +2,8 @@
 
 import NewsItem from '@/app/(components)/(elements)/NewsItem';
 import { fetchData } from '@/core/api/api_client';
-import { NewsDataType, PaginatedNewsResponseType } from '@/modules/news/newsType';
+import { PaginatedResponseType } from '@/core/types/responseTypes';
+import { NewsDataType } from '@/modules/news/newsType';
 import { useEffect, useState } from 'react';
 
 export default function NewsList() {
@@ -18,15 +19,16 @@ export default function NewsList() {
     const initializeFirstPage = async () => {
       try {
         setIsInitialLoading(true);
-        const { data, error: fetchError } = await fetchData<PaginatedNewsResponseType>(
-          '/news/?page=1'
-        );
-        
+        const { data, error: fetchError } =
+          await fetchData<PaginatedResponseType<NewsDataType>>(
+            '/news/v1/?page=1'
+          );
+
         if (fetchError || !data) {
           setError('Failed to load news');
           return;
         }
-        
+
         setAllNews(data.results);
         setTotalPages(data.pagination.total_page);
         setCurrentPage(1);
@@ -48,16 +50,16 @@ export default function NewsList() {
     try {
       setIsLoadingMore(true);
       const nextPage = currentPage + 1;
-      
-      const { data, error: fetchError } = await fetchData<PaginatedNewsResponseType>(
-        `/news/?page=${nextPage}`
-      );
-      
+
+      const { data, error: fetchError } = await fetchData<
+        PaginatedResponseType<NewsDataType>
+      >(`/news/v1/?page=${nextPage}`);
+
       if (fetchError || !data) {
         setError('Failed to load more news');
         return;
       }
-      
+
       // Append new results to existing news
       setAllNews((prev) => [...prev, ...data.results]);
       setCurrentPage(nextPage);
