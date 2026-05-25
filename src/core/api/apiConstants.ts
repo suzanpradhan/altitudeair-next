@@ -18,6 +18,7 @@ export const apiPaths = {
   serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
   baseUrl: process.env.NEXT_PUBLIC_SERVER_URL,
   allNewsUrl: '/news/',
+  allNewsV1Url: '/news/v1/',
   newsLimitUrl: '/news/latest/',
   crewallUrl: '/crew/all/',
   serviceUrl: '/services/',

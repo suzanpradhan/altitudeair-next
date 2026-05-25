@@ -1,6 +1,7 @@
 import { apiPaths } from '@/core/api/apiConstants';
 import { baseApi } from '@/core/api/apiQuery';
-import { NewsDataType, PaginatedNewsResponseType } from './newsType';
+import { PaginatedResponseType } from '@/core/types/responseTypes';
+import { NewsDataType } from './newsType';
 
 const newsApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['News'] })
@@ -48,8 +49,11 @@ const newsApi = baseApi
           return response.data as NewsDataType[];
         },
       }),
-      getPaginatedNews: builder.query<PaginatedNewsResponseType, number>({
-        query: (page) => `${apiPaths.allNewsUrl}?page=${page}`,
+      getPaginatedNews: builder.query<
+        PaginatedResponseType<NewsDataType>,
+        number
+      >({
+        query: (page) => `${apiPaths.allNewsV1Url}?page=${page}`,
         providesTags: (response: any) =>
           response
             ? [
