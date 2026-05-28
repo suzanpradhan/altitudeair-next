@@ -22,7 +22,7 @@ export default function Description() {
     }
 
     axiosInstance.get('/chopper/').then((item) => {
-      const chopperList = item.data.data;
+      const chopperList = item.data.results || item.data.data || [];
       let chopper = chopperList.filter((item: any) => item.id == slug)[0];
 
       if (!chopper) {
@@ -38,7 +38,14 @@ export default function Description() {
     });
   }, [slug]);
 
-  
+  const getImageUrl = (imagePath: string) => {
+    if (!imagePath) return '';
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      return imagePath;
+    }
+    const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || '';
+    return `${serverUrl}/${imagePath.replace(/^\//, '')}`;
+  };
 
   return (
     <main className="description-main">
@@ -53,7 +60,7 @@ export default function Description() {
 
         <div className="bg-img mountain-img relative h-64 sm:h-80 md:h-96 lg:h-[32rem] ">
           <Image
-            src={process.env.NEXT_PUBLIC_SERVER_URL + "/" + chopperInfo.image}
+            src={getImageUrl(chopperInfo.image)}
             alt="mountain background"
             fill
             className="object-cover"

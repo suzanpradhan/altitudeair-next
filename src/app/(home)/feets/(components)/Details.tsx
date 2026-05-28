@@ -73,7 +73,7 @@ function Details(props: any) {
     }
 
     axiosInstance.get('/chopper/').then((item) => {
-      const chopperList = item.data.data;
+      const chopperList = item.data.results || item.data.data || [];
 
       let chopper = chopperList.filter((item: any) => item.id == slug)[0];
 
@@ -96,7 +96,7 @@ function Details(props: any) {
       setSelected({
         index: 0,
         heading: Object.keys(chopper)[0],
-        details: chopper[Object.keys(chopper)[0]],
+        details: chopper[Object.keys(chopper)[0]] || {},
       });
     });
   }, [slug]);
@@ -116,7 +116,7 @@ function Details(props: any) {
                     setSelected({
                       index: index,
                       heading: getFeatureName(item),
-                      details: (featureList as any)[item],
+                      details: (featureList as any)[item] || {},
                     })
                   }
                 >
@@ -208,16 +208,25 @@ function HeliDescription({ descriptionState, chopperInfo, heading }: any) {
     setOpacityClass('full-opacity');
   }, []);
 
+  const getImageUrl = (imagePath: string) => {
+    if (!imagePath) return '';
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      return imagePath;
+    }
+    const baseUrl = constants.baseUrl || '';
+    return `${baseUrl}/${imagePath.replace(/^\//, '')}`;
+  };
+
   return (
     <div className={`content ${opacityClass}`}>
-      <img src={constants.baseUrl + chopperInfo.image} alt={chopperInfo.name} />
+      <img src={getImageUrl(chopperInfo.image)} alt={chopperInfo.name} />
       <div className="feature-details">
         <div className="heading">
           <h1>{descriptionState.heading}</h1>
         </div>
 
         <div className="items">
-          {Object.keys(descriptionState.details).map((item, index) => {
+          {Object.keys(descriptionState.details || {}).map((item, index) => {
             return (
               <div className="item" key={index}>
                 <p>
