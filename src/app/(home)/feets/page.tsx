@@ -8,6 +8,7 @@ import Link from 'next/link';
 interface ChoppersType {
   id: number;
   name: string;
+  image?: string;
 }
 export const metadata: Metadata = customMetaDataGenerator({
   title: 'Fleets',
@@ -16,11 +17,19 @@ export const metadata: Metadata = customMetaDataGenerator({
 });
 const Page = async () => {
   const choppers = await fetchData<{
-    data: Array<ChoppersType>;
-    status: string;
+    results: Array<ChoppersType>;
   }>(apiPaths.chopperUrl);
 
-  const chopperList = choppers.data?.data ?? [];
+  const chopperList = choppers.data?.results ?? [];
+
+  const getImageUrl = (imagePath?: string) => {
+    if (!imagePath) return '';
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+      return imagePath;
+    }
+    const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || '';
+    return `${serverUrl}/${imagePath.replace(/^\//, '')}`;
+  };
 
   return (
     <main className="description-main">
@@ -40,7 +49,11 @@ const Page = async () => {
               <div className="absolute inset-0 bg-black opacity-80 z-10 group-hover:opacity-0 transition-opacity duration-300"></div>
               <Image
                 src={
-                  index === 0 ? '/images/banner/IMG_2036.JPG' : '/images/banner/9N-AON.jpg'
+                  chopper.image
+                    ? getImageUrl(chopper.image)
+                    : index === 0
+                      ? '/images/banner/IMG_2036.JPG'
+                      : '/images/banner/9N-AON.jpg'
                 }
                 alt={chopper.name || `Chopper ${chopper.id}`}
                 fill
