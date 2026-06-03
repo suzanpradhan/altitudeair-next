@@ -43,7 +43,7 @@ const Page = async () => {
           {chopperList.map((chopper, index) => (
             <Link
               key={chopper.id}
-              href={`/feets/${chopper.id}`}
+              href={`/fleets/${chopper.id}`}
               className="flex-1 relative cursor-pointer w-full h-[250px] md:h-[400px] lg:h-full group"
             >
               <div className="absolute inset-0 bg-black opacity-80 z-10 group-hover:opacity-0 transition-opacity duration-300"></div>

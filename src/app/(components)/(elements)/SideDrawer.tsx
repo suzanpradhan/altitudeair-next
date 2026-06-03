@@ -199,7 +199,7 @@ export default function SideDrawer({
               }}
             >
               <Link
-                href={'/feets'}
+                href={'/fleets'}
                 className="flex items-center px-4 h-16"
               >
                 FLEETS
