@@ -28,7 +28,7 @@ import Reviews from '../(components)/(sections)/(landing)/Reviews';
 export default async function Home() {
   const { data: paginatedPackagesResponse, error: packageError } =
     await fetchData<PaginatedResponseType<PackagesDataType>>(
-      apiPaths.getPackages,
+      apiPaths.allPackagesPublicUrl,
       { tags: [packagesTag] }
     );
 
