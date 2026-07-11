@@ -63,9 +63,9 @@ export default function PackageBoxCard({ item }: { item: PackagesDataType }) {
                 {durationLabel}
               </span>
             </div>
-            <p className="text-sm leading-6 text-slate-900 line-clamp-4">
+            <div className="text-sm leading-6 text-slate-900 line-clamp-4">
               {parseHtml(item.description ?? '')}
-            </p>
+            </div>
           </div>
 
           <div className="flex items-end justify-between gap-4 mt-6">

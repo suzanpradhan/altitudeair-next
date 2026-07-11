@@ -13,7 +13,7 @@ const packagesApi = baseApi
         PaginatedResponseType<PackagesDataType>,
         void
       >({
-        query: () => `${apiPaths.getPackages}`,
+        query: () => `${apiPaths.allPackagesPublicUrl}`,
         providesTags: (response: any) =>
           response
             ? [

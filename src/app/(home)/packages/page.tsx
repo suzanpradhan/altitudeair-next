@@ -18,7 +18,7 @@ export const metadata: Metadata = customMetaDataGenerator({
 export default async function Packages() {
   const { data: paginatedPackagesResponse } = await fetchData<
     PaginatedResponseType<PackagesDataType>
-  >(apiPaths.getPackages);
+  >(apiPaths.allPackagesPublicUrl);
   return (
     <div className="bg-custom-gray-light/50">
       <div
